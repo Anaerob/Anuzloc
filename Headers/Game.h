@@ -17,6 +17,10 @@ class Game
 	//bool m_inBattle;
 	//bool m_intro;
 	bool m_lock;
+	bool m_movingDown;
+	bool m_movingLeft;
+	bool m_movingRight;
+	bool m_movingUp;
 	Overworld m_overworld;
 	Player m_player;
 	//std::ifstream m_read;
