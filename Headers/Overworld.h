@@ -4,14 +4,14 @@
 //#include <map>
 #include <SFML/Graphics.hpp>
 //#include "Battle.h"
-#include "Headers/Constants.h"
+#include "Constants.h"
 //#include "Event.h"
 //#include "OverworldMenu.h"
-#include "Headers/OverworldView.h"
-#include "Headers/Player.h"
+#include "OverworldView.h"
+#include "Player.h"
 //#include "TextBox.h"
-#include "Headers/Trainer.h"
-#include "Headers/White.h"
+#include "Trainer.h"
+#include "White.h"
 
 class Overworld
 {

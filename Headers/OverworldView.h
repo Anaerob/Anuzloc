@@ -2,8 +2,8 @@
 #define OVERWORLDVIEW_H
 #include <fstream>
 #include <SFML/Graphics.hpp>
-#include "Headers/Constants.h"
-#include "Headers/Player.h"
+#include "Constants.h"
+#include "Player.h"
 //#include "Trainer.h"
 
 class OverworldView

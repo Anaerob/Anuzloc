@@ -1,7 +1,7 @@
 #ifndef TRAINER_H
 #define TRAINER_H
 #include <SFML/Graphics.hpp>
-#include "Headers/Constants.h"
+#include "Constants.h"
 //#include "Pokemon.h"
 
 class Trainer
