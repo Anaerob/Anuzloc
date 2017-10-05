@@ -7,7 +7,7 @@ Player::Player()
 	m_tileSet.loadFromFile("Resources/Tiles/Player.png");
 }
 
-/*void Player::draw(sf::RenderTarget& window,
+void Player::draw(sf::RenderTarget& window,
 	bool edgeX, bool edgeY, int mapOffsetX, int mapOffsetY)
 {
 	float f_d = (float)getDirection();
@@ -148,4 +148,4 @@ bool Player::rotate(int direction)
 	if (!rotating)
 		setDirection(direction);
 	return rotating;
-}*/
+}

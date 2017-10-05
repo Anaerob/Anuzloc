@@ -92,60 +92,60 @@ void Game::draw(sf::RenderWindow& window)
 void Game::exit()
 {
 	//m_overworld.deallocateWorld();
-}
+}*/
 bool Game::holdKeyA()
 {
-	if (!m_inBattle)
-	{
+	//if (!m_inBattle)
+	//{
 		int nextTile = m_overworld.getTile(m_player.getX() - 1, m_player.getY());
 		bool moving = m_player.move(2, nextTile);
-		m_overworld.getTextBox().clear();
+		//m_overworld.getTextBox().clear();
 		m_lock = moving;
 		return moving;
-	}
-	else
-		return false;
+	//}
+	//else
+		//return false;
 }
 bool Game::holdKeyD()
 {
-	if (!m_inBattle)
-	{
+	//if (!m_inBattle)
+	//{
 		int nextTile = m_overworld.getTile(m_player.getX() + 1, m_player.getY());
 		bool moving = m_player.move(3, nextTile);
-		m_overworld.getTextBox().clear();
+		//m_overworld.getTextBox().clear();
 		m_lock = moving;
 		return moving;
-	}
-	else
-		return false;
+	//}
+	//else
+		//return false;
 }
 bool Game::holdKeyS()
 {
-	if (!m_inBattle)
-	{
+	//if (!m_inBattle)
+	//{
 		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() + 1);
 		bool moving = m_player.move(0, nextTile);
-		m_overworld.getTextBox().clear();
+		//m_overworld.getTextBox().clear();
 		m_lock = moving;
 		return moving;
-	}
-	else
-		return false;
+	//}
+	//else
+		//return false;
 }
 bool Game::holdKeyW()
 {
-	if (!m_inBattle)
-	{
+	//if (!m_inBattle)
+	//{
 		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() - 1);
 		bool moving = m_player.move(1, nextTile);
-		m_overworld.getTextBox().clear();
+		//m_overworld.getTextBox().clear();
 		m_lock = moving;
 		return moving;
-	}
-	else
-		return false;
+	//}
+	//else
+		//return false;
 }
-void Game::initialize()
+/*void Game::initialize()
 {
 	if (m_intro)
 	{

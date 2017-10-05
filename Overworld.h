@@ -39,7 +39,7 @@ public:
 	~Overworld();
 
 	//TextBox& getTextBox() { return m_textBox; }
-	//int getTile(int x, int y) { return m_tileMap[x +	y * (m_sizeX + 2)]; }
+	int getTile(int x, int y) { return m_tileMap[x +	y * (m_sizeX + 2)]; }
 	//int getTrigger(int x, int y) { return m_triggerMap[x + y * (m_sizeX + 2)]; }
 
 	//void deallocateTriggerMap();

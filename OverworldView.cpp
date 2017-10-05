@@ -104,5 +104,5 @@ void OverworldView::draw(sf::RenderWindow& window,
 
 	window.draw(m_tiles, &m_tileSet);
 
-	//m_player.draw(window, m_edgeX, m_edgeY, m_offsetX, m_offsetY);
+	m_player.draw(window, m_edgeX, m_edgeY, m_offsetX, m_offsetY);
 }

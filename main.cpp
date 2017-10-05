@@ -9,6 +9,11 @@ int main()
 	window.setKeyRepeatEnabled(false);
 
 	Game game;
+	
+	bool movingDown = false;
+	bool movingLeft = false;
+	bool movingRight = false;
+	bool movingUp = false;
 
 	while (window.isOpen())
 	{
@@ -28,6 +33,19 @@ int main()
 				}
 				break;
 			}
+
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !game.getLock()) ||
+			movingLeft)
+			movingLeft = game.holdKeyA();
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !game.getLock()) ||
+			movingRight)
+			movingRight = game.holdKeyD();
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !game.getLock()) ||
+			movingDown)
+			movingDown = game.holdKeyS();
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !game.getLock()) ||
+			movingUp)
+			movingUp = game.holdKeyW();
 
 		window.clear(sf::Color::White);
 		game.draw(window);

@@ -12,15 +12,15 @@ class Player : public Trainer
 public:
 	Player();
 
-	/*void draw(sf::RenderTarget& window,
+	void draw(sf::RenderTarget& window,
 		bool edgeX, bool edgeY,
-		int mapOffsetX, int mapOffsetY);*/
-	//bool move(int direction, int nextTile);
-	//bool moveDown(int nextTile);
-	//bool moveLeft(int nextTile);
-	//bool moveRight(int nextTile);
-	//bool moveUp(int nextTile);
-	//bool rotate(int direction);
+		int mapOffsetX, int mapOffsetY);
+	bool move(int direction, int nextTile);
+	bool moveDown(int nextTile);
+	bool moveLeft(int nextTile);
+	bool moveRight(int nextTile);
+	bool moveUp(int nextTile);
+	bool rotate(int direction);
 };
 
 #endif

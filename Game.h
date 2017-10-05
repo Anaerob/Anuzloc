@@ -42,10 +42,10 @@ public:
 
 	void draw(sf::RenderWindow& window);
 	//void exit();
-	//bool holdKeyA();
-	//bool holdKeyD();
-	//bool holdKeyS();
-	//bool holdKeyW();
+	bool holdKeyA();
+	bool holdKeyD();
+	bool holdKeyS();
+	bool holdKeyW();
 	//void initialize();
 	//void pressKeyDown();
 	//void pressKeyLeft();
