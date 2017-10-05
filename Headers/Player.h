@@ -1,8 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
-#include "Constants.h"
-#include "Trainer.h"
+#include "Headers/Constants.h"
+#include "Headers/Trainer.h"
 
 class Player : public Trainer
 {

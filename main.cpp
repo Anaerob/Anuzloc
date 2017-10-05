@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include "Constants.h"
-#include "Game.h"
+#include "Headers/Constants.h"
+#include "Headers/Game.h"
 
 int main()
 {

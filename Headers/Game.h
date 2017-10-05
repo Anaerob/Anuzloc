@@ -3,10 +3,10 @@
 #include <fstream>
 #include <SFML/Graphics.hpp>
 //#include "Battle.h"
-#include "Constants.h"
+#include "Headers/Constants.h"
 //#include "Event.h"
-#include "Overworld.h"
-#include "Player.h"
+#include "Headers/Overworld.h"
+#include "Headers/Player.h"
 //#include "TextBox.h"
 
 class Game

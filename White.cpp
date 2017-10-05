@@ -1,4 +1,4 @@
-#include "White.h"
+#include "Headers/White.h"
 
 White::White(float positionX, float positionY, float sizeX, float sizeY)
 	: m_white{ sf::Quads, 4 }
