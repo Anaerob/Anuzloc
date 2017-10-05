@@ -1,7 +1,5 @@
 #include <SFML/Graphics.hpp>
-
-const int c_wSX = 960;
-const int c_wSY = 540;
+#include "Constants.h"
 
 int main()
 {
