@@ -10,7 +10,7 @@
 #include "OverworldView.h"
 //#include "Player.h"
 //#include "TextBox.h"
-//#include "Trainer.h"
+#include "Trainer.h"
 #include "White.h"
 
 class Overworld
@@ -19,7 +19,7 @@ class Overworld
 	//Event& m_event;
 	//bool m_inEvent;
 	//OverworldMenu m_menu;
-	//std::map<int, Trainer> m_NPCMap;
+	//std::map<int, Trainer> m_NPCs;
 	//Player& m_player;
 	//std::ifstream m_read;
 	//int m_sizeX;

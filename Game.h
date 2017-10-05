@@ -13,7 +13,7 @@ class Game
 {
 	//Battle m_battle;
 	sf::VertexArray m_frameLines;
-	//std::map<int, std::string> m_generalStringMap;
+	//std::map<int, std::string> m_generalStrings;
 	//bool m_inBattle;
 	//bool m_intro;
 	bool m_lock;
