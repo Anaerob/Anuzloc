@@ -1,39 +1,39 @@
 #include "Overworld.h"
 
-Overworld::Overworld()//Player& player, Battle& battle, TextBox& textBox)
+Overworld::Overworld(Player& player)//Player& player, Battle& battle, TextBox& textBox)
 	: //m_battle{ battle },
 	//m_event{ player, battle, m_stringMap, m_textBox },
 	//m_inEvent{ false },
 	//m_menu{ player },
-	m_view{},// player },
-	//m_player{ player },
+	m_view{ player },
+	m_player{ player },
 	//m_textBox{ textBox },
 	m_whiteMenu{ cf_mPX, cf_mPY, cf_mSX, cf_mSY },
 	m_whiteTextBox{ cf_tBPX, cf_tBPY, cf_tBSX, cf_tBSY }//,
 	//m_world{ "route1" }
 {
-	//readWorld();
+	readWorld();
 }
 
-/*Overworld::~Overworld()
+Overworld::~Overworld()
 {
-deallocateTileMap();
-deallocateTriggerMap();
-}*/
+	deallocateTileMap();
+	//deallocateTriggerMap();
+}
 
 /*void Overworld::deallocateTriggerMap()
 {
 delete[] m_triggerMap;
 m_triggerMap = nullptr;
-}
+}*/
 void Overworld::deallocateTileMap()
 {
 delete[] m_tileMap;
 m_tileMap = nullptr;
-}*/
+}
 void Overworld::draw(sf::RenderWindow& window)
 {
-	//m_view.draw(window, m_tileMap, m_sizeX, m_sizeY);
+	m_view.draw(window, m_tileMap, m_sizeX, m_sizeY);
 
 	m_whiteMenu.draw(window);
 	m_whiteTextBox.draw(window);
@@ -157,7 +157,7 @@ void Overworld::readStringMap(std::string stringMapPath)
 
 	m_read.close();
 	m_stringMap = stringMap;
-}
+}*/
 void Overworld::readTileMap(std::string tileMapPath)
 {
 	m_read.open(tileMapPath);
@@ -173,7 +173,7 @@ void Overworld::readTileMap(std::string tileMapPath)
 
 	m_read.close();
 }
-void Overworld::readTrainers(std::string trainersPath)
+/*void Overworld::readTrainers(std::string trainersPath)
 {
 	m_read.open(trainersPath);
 
@@ -218,19 +218,19 @@ void Overworld::readTriggerMap(std::string triggerMapPath)
 	}
 
 	m_read.close();
-}
+}*/
 void Overworld::readWorld()
 {
 	deallocateTileMap();
-	deallocateTriggerMap();
+	//deallocateTriggerMap();
 
-	std::string worldPath = "maps/";
-	worldPath.append(m_world);
+	std::string worldPath = "Resources/Maps/";
+	worldPath.append("route1");
 	std::string tileMapPath = worldPath;
 	tileMapPath.append(".dat");
 	readTileMap(tileMapPath);
 
-	std::string triggerMapPath = worldPath;
+	/*std::string triggerMapPath = worldPath;
 	triggerMapPath.append("Triggers.dat");
 	readTriggerMap(triggerMapPath);
 
@@ -244,5 +244,5 @@ void Overworld::readWorld()
 
 	std::string stringMapPath = worldPath;
 	stringMapPath.append("Strings.dat");
-	readStringMap(stringMapPath);
-}*/
+	readStringMap(stringMapPath);*/
+}

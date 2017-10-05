@@ -1,14 +1,14 @@
 #include "OverworldView.h"
 
-OverworldView::OverworldView()//Player& player)
-	//: //m_player{ player }
+OverworldView::OverworldView(Player& player)
+	: m_player{ player }
 {
 	m_tiles.setPrimitiveType(sf::Quads);
 	m_tiles.resize((c_vSX / c_tS + 2) * (c_vSY / c_tS + 2) * 4);
-	//m_tileSet.loadFromFile("tiles/overworldTiles.png");
+	m_tileSet.loadFromFile("Resources/Tiles/Overworld.png");
 }
 
-/*void OverworldView::calculateOffsetX(int overworldSizeX)
+void OverworldView::calculateOffsetX(int overworldSizeX)
 {
 	int half = (c_vSX / c_tS - 1) / 2;
 	if (m_player.getX() <= half + 1)
@@ -45,9 +45,9 @@ void OverworldView::calculateOffsetY(int overworldSizeY)
 		m_offsetY = m_player.getY() - half - 1;
 		m_edgeY = false;
 	}
-}*/
-/*void OverworldView::draw(sf::RenderWindow& window, int overworld[],
-	int overworldSizeX, int overworldSizeY)
+}
+void OverworldView::draw(sf::RenderWindow& window,
+	int overworld[], int overworldSizeX, int overworldSizeY)
 {
 	calculateOffsetX(overworldSizeX);
 	calculateOffsetY(overworldSizeY);
@@ -104,5 +104,5 @@ void OverworldView::calculateOffsetY(int overworldSizeY)
 
 	window.draw(m_tiles, &m_tileSet);
 
-	m_player.draw(window, m_edgeX, m_edgeY, m_offsetX, m_offsetY);
-}*/
+	//m_player.draw(window, m_edgeX, m_edgeY, m_offsetX, m_offsetY);
+}

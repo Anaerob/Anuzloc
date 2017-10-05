@@ -6,7 +6,7 @@
 #include "Constants.h"
 //#include "Event.h"
 #include "Overworld.h"
-//#include "Player.h"
+#include "Player.h"
 //#include "TextBox.h"
 
 class Game
@@ -18,7 +18,7 @@ class Game
 	//bool m_intro;
 	bool m_lock;
 	Overworld m_overworld;
-	//Player m_player;
+	Player m_player;
 	//std::ifstream m_read;
 	//TextBox m_textBox;
 

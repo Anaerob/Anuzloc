@@ -12,7 +12,7 @@ Trainer::Trainer(std::string type, std::string name, int direction, int x, int y
 {
 	m_sprite.setPrimitiveType(sf::Quads);
 	m_sprite.resize(4);
-	std::string tilePath = "tiles/";
+	std::string tilePath = "Resources/Tiles/";
 	tilePath.append(type);
 	tilePath.append(".png");
 	m_tileSet.loadFromFile(tilePath);
