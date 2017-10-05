@@ -32,6 +32,7 @@ Game::~Game()
 
 void Game::draw(sf::RenderWindow& window)
 {
+	m_overworld.draw(window);
 	window.draw(m_frameLines);
 }
 

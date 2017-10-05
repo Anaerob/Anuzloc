@@ -1,15 +1,15 @@
 #include "Overworld.h"
 
 Overworld::Overworld()//Player& player, Battle& battle, TextBox& textBox)
-	//: //m_battle{ battle },
+	: //m_battle{ battle },
 	//m_event{ player, battle, m_stringMap, m_textBox },
 	//m_inEvent{ false },
 	//m_menu{ player },
 	//m_view{ player },
 	//m_player{ player },
 	//m_textBox{ textBox },
-	//m_whiteMenu{ cf_mPX, cf_mPY, cf_mSX, cf_mSY },
-	//m_whiteTextBox{ cf_tBPX, cf_tBPY, cf_tBSX, cf_tBSY },
+	m_whiteMenu{ cf_mPX, cf_mPY, cf_mSX, cf_mSY },
+	m_whiteTextBox{ cf_tBPX, cf_tBPY, cf_tBSX, cf_tBSY }//,
 	//m_world{ "route1" }
 {
 	//readWorld();
@@ -35,8 +35,8 @@ void Overworld::draw(sf::RenderWindow& window)
 {
 	//m_view.draw(window, m_tileMap, m_sizeX, m_sizeY);
 
-	//m_whiteMenu.draw(window);
-	//m_whiteTextBox.draw(window);
+	m_whiteMenu.draw(window);
+	m_whiteTextBox.draw(window);
 	//m_menu.draw(window);
 }
 /*void Overworld::draw(sf::RenderWindow& window)

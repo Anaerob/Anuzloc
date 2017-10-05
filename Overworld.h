@@ -11,7 +11,7 @@
 //#include "Player.h"
 //#include "TextBox.h"
 //#include "Trainer.h"
-//#include "White.h"
+#include "White.h"
 
 class Overworld
 {
@@ -29,8 +29,8 @@ class Overworld
 	//int *m_tileMap;
 	//int *m_triggerMap;
 	//OverworldView m_view;
-	//White m_whiteMenu;
-	//White m_whiteTextBox;
+	White m_whiteMenu;
+	White m_whiteTextBox;
 	//std::string m_world;
 
 public:
