@@ -7,7 +7,7 @@
 #include "Constants.h"
 //#include "Event.h"
 //#include "OverworldMenu.h"
-//#include "OverworldView.h"
+#include "OverworldView.h"
 //#include "Player.h"
 //#include "TextBox.h"
 //#include "Trainer.h"
@@ -28,7 +28,7 @@ class Overworld
 	//TextBox& m_textBox;
 	//int *m_tileMap;
 	//int *m_triggerMap;
-	//OverworldView m_view;
+	OverworldView m_view;
 	White m_whiteMenu;
 	White m_whiteTextBox;
 	//std::string m_world;

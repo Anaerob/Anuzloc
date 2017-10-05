@@ -5,7 +5,7 @@ Overworld::Overworld()//Player& player, Battle& battle, TextBox& textBox)
 	//m_event{ player, battle, m_stringMap, m_textBox },
 	//m_inEvent{ false },
 	//m_menu{ player },
-	//m_view{ player },
+	m_view{},// player },
 	//m_player{ player },
 	//m_textBox{ textBox },
 	m_whiteMenu{ cf_mPX, cf_mPY, cf_mSX, cf_mSY },
