@@ -36,18 +36,18 @@ void Player::draw(sf::RenderTarget& window,
 	quad[3].position = sf::Vector2f((f_x - 1) * cf_tS + f_pX,
 		f_y * cf_tS + f_pY);
 
-	quad[0].texCoords = sf::Vector2f(f_d * cf_tS,
+	quad[0].texCoords = sf::Vector2f((f_d - 1) * cf_tS,
 		0.0f);
-	quad[1].texCoords = sf::Vector2f((f_d + 1) * cf_tS,
+	quad[1].texCoords = sf::Vector2f((f_d + 0) * cf_tS,
 		0.0f);
-	quad[2].texCoords = sf::Vector2f((f_d + 1) * cf_tS,
+	quad[2].texCoords = sf::Vector2f((f_d + 0) * cf_tS,
 		cf_tS);
-	quad[3].texCoords = sf::Vector2f(f_d * cf_tS,
+	quad[3].texCoords = sf::Vector2f((f_d - 1) * cf_tS,
 		cf_tS);
 
 	window.draw(m_sprite, &m_tileSet);
 }
-bool Player::move(int direction, int nextTile)
+bool Player::move(Direction direction, int nextTile)
 {
 	bool moving = false;
 
@@ -56,17 +56,19 @@ bool Player::move(int direction, int nextTile)
 	else
 		switch (direction)
 		{
-		case 0:
-			moving = moveDown(nextTile);
-			break;
-		case 1:
+		case up:
 			moving = moveUp(nextTile);
 			break;
-		case 2:
+		case down:
+			moving = moveDown(nextTile);
+			break;
+		case left:
 			moving = moveLeft(nextTile);
 			break;
-		case 3:
+		case right:
 			moving = moveRight(nextTile);
+			break;
+		default:
 			break;
 		}
 
@@ -140,12 +142,14 @@ bool Player::moveUp(int nextTile)
 
 	return moving;
 }
-bool Player::rotate(int direction)
+bool Player::rotate(Direction direction)
 {
 	setPartialRotate((getPartialRotate() + c_rotateSpeed) %
 		c_tS);
 	bool rotating = (!(getPartialRotate() % c_tS == 0));
 	if (!rotating)
+	{
 		setDirection(direction);
+	}	
 	return rotating;
 }

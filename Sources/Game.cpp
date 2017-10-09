@@ -97,8 +97,9 @@ bool Game::holdKeyA()
 {
 	//if (!m_inBattle)
 	//{
+		Direction direction = left;
 		int nextTile = m_overworld.getTile(m_player.getX() - 1, m_player.getY());
-		bool moving = m_player.move(2, nextTile);
+		bool moving = m_player.move(direction, nextTile);
 		//m_overworld.getTextBox().clear();
 		m_lock = moving;
 		return moving;
@@ -110,8 +111,9 @@ bool Game::holdKeyD()
 {
 	//if (!m_inBattle)
 	//{
+		Direction direction = right;
 		int nextTile = m_overworld.getTile(m_player.getX() + 1, m_player.getY());
-		bool moving = m_player.move(3, nextTile);
+		bool moving = m_player.move(direction, nextTile);
 		//m_overworld.getTextBox().clear();
 		m_lock = moving;
 		return moving;
@@ -123,8 +125,9 @@ bool Game::holdKeyS()
 {
 	//if (!m_inBattle)
 	//{
+		Direction direction = down;
 		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() + 1);
-		bool moving = m_player.move(0, nextTile);
+		bool moving = m_player.move(direction, nextTile);
 		//m_overworld.getTextBox().clear();
 		m_lock = moving;
 		return moving;
@@ -136,8 +139,9 @@ bool Game::holdKeyW()
 {
 	//if (!m_inBattle)
 	//{
+		Direction direction = up;
 		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() - 1);
-		bool moving = m_player.move(1, nextTile);
+		bool moving = m_player.move(direction, nextTile);
 		//m_overworld.getTextBox().clear();
 		m_lock = moving;
 		return moving;

@@ -1,6 +1,6 @@
 #include "../Headers/Trainer.h"
 
-Trainer::Trainer(std::string type, std::string name, int direction, int x, int y)
+Trainer::Trainer(std::string type, std::string name, Direction direction, int x, int y)
 	: m_direction{ direction },
 	m_name{ name },
 	m_partialRotate{ 0 },

@@ -1,12 +1,13 @@
 #ifndef TRAINER_H
 #define TRAINER_H
 #include <SFML/Graphics.hpp>
+#include <string>
 #include "Constants.h"
 //#include "Pokemon.h"
 
 class Trainer
 {
-	int m_direction;
+	Direction m_direction;
 	//int m_index;
 	std::string m_name;
 	int m_partialRotate;
@@ -22,9 +23,10 @@ class Trainer
 
 public:
 	Trainer(std::string type = "Trainer",
-		std::string name = "X", int direction = 0, int x = 11, int y = 31);
+		std::string name = "X", Direction direction = down, int x = 11, int y = 31);
 
-	void setDirection(int direction) { m_direction = direction; }
+	//void setDirection(int direction) { m_direction = static_cast<Direction>(direction); }
+	void setDirection(Direction direction) { m_direction = direction; }
 	void setPartialRotate(int partialRotate) { m_partialRotate = partialRotate; }
 	void setPartialX(int partialX) { m_partialX = partialX; }
 	void setPartialY(int partialY) { m_partialY = partialY; }
@@ -32,7 +34,7 @@ public:
 	void setX(int x) { m_x = x; }
 	void setY(int y) { m_y = y; }
 
-	int getDirection() { return m_direction; }
+	Direction getDirection() { return m_direction; }
 	std::string getName() { return m_name; }
 	int getPartialRotate() { return m_partialRotate; }
 	int getPartialX() { return m_partialX; }

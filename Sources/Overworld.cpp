@@ -15,22 +15,22 @@ Overworld::Overworld(Player& player)//Player& player, Battle& battle, TextBox& t
 	readWorld();
 }
 
-Overworld::~Overworld()
+/*Overworld::~Overworld()
 {
 	deallocateTileMap();
 	//deallocateTriggerMap();
-}
+}*/
 
 /*void Overworld::deallocateTriggerMap()
 {
 delete[] m_triggerMap;
 m_triggerMap = nullptr;
 }*/
-void Overworld::deallocateTileMap()
+/*void Overworld::deallocateTileMap()
 {
 delete[] m_tileMap;
 m_tileMap = nullptr;
-}
+}*/
 void Overworld::draw(sf::RenderWindow& window)
 {
 	m_view.draw(window, m_tileMap, m_sizeX, m_sizeY);
@@ -165,7 +165,9 @@ void Overworld::readTileMap(std::string tileMapPath)
 	m_read >> m_sizeX;
 	m_read >> m_sizeY;
 
-	m_tileMap = new int[(m_sizeX + 2)*(m_sizeY + 2)]();
+	//m_tileMap = new int[(m_sizeX + 2)*(m_sizeY + 2)]();
+	m_tileMap.clear();
+	m_tileMap.resize((m_sizeX + 2)*(m_sizeY + 2));
 
 	for (int y = 1; y < m_sizeY + 1; ++y)
 		for (int x = 1; x < m_sizeX + 1; ++x)
@@ -221,7 +223,7 @@ void Overworld::readTriggerMap(std::string triggerMapPath)
 }*/
 void Overworld::readWorld()
 {
-	deallocateTileMap();
+	//deallocateTileMap();
 	//deallocateTriggerMap();
 
 	std::string worldPath = "Resources/Maps/";

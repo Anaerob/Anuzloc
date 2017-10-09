@@ -14,12 +14,12 @@ void OverworldView::calculateOffsetX(int overworldSizeX)
 	if (m_player.getX() <= half + 1)
 	{
 		m_offsetX = 0;
-		m_edgeX = m_player.getX() < half + 1 || m_player.getDirection() == 2;
+		m_edgeX = m_player.getX() < half + 1 || m_player.getDirection() == left;
 	}
 	else if (m_player.getX() >= overworldSizeX - half)
 	{
 		m_offsetX = overworldSizeX - c_vSX / c_tS;
-		m_edgeX = m_player.getX() > overworldSizeX - half || m_player.getDirection() == 3;
+		m_edgeX = m_player.getX() > overworldSizeX - half || m_player.getDirection() == right;
 	}
 	else
 	{
@@ -33,12 +33,12 @@ void OverworldView::calculateOffsetY(int overworldSizeY)
 	if (m_player.getY() <= half + 1)
 	{
 		m_offsetY = 0;
-		m_edgeY = m_player.getY() < half + 1 || m_player.getDirection() == 1;
+		m_edgeY = m_player.getY() < half + 1 || m_player.getDirection() == up;
 	}
 	else if (m_player.getY() >= overworldSizeY - half)
 	{
 		m_offsetY = overworldSizeY - c_vSY / c_tS;
-		m_edgeY = m_player.getY() > overworldSizeY - half || m_player.getDirection() == 0;
+		m_edgeY = m_player.getY() > overworldSizeY - half || m_player.getDirection() == down;
 	}
 	else
 	{
@@ -47,7 +47,7 @@ void OverworldView::calculateOffsetY(int overworldSizeY)
 	}
 }
 void OverworldView::draw(sf::RenderWindow& window,
-	int overworld[], int overworldSizeX, int overworldSizeY)
+	std::vector<int> overworld, int overworldSizeX, int overworldSizeY)
 {
 	calculateOffsetX(overworldSizeX);
 	calculateOffsetY(overworldSizeY);

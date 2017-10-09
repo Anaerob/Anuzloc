@@ -5,11 +5,6 @@
 /* 540 / 32 = 16.875
 make map 15 wide and 13 high still
 
-1 nor, 2 fig, 3 fly, 4 poi, 5 gro,
-6 roc, 7 bug, 8 gho, 9 ste, 10 fir,
-11 wat, 12 gra, 13 ele, 14 psy, 15 ice,
-16 dra, 17 dar, 18 fai
-
 0 HP, 1 attack, 2 defense,
 3 special attack, 4 special defense, 5 speed
 
@@ -65,10 +60,26 @@ const float cf_wSX = 960.0f;
 const int c_wSY = 540;
 const float cf_wSY = 540.0f;
 
+// Speed
 const int c_ledgeSpeed = 2;
 const int c_rotateSpeed = 8;
 const int c_walkSpeed = 4;
 
+// Enums
+enum Direction { none, up, down, left, right };
+enum MoveStat { PP = 1, power, accuracy };
+enum PokemonStat {
+	HP = 1, attack, defense,
+	special_attack, special_defense, speed
+};
+enum Type {
+	normal = 1, fighting, flying, poison, ground,
+	rock, bug, ghost, steel, fire,
+	water, grass, electric, psychic, ice,
+	dragon, dark, fairy
+};
+
+// Initial values
 const int c_pokemonBaseStats[4][6] =
 {
 	{ 45, 49, 49, 65, 65, 45 },

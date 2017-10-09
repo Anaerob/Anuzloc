@@ -2,6 +2,7 @@
 #define OVERWORLDVIEW_H
 #include <fstream>
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "Constants.h"
 #include "Player.h"
 //#include "Trainer.h"
@@ -27,7 +28,7 @@ public:
 	void calculateOffsetX(int overworldSizeX);
 	void calculateOffsetY(int overworldSizeY);
 	void draw(sf::RenderWindow& window,
-		int overworld[], int overworldSizeX, int overworldSizeY);
+		std::vector<int> overworld, int overworldSizeX, int overworldSizeY);
 };
 
 #endif

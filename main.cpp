@@ -10,6 +10,7 @@ int main()
 
 	Game game;
 	
+	//Direction moving{ none };
 	bool movingDown = false;
 	bool movingLeft = false;
 	bool movingRight = false;
@@ -30,7 +31,11 @@ int main()
 				case sf::Keyboard::Escape:
 					window.close();
 					break;
+				default:
+					break;
 				}
+				break;
+			default:
 				break;
 			}
 

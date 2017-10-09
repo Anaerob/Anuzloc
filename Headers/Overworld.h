@@ -3,6 +3,8 @@
 #include <fstream>
 //#include <map>
 #include <SFML/Graphics.hpp>
+#include <string>
+#include <vector>
 //#include "Battle.h"
 #include "Constants.h"
 //#include "Event.h"
@@ -26,7 +28,8 @@ class Overworld
 	int m_sizeY;
 	//std::map<int, std::string> m_stringMap;
 	//TextBox& m_textBox;
-	int *m_tileMap;
+	//int *m_tileMap;
+	std::vector<int> m_tileMap;
 	//int *m_triggerMap;
 	OverworldView m_view;
 	White m_whiteMenu;
@@ -36,7 +39,7 @@ class Overworld
 public:
 	Overworld(Player& player);// Player& player, Battle& battle, TextBox& textBox);
 
-	~Overworld();
+	//~Overworld();
 
 	//TextBox& getTextBox() { return m_textBox; }
 	int getTile(int x, int y) { return m_tileMap[x +	y * (m_sizeX + 2)]; }
