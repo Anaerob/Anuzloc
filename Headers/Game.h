@@ -17,10 +17,7 @@ class Game
 	//bool m_inBattle;
 	//bool m_intro;
 	bool m_lock;
-	bool m_movingDown;
-	bool m_movingLeft;
-	bool m_movingRight;
-	bool m_movingUp;
+	Direction m_moving;
 	Overworld m_overworld;
 	Player m_player;
 	//std::ifstream m_read;
@@ -43,13 +40,14 @@ public:
 	~Game();
 
 	bool getLock() { return m_lock; }
+	Direction getMoving() { return m_moving; }
 
 	void draw(sf::RenderWindow& window);
 	//void exit();
-	bool holdKeyA();
-	bool holdKeyD();
-	bool holdKeyS();
-	bool holdKeyW();
+	void holdKeyA();
+	void holdKeyD();
+	void holdKeyS();
+	void holdKeyW();
 	//void initialize();
 	//void pressKeyDown();
 	//void pressKeyLeft();

@@ -9,6 +9,7 @@ class Trainer
 {
 	Direction m_direction;
 	//int m_index;
+	bool m_moving;
 	std::string m_name;
 	int m_partialRotate;
 	int m_partialX;
@@ -23,10 +24,10 @@ class Trainer
 
 public:
 	Trainer(std::string type = "Trainer",
-		std::string name = "X", Direction direction = down, int x = 11, int y = 31);
+		std::string name = "X", Direction direction = DIRECTION_DOWN, int x = 11, int y = 31);
 
-	//void setDirection(int direction) { m_direction = static_cast<Direction>(direction); }
 	void setDirection(Direction direction) { m_direction = direction; }
+	void setMoving(bool moving) { m_moving = moving; }
 	void setPartialRotate(int partialRotate) { m_partialRotate = partialRotate; }
 	void setPartialX(int partialX) { m_partialX = partialX; }
 	void setPartialY(int partialY) { m_partialY = partialY; }
@@ -36,6 +37,7 @@ public:
 
 	Direction getDirection() { return m_direction; }
 	std::string getName() { return m_name; }
+	bool getMoving() { return m_moving; }
 	int getPartialRotate() { return m_partialRotate; }
 	int getPartialX() { return m_partialX; }
 	int getPartialY() { return m_partialY; }

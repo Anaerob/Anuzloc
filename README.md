@@ -1,7 +1,7 @@
 # Anuzloc
 
 ### Pokemon Nuzlocke Client
-Hobby project for the purpose of learning how to C++, SFML and Git
+Hobby project for the purpose of learning how to C++ with SFML
 
 ### What is [Nuzlocke](http://www.nuzlocke.com/challenge.php)?  
 ### The rules:

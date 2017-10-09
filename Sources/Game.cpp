@@ -93,58 +93,78 @@ void Game::exit()
 {
 	//m_overworld.deallocateWorld();
 }*/
-bool Game::holdKeyA()
+void Game::holdKeyA()
 {
 	//if (!m_inBattle)
 	//{
-		Direction direction = left;
+		Direction direction = DIRECTION_LEFT;
 		int nextTile = m_overworld.getTile(m_player.getX() - 1, m_player.getY());
-		bool moving = m_player.move(direction, nextTile);
+		m_player.move(direction, nextTile);
 		//m_overworld.getTextBox().clear();
+		bool moving = m_player.getMoving();
 		m_lock = moving;
-		return moving;
+		if (moving)
+			m_moving = direction;
+		else
+			m_moving = DIRECTION_NONE;
+		//return moving;
 	//}
 	//else
 		//return false;
 }
-bool Game::holdKeyD()
+void Game::holdKeyD()
 {
 	//if (!m_inBattle)
 	//{
-		Direction direction = right;
+		Direction direction = DIRECTION_RIGHT;
 		int nextTile = m_overworld.getTile(m_player.getX() + 1, m_player.getY());
-		bool moving = m_player.move(direction, nextTile);
+		m_player.move(direction, nextTile);
 		//m_overworld.getTextBox().clear();
+		bool moving = m_player.getMoving(); 
 		m_lock = moving;
-		return moving;
+		if (moving)
+			m_moving = direction;
+		else
+			m_moving = DIRECTION_NONE;
+		//return moving;
 	//}
 	//else
 		//return false;
 }
-bool Game::holdKeyS()
+void Game::holdKeyS()
 {
 	//if (!m_inBattle)
 	//{
-		Direction direction = down;
+		Direction direction = DIRECTION_DOWN;
 		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() + 1);
-		bool moving = m_player.move(direction, nextTile);
+		m_player.move(direction, nextTile);
 		//m_overworld.getTextBox().clear();
+		bool moving = m_player.getMoving();
 		m_lock = moving;
-		return moving;
+		if (moving)
+			m_moving = direction;
+		else
+			m_moving = DIRECTION_NONE;
+		//return moving;
 	//}
 	//else
 		//return false;
 }
-bool Game::holdKeyW()
+void Game::holdKeyW()
 {
 	//if (!m_inBattle)
 	//{
-		Direction direction = up;
+		Direction direction = DIRECTION_UP;
 		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() - 1);
-		bool moving = m_player.move(direction, nextTile);
+		m_player.move(direction, nextTile);
 		//m_overworld.getTextBox().clear();
+		bool moving = m_player.getMoving();
 		m_lock = moving;
-		return moving;
+		if (moving)
+			m_moving = direction;
+		else
+			m_moving = DIRECTION_NONE;
+		// moving;
 	//}
 	//else
 		//return false;

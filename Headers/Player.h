@@ -15,12 +15,12 @@ public:
 	void draw(sf::RenderTarget& window,
 		bool edgeX, bool edgeY,
 		int mapOffsetX, int mapOffsetY);
-	bool move(Direction direction, int nextTile);
-	bool moveDown(int nextTile);
-	bool moveLeft(int nextTile);
-	bool moveRight(int nextTile);
-	bool moveUp(int nextTile);
-	bool rotate(Direction direction);
+	void move(Direction direction, int nextTile);
+	void moveDown(int nextTile);
+	void moveLeft(int nextTile);
+	void moveRight(int nextTile);
+	void moveUp(int nextTile);
+	void rotate(Direction direction);
 };
 
 #endif

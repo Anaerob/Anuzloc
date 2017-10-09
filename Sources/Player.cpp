@@ -47,37 +47,32 @@ void Player::draw(sf::RenderTarget& window,
 
 	window.draw(m_sprite, &m_tileSet);
 }
-bool Player::move(Direction direction, int nextTile)
+void Player::move(Direction direction, int nextTile)
 {
-	bool moving = false;
-
 	if (getDirection() != direction)
-		moving = rotate(direction);
+		rotate(direction);
 	else
 		switch (direction)
 		{
-		case up:
-			moving = moveUp(nextTile);
+		case DIRECTION_UP:
+			moveUp(nextTile);
 			break;
-		case down:
-			moving = moveDown(nextTile);
+		case DIRECTION_DOWN:
+			moveDown(nextTile);
 			break;
-		case left:
-			moving = moveLeft(nextTile);
+		case DIRECTION_LEFT:
+			moveLeft(nextTile);
 			break;
-		case right:
-			moving = moveRight(nextTile);
+		case DIRECTION_RIGHT:
+			moveRight(nextTile);
 			break;
 		default:
 			break;
 		}
-
-	return moving;
 }
-bool Player::moveDown(int nextTile)
+void Player::moveDown(int nextTile)
 {
 	bool moving = false;
-
 	if (nextTile == 1 || nextTile == 2)
 	{
 		setPartialY((getPartialY() + c_walkSpeed) %
@@ -94,13 +89,11 @@ bool Player::moveDown(int nextTile)
 		if (!moving)
 			setY(getY() + 2);
 	}
-
-	return moving;
+	setMoving(moving);
 }
-bool Player::moveLeft(int nextTile)
+void Player::moveLeft(int nextTile)
 {
 	bool moving = false;
-
 	if (nextTile == 1 || nextTile == 2)
 	{
 		setPartialX((getPartialX() - c_walkSpeed) %
@@ -109,13 +102,11 @@ bool Player::moveLeft(int nextTile)
 		if (!moving)
 			setX(getX() - 1);
 	}
-
-	return moving;
+	setMoving(moving);
 }
-bool Player::moveRight(int nextTile)
+void Player::moveRight(int nextTile)
 {
 	bool moving = false;
-
 	if (nextTile == 1 || nextTile == 2)
 	{
 		setPartialX((getPartialX() + c_walkSpeed) %
@@ -124,13 +115,11 @@ bool Player::moveRight(int nextTile)
 		if (!moving)
 			setX(getX() + 1);
 	}
-
-	return moving;
+	setMoving(moving);
 }
-bool Player::moveUp(int nextTile)
+void Player::moveUp(int nextTile)
 {
 	bool moving = false;
-
 	if (nextTile == 1 || nextTile == 2)
 	{
 		setPartialY((getPartialY() - c_walkSpeed) %
@@ -139,17 +128,16 @@ bool Player::moveUp(int nextTile)
 		if (!moving)
 			setY(getY() - 1);
 	}
-
-	return moving;
+	setMoving(moving);
 }
-bool Player::rotate(Direction direction)
+void Player::rotate(Direction direction)
 {
 	setPartialRotate((getPartialRotate() + c_rotateSpeed) %
 		c_tS);
-	bool rotating = (!(getPartialRotate() % c_tS == 0));
-	if (!rotating)
+	bool moving = (!(getPartialRotate() % c_tS == 0));
+	if (!moving)
 	{
 		setDirection(direction);
 	}	
-	return rotating;
+	setMoving(moving);
 }

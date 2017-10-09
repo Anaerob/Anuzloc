@@ -2,14 +2,6 @@
 #define CONSTANTS_H
 #include <string>
 
-/* 540 / 32 = 16.875
-make map 15 wide and 13 high still
-
-0 HP, 1 attack, 2 defense,
-3 special attack, 4 special defense, 5 speed
-
-0 PP, 1 Power, 2 Accuracy*/
-
 // PX = PositionX, PY = PositionY
 // m = menu
 const int c_mPX = 480;
@@ -66,20 +58,24 @@ const int c_rotateSpeed = 8;
 const int c_walkSpeed = 4;
 
 // Enums
-enum Direction { none, up, down, left, right };
-enum MoveStat { PP = 1, power, accuracy };
+enum Direction {
+	DIRECTION_NONE,
+	DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
+};
+enum MoveStat { MOVESTAT_PP = 1, MOVESTAT_POWER, MOVESTAT_ACCURACY };
 enum PokemonStat {
-	HP = 1, attack, defense,
-	special_attack, special_defense, speed
+	POKEMONSTAT_HP = 1, POKEMONSTAT_ATTACK, POKEMONSTAT_DEFENSE,
+	POKEMONSTAT_SPECIALATTACK, POKEMONSTAT_SPECIALDEFENSE, POKEMONSTAT_SPEED
 };
 enum Type {
-	normal = 1, fighting, flying, poison, ground,
-	rock, bug, ghost, steel, fire,
-	water, grass, electric, psychic, ice,
-	dragon, dark, fairy
+	TYPE_NONE, TYPE_NORMAL, TYPE_FIGHTING, TYPE_FLYING, TYPE_POISON,
+	TYPE_GROUND, TYPE_ROCK, TYPE_BUG, TYPE_GHOST, TYPE_STEEL,
+	TYPE_FIRE, TYPE_WATER, TYPE_GRASS, TYPE_ELECTRIC, TYPE_PSYCHIC,
+	TYPE_ICE, TYPE_DRAGON, TYPE_DARK, TYPE_FAIRY
 };
 
 // Initial values
+// Pokemon
 const int c_pokemonBaseStats[4][6] =
 {
 	{ 45, 49, 49, 65, 65, 45 },
@@ -109,6 +105,7 @@ const int c_pokemonTypes[4][2] =
 	{ 13, 0 }
 };
 
+// Moves
 const int c_moveBaseStats[5][3] =
 {
 	{ 35, 40, 100 },

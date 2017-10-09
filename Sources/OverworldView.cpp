@@ -14,12 +14,12 @@ void OverworldView::calculateOffsetX(int overworldSizeX)
 	if (m_player.getX() <= half + 1)
 	{
 		m_offsetX = 0;
-		m_edgeX = m_player.getX() < half + 1 || m_player.getDirection() == left;
+		m_edgeX = m_player.getX() < half + 1 || m_player.getDirection() == DIRECTION_LEFT;
 	}
 	else if (m_player.getX() >= overworldSizeX - half)
 	{
 		m_offsetX = overworldSizeX - c_vSX / c_tS;
-		m_edgeX = m_player.getX() > overworldSizeX - half || m_player.getDirection() == right;
+		m_edgeX = m_player.getX() > overworldSizeX - half || m_player.getDirection() == DIRECTION_RIGHT;
 	}
 	else
 	{
@@ -33,12 +33,12 @@ void OverworldView::calculateOffsetY(int overworldSizeY)
 	if (m_player.getY() <= half + 1)
 	{
 		m_offsetY = 0;
-		m_edgeY = m_player.getY() < half + 1 || m_player.getDirection() == up;
+		m_edgeY = m_player.getY() < half + 1 || m_player.getDirection() == DIRECTION_UP;
 	}
 	else if (m_player.getY() >= overworldSizeY - half)
 	{
 		m_offsetY = overworldSizeY - c_vSY / c_tS;
-		m_edgeY = m_player.getY() > overworldSizeY - half || m_player.getDirection() == down;
+		m_edgeY = m_player.getY() > overworldSizeY - half || m_player.getDirection() == DIRECTION_DOWN;
 	}
 	else
 	{

@@ -4,18 +4,15 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(c_wSX, c_wSY), "Pokemon Nuzlocke Client");
+	sf::RenderWindow window(sf::VideoMode(c_wSX, c_wSY),
+		"Pokemon Nuzlocke Client");
 	window.setVerticalSyncEnabled(true);
 	window.setKeyRepeatEnabled(false);
 
 	Game game;
 	
-	//Direction moving{ none };
-	bool movingDown = false;
-	bool movingLeft = false;
-	bool movingRight = false;
-	bool movingUp = false;
-
+	Direction moving{ DIRECTION_NONE };
+	
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -40,17 +37,29 @@ int main()
 			}
 
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !game.getLock()) ||
-			movingLeft)
-			movingLeft = game.holdKeyA();
+			moving == DIRECTION_LEFT)
+		{
+			game.holdKeyA();
+			moving = game.getMoving();
+		}
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !game.getLock()) ||
-			movingRight)
-			movingRight = game.holdKeyD();
+			moving == DIRECTION_RIGHT)
+		{
+			game.holdKeyD();
+			moving = game.getMoving();
+		}
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !game.getLock()) ||
-			movingDown)
-			movingDown = game.holdKeyS();
+			moving == DIRECTION_DOWN)
+		{
+			game.holdKeyS();
+			moving = game.getMoving();
+		}
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !game.getLock()) ||
-			movingUp)
-			movingUp = game.holdKeyW();
+			moving == DIRECTION_UP)
+		{
+			game.holdKeyW();
+			moving = game.getMoving();
+		}
 
 		window.clear(sf::Color::White);
 		game.draw(window);
