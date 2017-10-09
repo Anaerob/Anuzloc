@@ -9,17 +9,11 @@ Overworld::Overworld(Player& player, TextBox& textBox)//Player& player, Battle& 
 	m_player{ player },
 	m_textBox{ textBox },
 	m_whiteMenu{ cf_mPX, cf_mPY, cf_mSX, cf_mSY },
-	m_whiteTextBox{ cf_tBPX, cf_tBPY, cf_tBSX, cf_tBSY },//,
+	m_whiteTextBox{ cf_tBPX, cf_tBPY, cf_tBSX, cf_tBSY },
 	m_world{ "route1" }
 {
 	readWorld();
 }
-
-/*Overworld::~Overworld()
-{
-	deallocateTileMap();
-	//deallocateTriggerMap();
-}*/
 
 /*void Overworld::deallocateTriggerMap()
 {
@@ -37,7 +31,6 @@ void Overworld::draw(sf::RenderWindow& window)
 
 	m_whiteMenu.draw(window);
 	m_whiteTextBox.draw(window);
-	//m_menu.draw(window);
 }
 /*void Overworld::draw(sf::RenderWindow& window)
 {
@@ -139,25 +132,26 @@ void Overworld::readNPCs(std::string NPCsPath)
 
 	m_read.close();
 	m_NPCMap = NPCMap;
-}
+}*/
 void Overworld::readStringMap(std::string stringMapPath)
 {
 	m_read.open(stringMapPath);
 
-	std::string nextString;
+	std::string nextLine;
 	std::map<int, std::string> stringMap;
 
 	int i = 0;
 	stringMap[i] = "";
+
 	while (m_read)
 	{
-		std::getline(m_read, nextString);
-		stringMap[++i] = nextString;
+		std::getline(m_read, nextLine);
+		stringMap[++i] = nextLine;
 	}
 
 	m_read.close();
 	m_stringMap = stringMap;
-}*/
+}
 void Overworld::readTileMap(std::string tileMapPath)
 {
 	m_read.open(tileMapPath);
@@ -231,6 +225,10 @@ void Overworld::readWorld()
 	tileMapPath.append(".dat");
 	readTileMap(tileMapPath);
 
+	std::string stringMapPath = worldPath;
+	stringMapPath.append("Strings.dat");
+	readStringMap(stringMapPath);
+
 	/*std::string triggerMapPath = worldPath;
 	triggerMapPath.append("Triggers.dat");
 	readTriggerMap(triggerMapPath);
@@ -241,9 +239,5 @@ void Overworld::readWorld()
 
 	std::string trainersPath = worldPath;
 	trainersPath.append("Trainers.dat");
-	readTrainers(trainersPath);
-
-	std::string stringMapPath = worldPath;
-	stringMapPath.append("Strings.dat");
-	readStringMap(stringMapPath);*/
+	readTrainers(trainersPath);*/
 }

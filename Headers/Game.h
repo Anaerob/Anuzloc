@@ -37,8 +37,6 @@ class Game
 public:
 	Game();
 
-	~Game();
-
 	bool getLock() { return m_lock; }
 	Direction getMoving() { return m_moving; }
 
@@ -49,12 +47,12 @@ public:
 	void holdKeyS();
 	void holdKeyW();
 	//void initialize();
-	//void pressKeyDown();
-	//void pressKeyLeft();
-	//void pressKeyReturn();
-	//void pressKeyRight();
+	void pressKeyDown();
+	void pressKeyLeft();
+	void pressKeyReturn();
+	void pressKeyRight();
 	void pressKeySpace();
-	//void pressKeyUp();
+	void pressKeyUp();
 	//void readGeneral();
 };
 

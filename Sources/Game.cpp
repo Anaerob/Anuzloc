@@ -24,12 +24,6 @@ Game::Game()
 	//m_player.setPokemon(0, temp);
 }
 
-Game::~Game()
-{
-	//deallocateTileMap();
-	//deallocateTriggerMap();
-}
-
 void Game::draw(sf::RenderWindow& window)
 {
 	m_overworld.draw(window);
@@ -101,7 +95,7 @@ void Game::holdKeyA()
 		Direction direction = DIRECTION_LEFT;
 		int nextTile = m_overworld.getTile(m_player.getX() - 1, m_player.getY());
 		m_player.move(direction, nextTile);
-		//m_overworld.getTextBox().clear();
+		m_textBox.clear();
 		bool moving = m_player.getMoving();
 		m_lock = moving;
 		if (moving)
@@ -120,7 +114,7 @@ void Game::holdKeyD()
 		Direction direction = DIRECTION_RIGHT;
 		int nextTile = m_overworld.getTile(m_player.getX() + 1, m_player.getY());
 		m_player.move(direction, nextTile);
-		//m_overworld.getTextBox().clear();
+		m_textBox.clear();
 		bool moving = m_player.getMoving(); 
 		m_lock = moving;
 		if (moving)
@@ -139,7 +133,7 @@ void Game::holdKeyS()
 		Direction direction = DIRECTION_DOWN;
 		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() + 1);
 		m_player.move(direction, nextTile);
-		//m_overworld.getTextBox().clear();
+		m_textBox.clear();
 		bool moving = m_player.getMoving();
 		m_lock = moving;
 		if (moving)
@@ -158,7 +152,7 @@ void Game::holdKeyW()
 		Direction direction = DIRECTION_UP;
 		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() - 1);
 		m_player.move(direction, nextTile);
-		//m_overworld.getTextBox().clear();
+		m_textBox.clear();
 		bool moving = m_player.getMoving();
 		m_lock = moving;
 		if (moving)
@@ -170,9 +164,29 @@ void Game::holdKeyW()
 	//else
 		//return false;
 }
+void Game::pressKeyDown()
+{
+
+}
+void Game::pressKeyLeft()
+{
+
+}
+void Game::pressKeyReturn()
+{
+
+}
+void Game::pressKeyRight()
+{
+
+}
 void Game::pressKeySpace()
 {
-	m_textBox.addString("asdf");
+	
+}
+void Game::pressKeyUp()
+{
+
 }
 /*void Game::initialize()
 {

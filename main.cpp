@@ -25,11 +25,26 @@ int main()
 			case sf::Event::KeyPressed:
 				switch (event.key.code)
 				{
+				case sf::Keyboard::Down:
+					game.pressKeyDown();
+					break;
 				case sf::Keyboard::Escape:
 					window.close();
 					break;
+				case sf::Keyboard::Left:
+					game.pressKeyLeft();
+					break;
+				case sf::Keyboard::Return:
+					game.pressKeyReturn();
+					break;
+				case sf::Keyboard::Right:
+					game.pressKeyRight();
+					break;
 				case sf::Keyboard::Space:
 					game.pressKeySpace();
+					break;
+				case sf::Keyboard::Up:
+					game.pressKeyUp();
 					break;
 				default:
 					break;
@@ -40,10 +55,10 @@ int main()
 			}
 
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !game.getLock()) ||
-			moving == DIRECTION_LEFT)
+			moving == DIRECTION_LEFT) // change to game.getMoving() == DIRECITON_
 		{
 			game.holdKeyA();
-			moving = game.getMoving();
+			moving = game.getMoving(); // remove everywhere
 		}
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !game.getLock()) ||
 			moving == DIRECTION_RIGHT)
