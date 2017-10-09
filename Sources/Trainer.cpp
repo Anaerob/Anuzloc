@@ -18,7 +18,7 @@ Trainer::Trainer(std::string type, std::string name, Direction direction, int x,
 	m_tileSet.loadFromFile(tilePath);
 }
 
-/*void Trainer::draw(sf::RenderTarget& window,
+void Trainer::draw(sf::RenderTarget& window,
 	bool edgeX, bool edgeY,
 	int overworldViewOffsetX, int overworldViewOffsetY,
 	int playerPartialX, int playerPartialY)
@@ -49,14 +49,14 @@ Trainer::Trainer(std::string type, std::string name, Direction direction, int x,
 	quad[3].position = sf::Vector2f((f_x - 1) * cf_tS - f_pX,
 		f_y * cf_tS - f_pY);
 
-	quad[0].texCoords = sf::Vector2f(f_d * cf_tS,
+	quad[0].texCoords = sf::Vector2f((f_d - 1) * cf_tS,
 		0.0f);
-	quad[1].texCoords = sf::Vector2f((f_d + 1) * cf_tS,
+	quad[1].texCoords = sf::Vector2f((f_d + 0) * cf_tS,
 		0.0f);
-	quad[2].texCoords = sf::Vector2f((f_d + 1) * cf_tS,
+	quad[2].texCoords = sf::Vector2f((f_d + 0) * cf_tS,
 		cf_tS);
-	quad[3].texCoords = sf::Vector2f(f_d * cf_tS,
+	quad[3].texCoords = sf::Vector2f((f_d - 1) * cf_tS,
 		cf_tS);
 
 	window.draw(m_sprite, &m_tileSet);
-}*/
+}

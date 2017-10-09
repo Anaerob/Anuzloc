@@ -16,7 +16,6 @@ class Trainer
 	int m_partialY;
 	//Pokemon m_pokemon[6];
 	sf::VertexArray m_sprite;
-	//std::string m_tilePath;
 	sf::Texture m_tileSet;
 	std::string m_type;
 	int m_x;
@@ -46,10 +45,10 @@ public:
 	int getX() { return m_x; }
 	int getY() { return m_y; }
 
-	/*void draw(sf::RenderTarget& window,
+	void draw(sf::RenderTarget& window,
 		bool edgeX,	bool edgeY,
 		int overworldViewOffsetX, int overworldViewOffsetY,
-		int playerPartialX, int playerPartialY);*/
+		int playerPartialX, int playerPartialY);
 };
 
 #endif

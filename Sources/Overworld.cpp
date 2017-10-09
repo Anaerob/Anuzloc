@@ -29,6 +29,11 @@ void Overworld::draw(sf::RenderWindow& window)
 {
 	m_view.draw(window, m_tileMap, m_sizeX, m_sizeY);
 
+	for (size_t i = 1; i < m_NPCs.size() + 1; ++i)
+		m_NPCs.find(i)->second.draw(window, m_view.getEdgeX(), m_view.getEdgeY(),
+			m_view.getOffsetX(), m_view.getOffsetY(),
+			m_player.getPartialX(), m_player.getPartialY());
+
 	m_whiteMenu.draw(window);
 	m_whiteTextBox.draw(window);
 }
@@ -104,18 +109,21 @@ void Overworld::menuReturn()
 void Overworld::menuUp()
 {
 	m_menu.navigateUp();
-}
+}*/
 void Overworld::readNPCs(std::string NPCsPath)
 {
 	m_read.open(NPCsPath);
 
-	std::map<int, Trainer> NPCMap;
+	std::map<int, Trainer> NPCs;
 
 	std::string type;
 	std::string name;
 	int direction;
 	int x;
 	int y;
+	//int nPokemon;
+	//int index;
+	//int level;
 
 	int i = 0;
 	while (m_read)
@@ -125,15 +133,16 @@ void Overworld::readNPCs(std::string NPCsPath)
 		m_read >> direction;
 		m_read >> x;
 		m_read >> y;
-		Trainer temp{ type, name, direction, x, y };
-		NPCMap[++i] = temp;
+		Direction tempDir = static_cast<Direction>(direction);
+		Trainer temp{ type, name, tempDir, x, y };
+		NPCs[++i] = temp;
 		m_tileMap[x + y * (m_sizeX + 2)] = 0;
 	}
 
 	m_read.close();
-	m_NPCMap = NPCMap;
-}*/
-void Overworld::readStringMap(std::string stringMapPath)
+	m_NPCs = NPCs;
+}
+void Overworld::readStrings(std::string stringMapPath)
 {
 	m_read.open(stringMapPath);
 
@@ -150,7 +159,7 @@ void Overworld::readStringMap(std::string stringMapPath)
 	}
 
 	m_read.close();
-	m_stringMap = stringMap;
+	m_strings = stringMap;
 }
 void Overworld::readTileMap(std::string tileMapPath)
 {
@@ -216,26 +225,23 @@ void Overworld::readTriggerMap(std::string triggerMapPath)
 }*/
 void Overworld::readWorld()
 {
-	//deallocateTileMap();
-	//deallocateTriggerMap();
-
 	std::string worldPath = "Resources/Maps/";
 	worldPath.append(m_world);
 	std::string tileMapPath = worldPath;
 	tileMapPath.append(".dat");
 	readTileMap(tileMapPath);
 
-	std::string stringMapPath = worldPath;
-	stringMapPath.append("Strings.dat");
-	readStringMap(stringMapPath);
+	std::string NPCsPath = worldPath;
+	NPCsPath.append("NPCs.dat");
+	readNPCs(NPCsPath);
+	
+	std::string stringsPath = worldPath;
+	stringsPath.append("Strings.dat");
+	readStrings(stringsPath);
 
 	/*std::string triggerMapPath = worldPath;
 	triggerMapPath.append("Triggers.dat");
 	readTriggerMap(triggerMapPath);
-
-	std::string NPCsPath = worldPath;
-	NPCsPath.append("NPCs.dat");
-	readNPCs(NPCsPath);
 
 	std::string trainersPath = worldPath;
 	trainersPath.append("Trainers.dat");

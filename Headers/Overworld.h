@@ -21,12 +21,12 @@ class Overworld
 	//Event& m_event;
 	//bool m_inEvent;
 	//OverworldMenu m_menu;
-	//std::map<int, Trainer> m_NPCs;
+	std::map<int, Trainer> m_NPCs;
 	Player& m_player;
 	std::ifstream m_read;
 	int m_sizeX;
 	int m_sizeY;
-	std::map<int, std::string> m_stringMap;
+	std::map<int, std::string> m_strings;
 	TextBox& m_textBox;
 	//int *m_tileMap;
 	std::vector<int> m_tileMap;
@@ -49,8 +49,8 @@ public:
 	//void menuDown();
 	//void menuReturn();
 	//void menuUp();
-	//void readNPCs(std::string NPCsPath);
-	void readStringMap(std::string stringMapPath);
+	void readNPCs(std::string NPCsPath);
+	void readStrings(std::string stringMapPath);
 	void readTileMap(std::string tileMapPath);
 	//void readTrainers(std::string trainersPath);
 	//void readTriggerMap(std::string triggerMapPath);
