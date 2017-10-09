@@ -11,7 +11,7 @@
 //#include "OverworldMenu.h"
 #include "OverworldView.h"
 #include "Player.h"
-//#include "TextBox.h"
+#include "TextBox.h"
 #include "Trainer.h"
 #include "White.h"
 
@@ -27,17 +27,17 @@ class Overworld
 	int m_sizeX;
 	int m_sizeY;
 	//std::map<int, std::string> m_stringMap;
-	//TextBox& m_textBox;
+	TextBox& m_textBox;
 	//int *m_tileMap;
 	std::vector<int> m_tileMap;
 	//int *m_triggerMap;
 	OverworldView m_view;
 	White m_whiteMenu;
 	White m_whiteTextBox;
-	//std::string m_world;
+	std::string m_world;
 
 public:
-	Overworld(Player& player);// Player& player, Battle& battle, TextBox& textBox);
+	Overworld(Player& player, TextBox& textBox);// Player& player, Battle& battle, TextBox& textBox);
 
 	//~Overworld();
 

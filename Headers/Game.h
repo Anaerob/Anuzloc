@@ -7,7 +7,7 @@
 //#include "Event.h"
 #include "Overworld.h"
 #include "Player.h"
-//#include "TextBox.h"
+#include "TextBox.h"
 
 class Game
 {
@@ -21,7 +21,7 @@ class Game
 	Overworld m_overworld;
 	Player m_player;
 	//std::ifstream m_read;
-	//TextBox m_textBox;
+	TextBox m_textBox;
 
 	/*bool m_inEvent;
 	std::map<int, Trainer> m_NPCMap;
@@ -53,7 +53,7 @@ public:
 	//void pressKeyLeft();
 	//void pressKeyReturn();
 	//void pressKeyRight();
-	//void pressKeySpace();
+	void pressKeySpace();
 	//void pressKeyUp();
 	//void readGeneral();
 };

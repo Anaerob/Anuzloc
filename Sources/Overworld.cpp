@@ -1,16 +1,16 @@
 #include "../Headers/Overworld.h"
 
-Overworld::Overworld(Player& player)//Player& player, Battle& battle, TextBox& textBox)
+Overworld::Overworld(Player& player, TextBox& textBox)//Player& player, Battle& battle, TextBox& textBox)
 	: //m_battle{ battle },
 	//m_event{ player, battle, m_stringMap, m_textBox },
 	//m_inEvent{ false },
 	//m_menu{ player },
 	m_view{ player },
 	m_player{ player },
-	//m_textBox{ textBox },
+	m_textBox{ textBox },
 	m_whiteMenu{ cf_mPX, cf_mPY, cf_mSX, cf_mSY },
-	m_whiteTextBox{ cf_tBPX, cf_tBPY, cf_tBSX, cf_tBSY }//,
-	//m_world{ "route1" }
+	m_whiteTextBox{ cf_tBPX, cf_tBPY, cf_tBSX, cf_tBSY },//,
+	m_world{ "route1" }
 {
 	readWorld();
 }
@@ -165,7 +165,6 @@ void Overworld::readTileMap(std::string tileMapPath)
 	m_read >> m_sizeX;
 	m_read >> m_sizeY;
 
-	//m_tileMap = new int[(m_sizeX + 2)*(m_sizeY + 2)]();
 	m_tileMap.clear();
 	m_tileMap.resize((m_sizeX + 2)*(m_sizeY + 2));
 
@@ -227,7 +226,7 @@ void Overworld::readWorld()
 	//deallocateTriggerMap();
 
 	std::string worldPath = "Resources/Maps/";
-	worldPath.append("route1");
+	worldPath.append(m_world);
 	std::string tileMapPath = worldPath;
 	tileMapPath.append(".dat");
 	readTileMap(tileMapPath);

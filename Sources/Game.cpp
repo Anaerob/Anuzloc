@@ -2,7 +2,7 @@
 
 Game::Game()
 	: //m_battle{ m_player , m_textBox },
-	m_overworld{ m_player },//, m_battle, m_textBox },
+	m_overworld{ m_player, m_textBox},//, m_battle, m_textBox },
 	//m_inBattle{ false },
 	//m_intro{ false },
 	m_frameLines{ sf::Lines, 4 },
@@ -33,6 +33,7 @@ Game::~Game()
 void Game::draw(sf::RenderWindow& window)
 {
 	m_overworld.draw(window);
+	m_textBox.draw(window);
 	window.draw(m_frameLines);
 }
 
@@ -168,6 +169,10 @@ void Game::holdKeyW()
 	//}
 	//else
 		//return false;
+}
+void Game::pressKeySpace()
+{
+	m_textBox.addString("asdf");
 }
 /*void Game::initialize()
 {

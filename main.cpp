@@ -28,6 +28,9 @@ int main()
 				case sf::Keyboard::Escape:
 					window.close();
 					break;
+				case sf::Keyboard::Space:
+					game.pressKeySpace();
+					break;
 				default:
 					break;
 				}
