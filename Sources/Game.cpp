@@ -2,7 +2,8 @@
 
 Game::Game()
 	: //m_battle{ m_player , m_textBox },
-	m_overworld{ m_player, m_textBox },//, m_battle, m_textBox },
+	m_event{ m_player, m_textBox },
+	m_overworld{ m_event, m_player, m_textBox },//, m_battle, m_textBox },
 	//m_inBattle{ false },
 	//m_intro{ false },
 	m_frameLines{ sf::Lines, 4 },
@@ -186,7 +187,10 @@ void Game::pressRight()
 }
 void Game::pressSpace()
 {
-	
+	if (m_event.getActive())
+		m_event.advance();
+	else;
+		//m_overworld.interact();
 }
 void Game::pressUp()
 {

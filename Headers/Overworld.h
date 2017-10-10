@@ -7,7 +7,7 @@
 #include <vector>
 //#include "Battle.h"
 #include "Constants.h"
-//#include "Event.h"
+#include "Event.h"
 //#include "OverworldMenu.h"
 #include "OverworldView.h"
 #include "Player.h"
@@ -18,7 +18,7 @@
 class Overworld
 {
 	//Battle& m_battle;
-	//Event& m_event;
+	Event& m_event;
 	//bool m_inEvent;
 	//OverworldMenu m_menu;
 	std::map<int, Trainer> m_NPCs;
@@ -37,15 +37,15 @@ class Overworld
 	std::string m_world;
 
 public:
-	Overworld(Player& player, TextBox& textBox);// Player& player, Battle& battle, TextBox& textBox);
+	Overworld(Event& event, Player& player, TextBox& textBox);// Player& player, Battle& battle, TextBox& textBox);
 
 	int getTile(int x, int y) { return m_tileMap[x +	y * (m_sizeX + 2)]; }
 	//int getTrigger(int x, int y) { return m_triggerMap[x + y * (m_sizeX + 2)]; }
 
 	//void deallocateTriggerMap();
-	void deallocateTileMap();
+	//void deallocateTileMap();
 	void draw(sf::RenderWindow& window);
-	//bool interact();
+	//void interact();
 	//void menuDown();
 	//void menuReturn();
 	//void menuUp();

@@ -1,8 +1,8 @@
 #include "../Headers/Overworld.h"
 
-Overworld::Overworld(Player& player, TextBox& textBox)//Player& player, Battle& battle, TextBox& textBox)
+Overworld::Overworld(Event& event, Player& player, TextBox& textBox)//Player& player, Battle& battle, TextBox& textBox)
 	: //m_battle{ battle },
-	//m_event{ player, battle, m_stringMap, m_textBox },
+	m_event{ event },
 	//m_inEvent{ false },
 	//m_menu{ player },
 	m_view{ player },
@@ -13,6 +13,7 @@ Overworld::Overworld(Player& player, TextBox& textBox)//Player& player, Battle& 
 	m_world{ "route1" }
 {
 	readWorld();
+	m_event.setWorld(m_world);
 }
 
 /*void Overworld::deallocateTriggerMap()
@@ -37,68 +38,50 @@ void Overworld::draw(sf::RenderWindow& window)
 	m_whiteMenu.draw(window);
 	m_whiteTextBox.draw(window);
 }
-/*void Overworld::draw(sf::RenderWindow& window)
-{
-	m_view.draw(window, m_tileMap, m_sizeX, m_sizeY);
-
-	for (size_t i = 1; i < m_NPCMap.size() + 1; ++i)
-		m_NPCMap.find(i)->second.draw(window, m_view.getEdgeX(), m_view.getEdgeY(),
-			m_view.getOffsetX(), m_view.getOffsetY(),
-			m_player.getPartialX(), m_player.getPartialY());
-
-	m_whiteMenu.draw(window);
-	m_whiteTextBox.draw(window);
-	//m_menu.draw(window);
-}
-bool Overworld::interact()
+/*void Overworld::interact()
 {
 	int ID;
-
-	if (!m_inEvent)
-		switch (m_player.getDirection())
+	switch (m_player.getDirection())
+	{
+	case 0:
+		ID = getTrigger(m_player.getX(), m_player.getY() + 1);
+		if (ID != 0)
 		{
-		case 0:
-			ID = getTrigger(m_player.getX(), m_player.getY() + 1);
-			if (ID != 0)
-			{
-				Trainer& temp = m_NPCMap.find(ID)->second;
-				temp.setDirection(1);
-				m_inEvent = m_event.initialize(ID, temp);
-			}
-			break;
-		case 1:
-			ID = getTrigger(m_player.getX(), m_player.getY() - 1);
-			if (ID != 0)
-			{
-				Trainer& temp = m_NPCMap.find(ID)->second;
-				temp.setDirection(0);
-				m_inEvent = m_event.initialize(ID, temp);
-			}
-			break;
-		case 2:
-			ID = getTrigger(m_player.getX() - 1, m_player.getY());
-			if (ID != 0)
-			{
-				Trainer& temp = m_NPCMap.find(ID)->second;
-				temp.setDirection(3);
-				m_inEvent = m_event.initialize(ID, temp);
-			}
-			break;
-		case 3:
-			ID = getTrigger(m_player.getX() + 1, m_player.getY());
-			if (ID != 0)
-			{
-				Trainer& temp = m_NPCMap.find(ID)->second;
-				temp.setDirection(2);
-				m_inEvent = m_event.initialize(ID, temp);
-			}
-			break;
+			Trainer& temp = m_NPCMap.find(ID)->second;
+			temp.setDirection(1);
+			m_inEvent = m_event.initialize(ID, temp);
 		}
-	else
-		m_inEvent = m_event.advance();
-	return m_inEvent;
-}
-void Overworld::menuDown()
+		break;
+	case 1:
+		ID = getTrigger(m_player.getX(), m_player.getY() - 1);
+		if (ID != 0)
+		{
+			Trainer& temp = m_NPCMap.find(ID)->second;
+			temp.setDirection(0);
+			m_inEvent = m_event.initialize(ID, temp);
+		}
+		break;
+	case 2:
+		ID = getTrigger(m_player.getX() - 1, m_player.getY());
+		if (ID != 0)
+		{
+			Trainer& temp = m_NPCMap.find(ID)->second;
+			temp.setDirection(3);
+			m_inEvent = m_event.initialize(ID, temp);
+		}
+		break;
+	case 3:
+		ID = getTrigger(m_player.getX() + 1, m_player.getY());
+		if (ID != 0)
+		{
+			Trainer& temp = m_NPCMap.find(ID)->second;
+			temp.setDirection(2);
+			m_inEvent = m_event.initialize(ID, temp);
+		}
+		break;
+	}
+}*/
+/*void Overworld::menuDown()
 {
 	m_menu.navigateDown();
 }

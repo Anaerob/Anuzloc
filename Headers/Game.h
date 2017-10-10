@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 //#include "Battle.h"
 #include "Constants.h"
-//#include "Event.h"
+#include "Event.h"
 #include "Overworld.h"
 #include "Player.h"
 #include "TextBox.h"
@@ -12,6 +12,7 @@
 class Game
 {
 	//Battle m_battle;
+	Event m_event;
 	sf::VertexArray m_frameLines;
 	//std::map<int, std::string> m_generalStrings;
 	//bool m_inBattle;
