@@ -10,18 +10,18 @@ Player::Player()
 void Player::draw(sf::RenderTarget& window,
 	bool edgeX, bool edgeY, int mapOffsetX, int mapOffsetY)
 {
-	float f_d = (float)getDirection();
+	float f_d = (float)m_direction;
 	float f_pX;
 	float f_pY;
-	float f_x = (float)(getX() - mapOffsetX);
-	float f_y = (float)(getY() - mapOffsetY);
+	float f_x = (float)(m_x - mapOffsetX);
+	float f_y = (float)(m_y - mapOffsetY);
 
 	if (edgeX)
-		f_pX = (float)getPartialX();
+		f_pX = (float)m_partialX;
 	else
 		f_pX = 0.0f;
 	if (edgeY)
-		f_pY = (float)getPartialY();
+		f_pY = (float)m_partialY;
 	else
 		f_pY = 0.0f;
 
@@ -49,7 +49,7 @@ void Player::draw(sf::RenderTarget& window,
 }
 void Player::move(Direction direction, int nextTile)
 {
-	if (getDirection() != direction)
+	if (m_direction != direction)
 		rotate(direction);
 	else
 		switch (direction)
@@ -72,72 +72,55 @@ void Player::move(Direction direction, int nextTile)
 }
 void Player::moveDown(int nextTile)
 {
-	bool moving = false;
 	if (nextTile == 1 || nextTile == 2)
 	{
-		setPartialY((getPartialY() + c_walkSpeed) %
-			c_tS);
-		moving = (!(getPartialY() % c_tS == 0));
-		if (!moving)
-			setY(getY() + 1);
+		m_partialY = (m_partialY + c_walkSpeed) % c_tS;
+		m_moving = !(m_partialY % c_tS == 0);
+		if (!m_moving)
+			m_y++;
 	}
 	else if (nextTile == 4)
 	{
-		setPartialY((getPartialY() + c_ledgeSpeed) %
-			(2 * c_tS));
-		moving = (!(getPartialY() % (2 * c_tS) == 0));
-		if (!moving)
-			setY(getY() + 2);
+		m_partialY = (m_partialY + c_ledgeSpeed) % (2 * c_tS);
+		m_moving = !(m_partialY % (2 * c_tS) == 0);
+		if (!m_moving)
+			m_y += 2;
 	}
-	setMoving(moving);
 }
 void Player::moveLeft(int nextTile)
 {
-	bool moving = false;
 	if (nextTile == 1 || nextTile == 2)
 	{
-		setPartialX((getPartialX() - c_walkSpeed) %
-			c_tS);
-		moving = (!(getPartialX() % c_tS == 0));
-		if (!moving)
-			setX(getX() - 1);
+		m_partialX = (m_partialX - c_walkSpeed) % c_tS;
+		m_moving = !(m_partialX % c_tS == 0);
+		if (!m_moving)
+			m_x--;
 	}
-	setMoving(moving);
 }
 void Player::moveRight(int nextTile)
 {
-	bool moving = false;
 	if (nextTile == 1 || nextTile == 2)
 	{
-		setPartialX((getPartialX() + c_walkSpeed) %
-			c_tS);
-		moving = (!(getPartialX() % c_tS == 0));
-		if (!moving)
-			setX(getX() + 1);
+		m_partialX = (m_partialX + c_walkSpeed) % c_tS;
+		m_moving = !(m_partialX % c_tS == 0);
+		if (!m_moving)
+			m_x++;
 	}
-	setMoving(moving);
 }
 void Player::moveUp(int nextTile)
 {
-	bool moving = false;
 	if (nextTile == 1 || nextTile == 2)
 	{
-		setPartialY((getPartialY() - c_walkSpeed) %
-			c_tS);
-		moving = (!(getPartialY() % c_tS == 0));
-		if (!moving)
-			setY(getY() - 1);
+		m_partialY = (m_partialY - c_walkSpeed) % c_tS;
+		m_moving = !(m_partialY % c_tS == 0);
+		if (!m_moving)
+			m_y--;
 	}
-	setMoving(moving);
 }
 void Player::rotate(Direction direction)
 {
-	setPartialRotate((getPartialRotate() + c_rotateSpeed) %
-		c_tS);
-	bool moving = (!(getPartialRotate() % c_tS == 0));
-	if (!moving)
-	{
-		setDirection(direction);
-	}	
-	setMoving(moving);
+	m_partialRotate = (m_partialRotate + c_rotateSpeed) % c_tS;
+	m_moving = !(m_partialRotate % c_tS == 0);
+	if (!m_moving)
+		m_direction = direction;
 }

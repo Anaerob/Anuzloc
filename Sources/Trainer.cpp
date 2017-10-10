@@ -23,11 +23,11 @@ void Trainer::draw(sf::RenderTarget& window,
 	int overworldViewOffsetX, int overworldViewOffsetY,
 	int playerPartialX, int playerPartialY)
 {
-	float f_d = (float)getDirection();
+	float f_d = (float)m_direction;
 	float f_pX;
 	float f_pY;
-	float f_x = (float)(getX() - overworldViewOffsetX - playerPartialX / c_tS);
-	float f_y = (float)(getY() - overworldViewOffsetY - playerPartialY / c_tS);
+	float f_x = (float)(m_x - overworldViewOffsetX - playerPartialX / c_tS);
+	float f_y = (float)(m_y - overworldViewOffsetY - playerPartialY / c_tS);
 
 	if (edgeX)
 		f_pX = 0.0f;

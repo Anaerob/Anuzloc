@@ -6,8 +6,8 @@
 
 class Player : public Trainer
 {
-	sf::VertexArray m_sprite;
-	sf::Texture m_tileSet;
+	//sf::VertexArray m_sprite;
+	//sf::Texture m_tileSet;
 
 public:
 	Player();
