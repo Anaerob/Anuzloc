@@ -88,7 +88,7 @@ void Game::exit()
 {
 	//m_overworld.deallocateWorld();
 }*/
-void Game::holdKeyA()
+void Game::holdA()
 {
 	//if (!m_inBattle)
 	//{
@@ -107,7 +107,7 @@ void Game::holdKeyA()
 	//else
 		//return false;
 }
-void Game::holdKeyD()
+void Game::holdD()
 {
 	//if (!m_inBattle)
 	//{
@@ -126,7 +126,7 @@ void Game::holdKeyD()
 	//else
 		//return false;
 }
-void Game::holdKeyS()
+void Game::holdS()
 {
 	//if (!m_inBattle)
 	//{
@@ -145,7 +145,7 @@ void Game::holdKeyS()
 	//else
 		//return false;
 }
-void Game::holdKeyW()
+void Game::holdW()
 {
 	//if (!m_inBattle)
 	//{
@@ -164,27 +164,31 @@ void Game::holdKeyW()
 	//else
 		//return false;
 }
-void Game::pressKeyDown()
+void Game::pressBackSpace()
 {
 
 }
-void Game::pressKeyLeft()
+void Game::pressDown()
 {
 
 }
-void Game::pressKeyReturn()
+void Game::pressLeft()
 {
 
 }
-void Game::pressKeyRight()
+void Game::pressReturn()
 {
 
 }
-void Game::pressKeySpace()
+void Game::pressRight()
+{
+
+}
+void Game::pressSpace()
 {
 	
 }
-void Game::pressKeyUp()
+void Game::pressUp()
 {
 
 }

@@ -42,17 +42,18 @@ public:
 
 	void draw(sf::RenderWindow& window);
 	//void exit();
-	void holdKeyA();
-	void holdKeyD();
-	void holdKeyS();
-	void holdKeyW();
+	void holdA();
+	void holdD();
+	void holdS();
+	void holdW();
 	//void initialize();
-	void pressKeyDown();
-	void pressKeyLeft();
-	void pressKeyReturn();
-	void pressKeyRight();
-	void pressKeySpace();
-	void pressKeyUp();
+	void pressBackSpace();
+	void pressDown();
+	void pressLeft();
+	void pressReturn();
+	void pressRight();
+	void pressSpace();
+	void pressUp();
 	//void readGeneral();
 };
 
