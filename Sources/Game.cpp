@@ -3,9 +3,7 @@
 Game::Game()
 	: //m_battle{ m_player , m_textBox },
 	m_event{ m_player, m_textBox },
-	m_overworld{ m_event, m_player, m_textBox },//, m_battle, m_textBox },
-	//m_inBattle{ false },
-	//m_intro{ false },
+	m_overworld{ m_event, m_player, m_textBox },
 	m_frameLines{ sf::Lines, 4 },
 	m_lock{ false }
 {
@@ -31,64 +29,6 @@ void Game::draw(sf::RenderWindow& window)
 	m_textBox.draw(window);
 	window.draw(m_frameLines);
 }
-
-/*void Game::deallocateTriggerMap()
-{
-	delete[] m_triggerMap;
-	m_triggerMap = nullptr;
-}
-void Game::deallocateTileMap()
-{
-	delete[] m_tileMap;
-	m_tileMap = nullptr;
-}
-
-void Game::draw(sf::RenderWindow& window)
-{
-	if (m_intro)
-	{
-	sf::VertexArray janaV;
-	sf::Texture janaT;
-	janaV.setPrimitiveType(sf::Quads);
-	janaV.resize(4);
-	janaT.loadFromFile("images/jana.png");
-
-	janaV[0].position = sf::Vector2f(cf_vPX,
-	cf_vPY);
-	janaV[1].position = sf::Vector2f(cf_vPX + cf_vSX,
-	cf_vPY);
-	janaV[2].position = sf::Vector2f(cf_vPX + cf_vSX,
-	cf_vPY + cf_vSY);
-	janaV[3].position = sf::Vector2f(cf_vPX,
-	cf_vPY + cf_vSY);
-
-	janaV[0].texCoords = sf::Vector2f(0.0f,
-	0.0f);
-	janaV[1].texCoords = sf::Vector2f(300.0f,
-	0.0f);
-	janaV[2].texCoords = sf::Vector2f(300.0f,
-	300.0f);
-	janaV[3].texCoords = sf::Vector2f(0.0f,
-	300.0f);
-
-	window.draw(janaV, &janaT);
-	m_overworld.getTextBox().draw(window);
-	m_battle.getMenu().draw(window);
-	}
-	else
-	{
-	if (m_inBattle)
-		m_battle.draw(window);
-	if (!m_inBattle)
-		m_overworld.draw(window);
-	//}
-	m_textBox.draw(window);
-	window.draw(m_frameLines);
-}
-void Game::exit()
-{
-	//m_overworld.deallocateWorld();
-}*/
 void Game::holdA()
 {
 	//if (!m_inBattle)
@@ -196,14 +136,7 @@ void Game::pressUp()
 {
 
 }
-/*void Game::initialize()
-{
-	if (m_intro)
-	{
-	m_overworld.getTextBox().addString("'Sup idiot, which Pokemon u want?");
-	}
-}
-void Game::pressKeyDown()
+/*void Game::pressKeyDown()
 {
 	if (m_inBattle)
 		m_battle.menuDown();
@@ -233,11 +166,6 @@ void Game::pressKeyRight()
 }
 void Game::pressKeySpace()
 {
-	if (m_intro)
-	{
-	m_intro = false;
-	m_overworld.getTextBox().clear();
-	}
 	if (!m_inBattle)
 	{
 		bool inEvent = false;
@@ -252,8 +180,8 @@ void Game::pressKeyUp()
 		m_battle.menuUp();
 	if (!m_inBattle)
 		m_overworld.menuUp();
-}
-void Game::readGeneral()
+}*/
+/*void Game::readGeneral()
 {
 	m_read.open("general/strings.dat");
 
