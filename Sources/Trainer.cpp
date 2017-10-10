@@ -1,4 +1,4 @@
-#include "../Headers/Trainer.h"
+#include "Trainer.h"
 
 Trainer::Trainer(std::string type, std::string name, Direction direction, int x, int y)
 	: m_direction{ direction },

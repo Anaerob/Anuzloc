@@ -1,4 +1,4 @@
-#include "../Headers/Event.h"
+#include "Event.h"
 
 Event::Event(Player& player, TextBox& textBox)
 	: //m_battle{ battle },

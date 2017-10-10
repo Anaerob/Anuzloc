@@ -1,4 +1,4 @@
-#include "../Headers/Overworld.h"
+#include "Overworld.h"
 
 Overworld::Overworld(Event& event, Player& player, TextBox& textBox)//Player& player, Battle& battle, TextBox& textBox)
 	: //m_battle{ battle },
@@ -38,7 +38,6 @@ void Overworld::interact()
 		if (ID != 0)
 		{
 			m_NPCs.find(ID)->second.setDirection(DIRECTION_DOWN);
-			m_textBox.addString(std::to_string(ID));
 			m_event.initialize(ID);
 		}
 		break;
@@ -98,7 +97,7 @@ void Overworld::readNPCs(std::string NPCsPath)
 	//int level;
 
 	int i = 0;
-	while (m_read)
+	while (!m_read.eof())
 	{
 		m_read >> type;
 		m_read >> name;
@@ -124,7 +123,7 @@ void Overworld::readStrings(std::string stringMapPath)
 	int i = 0;
 	stringMap[i] = "";
 
-	while (m_read)
+	while (!m_read.eof())
 	{
 		std::getline(m_read, nextLine);
 		stringMap[++i] = nextLine;

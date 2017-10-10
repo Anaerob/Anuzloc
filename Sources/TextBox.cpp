@@ -1,4 +1,4 @@
-#include "../Headers/TextBox.h"
+#include "TextBox.h"
 
 TextBox::TextBox()
 	: m_color{ sf::Color::Black }, m_edgeThickness{ 5 }
