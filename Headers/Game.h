@@ -15,7 +15,7 @@ class Game
 	Event m_event;
 	sf::VertexArray m_frameLines;
 	//std::map<int, std::string> m_generalStrings;
-	bool m_lock;
+	bool m_lock; // DO I NEED THIS?! I HAVE m_moving!!
 	Direction m_moving;
 	Overworld m_overworld;
 	Player m_player;

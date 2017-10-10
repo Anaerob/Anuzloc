@@ -31,79 +31,51 @@ void Game::draw(sf::RenderWindow& window)
 }
 void Game::holdA()
 {
-	//if (!m_inBattle)
-	//{
-		Direction direction = DIRECTION_LEFT;
-		int nextTile = m_overworld.getTile(m_player.getX() - 1, m_player.getY());
-		m_player.move(direction, nextTile);
-		m_textBox.clear();
-		bool moving = m_player.getMoving();
-		m_lock = moving;
-		if (moving)
-			m_moving = direction;
-		else
-			m_moving = DIRECTION_NONE;
-		//return moving;
-	//}
-	//else
-		//return false;
+	Direction direction = DIRECTION_LEFT;
+	int nextTile = m_overworld.getTile(m_player.getX() - 1, m_player.getY());
+	m_player.move(direction, nextTile);
+	m_textBox.clear();
+	m_lock = m_player.getMoving();
+	if (m_lock)
+		m_moving = direction;
+	else
+		m_moving = DIRECTION_NONE;
 }
 void Game::holdD()
 {
-	//if (!m_inBattle)
-	//{
-		Direction direction = DIRECTION_RIGHT;
-		int nextTile = m_overworld.getTile(m_player.getX() + 1, m_player.getY());
-		m_player.move(direction, nextTile);
-		m_textBox.clear();
-		bool moving = m_player.getMoving(); 
-		m_lock = moving;
-		if (moving)
-			m_moving = direction;
-		else
-			m_moving = DIRECTION_NONE;
-		//return moving;
-	//}
-	//else
-		//return false;
+	Direction direction = DIRECTION_RIGHT;
+	int nextTile = m_overworld.getTile(m_player.getX() + 1, m_player.getY());
+	m_player.move(direction, nextTile);
+	m_textBox.clear();
+	m_lock = m_player.getMoving();
+	if (m_lock)
+		m_moving = direction;
+	else
+		m_moving = DIRECTION_NONE;
 }
 void Game::holdS()
 {
-	//if (!m_inBattle)
-	//{
-		Direction direction = DIRECTION_DOWN;
-		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() + 1);
-		m_player.move(direction, nextTile);
-		m_textBox.clear();
-		bool moving = m_player.getMoving();
-		m_lock = moving;
-		if (moving)
-			m_moving = direction;
-		else
-			m_moving = DIRECTION_NONE;
-		//return moving;
-	//}
-	//else
-		//return false;
+	Direction direction = DIRECTION_DOWN;
+	int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() + 1);
+	m_player.move(direction, nextTile);
+	m_textBox.clear();
+	m_lock = m_player.getMoving();
+	if (m_lock)
+		m_moving = direction;
+	else
+		m_moving = DIRECTION_NONE;
 }
 void Game::holdW()
 {
-	//if (!m_inBattle)
-	//{
-		Direction direction = DIRECTION_UP;
-		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() - 1);
-		m_player.move(direction, nextTile);
-		m_textBox.clear();
-		bool moving = m_player.getMoving();
-		m_lock = moving;
-		if (moving)
-			m_moving = direction;
-		else
-			m_moving = DIRECTION_NONE;
-		// moving;
-	//}
-	//else
-		//return false;
+	Direction direction = DIRECTION_UP;
+	int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() - 1);
+	m_player.move(direction, nextTile);
+	m_textBox.clear();
+	m_lock = m_player.getMoving();
+	if (m_lock)
+		m_moving = direction;
+	else
+		m_moving = DIRECTION_NONE;
 }
 void Game::pressBackSpace()
 {
@@ -129,8 +101,8 @@ void Game::pressSpace()
 {
 	if (m_event.getActive())
 		m_event.advance();
-	else;
-		//m_overworld.interact();
+	else
+		m_overworld.interact();
 }
 void Game::pressUp()
 {

@@ -39,13 +39,13 @@ class Overworld
 public:
 	Overworld(Event& event, Player& player, TextBox& textBox);// Player& player, Battle& battle, TextBox& textBox);
 
-	int getTile(int x, int y) { return m_tileMap[x +	y * (m_sizeX + 2)]; }
-	//int getTrigger(int x, int y) { return m_triggerMap[x + y * (m_sizeX + 2)]; }
+	int getTile(int x, int y) { return m_tileMap[x +	y * (m_sizeX + 2)] / 1000; }
+	int getTrigger(int x, int y) { return m_tileMap[x + y * (m_sizeX + 2)] % 1000; }
 
 	//void deallocateTriggerMap();
 	//void deallocateTileMap();
 	void draw(sf::RenderWindow& window);
-	//void interact();
+	void interact();
 	//void menuDown();
 	//void menuReturn();
 	//void menuUp();

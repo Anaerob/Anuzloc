@@ -68,16 +68,16 @@ void OverworldView::draw(sf::RenderWindow& window,
 				f_pX = (float)(m_player.getPartialX() % c_tS);
 			if (m_edgeY)
 			{
-				f_tileNumber = (float)overworld[(x + m_offsetX +
+				f_tileNumber = (float)(overworld[(x + m_offsetX +
 					m_player.getPartialX() / c_tS) + (y + m_offsetY +
-						m_player.getPartialY() / (2 * c_tS)) * (overworldSizeX + 2)];
+						m_player.getPartialY() / (2 * c_tS)) * (overworldSizeX + 2)] / 1000);
 				f_pY = 0.0f;
 			}
 			else
 			{
-				f_tileNumber = (float)overworld[(x + m_offsetX +
+				f_tileNumber = (float)(overworld[(x + m_offsetX +
 					m_player.getPartialX() / c_tS) + (y + m_offsetY +
-						m_player.getPartialY() / c_tS) * (overworldSizeX + 2)];
+						m_player.getPartialY() / c_tS) * (overworldSizeX + 2)] / 1000);
 				f_pY = (float)(m_player.getPartialY() % c_tS);
 			}
 

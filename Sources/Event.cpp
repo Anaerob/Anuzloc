@@ -1,15 +1,14 @@
 #include "../Headers/Event.h"
 
-Event::Event(Player& player,
-	TextBox& textBox)
+Event::Event(Player& player, TextBox& textBox)
 	: //m_battle{ battle },
 	m_player{ player },
 	m_active{ false },
 	//m_stringMap{ stringMap },
-	m_textBox{ textBox }
-	//m_world{ world }
+	m_textBox{ textBox },
+	m_world{ "route1" }
 {
-	
+	//readWorld();
 }
 
 void Event::advance()
@@ -29,7 +28,7 @@ void Event::advance()
 		m_inEvent = true;
 		break;*/
 	case 's':
-		//m_textBox.addString(m_stringMap.find(nextInt)->second);
+		m_textBox.addString(m_strings.find(nextInt)->second);
 		m_active = true;
 		break;
 	case 'e':

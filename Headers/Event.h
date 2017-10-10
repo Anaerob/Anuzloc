@@ -14,21 +14,23 @@ class Event
 	//Trainer m_opponent;
 	Player& m_player;
 	std::ifstream m_read;
-	//std::map<int, std::string>& m_stringMap;
+	std::map<int, std::string> m_strings;
 	TextBox& m_textBox;
 	std::string m_world;
 
 public:
 	Event(Player& player,
 		//std::map<int, std::string>& stringMap,
-		TextBox& textBox); //Battle& battle, std::string world = "route1"
+		TextBox& textBox); //Battle& battle
 
-	void setWorld(std::string world) { m_world = world; }
+	void setStrings(std::map<int, std::string> strings) { m_strings = strings; }
+	//void setWorld(std::string world) { m_world = world; }
 
 	bool getActive() { return m_active; }
 
 	void advance();
 	void initialize(int ID);
+	//void readWorld();
 };
 
 #endif

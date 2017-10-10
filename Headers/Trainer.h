@@ -27,6 +27,8 @@ public:
 	Trainer(std::string type = "Trainer",
 		std::string name = "X", Direction direction = DIRECTION_DOWN, int x = 11, int y = 31);
 
+	void setDirection(Direction direction) { m_direction = direction; }
+
 	Direction getDirection() { return m_direction; }
 	//std::string getName() { return m_name; }
 	bool getMoving() { return m_moving; }

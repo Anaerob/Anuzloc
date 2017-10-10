@@ -13,19 +13,9 @@ Overworld::Overworld(Event& event, Player& player, TextBox& textBox)//Player& pl
 	m_world{ "route1" }
 {
 	readWorld();
-	m_event.setWorld(m_world);
+	m_event.setStrings(m_strings);
 }
 
-/*void Overworld::deallocateTriggerMap()
-{
-delete[] m_triggerMap;
-m_triggerMap = nullptr;
-}*/
-/*void Overworld::deallocateTileMap()
-{
-delete[] m_tileMap;
-m_tileMap = nullptr;
-}*/
 void Overworld::draw(sf::RenderWindow& window)
 {
 	m_view.draw(window, m_tileMap, m_sizeX, m_sizeY);
@@ -38,49 +28,48 @@ void Overworld::draw(sf::RenderWindow& window)
 	m_whiteMenu.draw(window);
 	m_whiteTextBox.draw(window);
 }
-/*void Overworld::interact()
+void Overworld::interact()
 {
 	int ID;
 	switch (m_player.getDirection())
 	{
-	case 0:
-		ID = getTrigger(m_player.getX(), m_player.getY() + 1);
-		if (ID != 0)
-		{
-			Trainer& temp = m_NPCMap.find(ID)->second;
-			temp.setDirection(1);
-			m_inEvent = m_event.initialize(ID, temp);
-		}
-		break;
-	case 1:
+	case DIRECTION_UP:
 		ID = getTrigger(m_player.getX(), m_player.getY() - 1);
 		if (ID != 0)
 		{
-			Trainer& temp = m_NPCMap.find(ID)->second;
-			temp.setDirection(0);
-			m_inEvent = m_event.initialize(ID, temp);
+			m_NPCs.find(ID)->second.setDirection(DIRECTION_DOWN);
+			m_textBox.addString(std::to_string(ID));
+			m_event.initialize(ID);
 		}
 		break;
-	case 2:
+	case DIRECTION_DOWN:
+		ID = getTrigger(m_player.getX(), m_player.getY() + 1);
+		if (ID != 0)
+		{
+			m_NPCs.find(ID)->second.setDirection(DIRECTION_UP);
+			m_event.initialize(ID);
+		}
+		break;
+	case DIRECTION_LEFT:
 		ID = getTrigger(m_player.getX() - 1, m_player.getY());
 		if (ID != 0)
 		{
-			Trainer& temp = m_NPCMap.find(ID)->second;
-			temp.setDirection(3);
-			m_inEvent = m_event.initialize(ID, temp);
+			m_NPCs.find(ID)->second.setDirection(DIRECTION_RIGHT);
+			m_event.initialize(ID);
 		}
 		break;
-	case 3:
+	case DIRECTION_RIGHT:
 		ID = getTrigger(m_player.getX() + 1, m_player.getY());
 		if (ID != 0)
 		{
-			Trainer& temp = m_NPCMap.find(ID)->second;
-			temp.setDirection(2);
-			m_inEvent = m_event.initialize(ID, temp);
+			m_NPCs.find(ID)->second.setDirection(DIRECTION_LEFT);
+			m_event.initialize(ID);
 		}
 		break;
+	default:
+		break;
 	}
-}*/
+}
 /*void Overworld::menuDown()
 {
 	m_menu.navigateDown();
@@ -119,7 +108,7 @@ void Overworld::readNPCs(std::string NPCsPath)
 		Direction tempDir = static_cast<Direction>(direction);
 		Trainer temp{ type, name, tempDir, x, y };
 		NPCs[++i] = temp;
-		m_tileMap[x + y * (m_sizeX + 2)] = 0;
+		m_tileMap[x + y * (m_sizeX + 2)] = i;
 	}
 
 	m_read.close();
