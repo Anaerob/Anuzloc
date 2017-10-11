@@ -3,9 +3,6 @@
 Overworld::Overworld(Event& event, Player& player, TextBox& textBox)
 	: //m_battle{ battle },
 	m_event{ event },
-	//m_inEvent{ false },
-	//m_menu{ player },
-	//m_view{ player },
 	m_player{ player },
 	m_textBox{ textBox },
 	m_whiteMenu{ cf_mPX, cf_mPY, cf_mSX, cf_mSY },
@@ -20,14 +17,111 @@ Overworld::Overworld(Event& event, Player& player, TextBox& textBox)
 	m_event.setStrings(m_strings);
 }
 
+void Overworld::calculateOffsetX()
+{
+	int half = (c_vSX / c_tS - 1) / 2;
+	if (m_player.getX() <= half + 1)
+	{
+		m_offsetX = 0;
+		m_edgeX = m_player.getX() < half + 1
+			|| m_player.getDirection() == DIRECTION_LEFT;
+	}
+	else if (m_player.getX() >= m_sizeX - half)
+	{
+		m_offsetX = m_sizeX - c_vSX / c_tS;
+		m_edgeX = m_player.getX() > m_sizeX - half
+			|| m_player.getDirection() == DIRECTION_RIGHT;
+	}
+	else
+	{
+		m_offsetX = m_player.getX() - half - 1;
+		m_edgeX = false;
+	}
+}
+void Overworld::calculateOffsetY()
+{
+	int half = (c_vSY / c_tS - 1) / 2;
+	if (m_player.getY() <= half + 1)
+	{
+		m_offsetY = 0;
+		m_edgeY = m_player.getY() < half + 1
+			|| m_player.getDirection() == DIRECTION_UP;
+	}
+	else if (m_player.getY() >= m_sizeY - half)
+	{
+		m_offsetY = m_sizeY - c_vSY / c_tS;
+		m_edgeY = m_player.getY() > m_sizeY - half
+			|| m_player.getDirection() == DIRECTION_DOWN;
+	}
+	else
+	{
+		m_offsetY = m_player.getY() - half - 1;
+		m_edgeY = false;
+	}
+}
 void Overworld::draw(sf::RenderWindow& window)
 {
-	drawV(window, m_tileMap, m_sizeX, m_sizeY);
+	calculateOffsetX();
+	calculateOffsetY();
+
+	for (int y = 0; y < c_vSY / c_tS + 2; ++y)
+		for (int x = 0; x < c_vSX / c_tS + 2; ++x)
+		{
+			float f_tileNumber;
+
+			float f_x = (float)x;
+			float f_y = (float)y;
+			float f_pX;
+			float f_pY;
+
+			if (m_edgeX)
+				f_pX = 0.0f;
+			else
+				f_pX = (float)(m_player.getPartialX() % c_tS);
+			if (m_edgeY)
+			{
+				f_tileNumber = (float)getTile(
+					x + m_offsetX + m_player.getPartialX() / c_tS,
+					y + m_offsetY + m_player.getPartialY() / (2 * c_tS));
+				f_pY = 0.0f;
+			}
+			else
+			{
+				f_tileNumber = (float)getTile(
+					x + m_offsetX + m_player.getPartialX() / c_tS,
+					y + m_offsetY + m_player.getPartialY() / c_tS);
+				f_pY = (float)(m_player.getPartialY() % c_tS);
+			}
+
+			sf::Vertex* quad = &m_tiles[(x + y * (c_vSX / c_tS + 2)) * 4];
+
+			quad[0].position = sf::Vector2f((f_x - 1) * cf_tS - f_pX,
+				(f_y - 1) * cf_tS - f_pY);
+			quad[1].position = sf::Vector2f(f_x * cf_tS - f_pX,
+				(f_y - 1) * cf_tS - f_pY);
+			quad[2].position = sf::Vector2f(f_x * cf_tS - f_pX,
+				f_y * cf_tS - f_pY);
+			quad[3].position = sf::Vector2f((f_x - 1) * cf_tS - f_pX,
+				f_y * cf_tS - f_pY);
+
+			quad[0].texCoords = sf::Vector2f(f_tileNumber * cf_tS,
+				0.0f);
+			quad[1].texCoords = sf::Vector2f((f_tileNumber + 1) * cf_tS,
+				0.0f);
+			quad[2].texCoords = sf::Vector2f((f_tileNumber + 1) * cf_tS,
+				cf_tS);
+			quad[3].texCoords = sf::Vector2f(f_tileNumber * cf_tS,
+				cf_tS);
+		}
+
+	window.draw(m_tiles, &m_tileSet);
 
 	for (size_t i = 1; i < m_NPCs.size() + 1; ++i)
-		m_NPCs.find(i)->second.draw(window, getEdgeX(), getEdgeY(),
-			getOffsetX(), getOffsetY(),
+		m_NPCs.find(i)->second.draw(window,
+			m_edgeX, m_edgeY, m_offsetX, m_offsetY,
 			m_player.getPartialX(), m_player.getPartialY());
+
+	m_player.draw(window, m_edgeX, m_edgeY, m_offsetX, m_offsetY);
 
 	m_whiteMenu.draw(window);
 	m_whiteTextBox.draw(window);
@@ -73,18 +167,6 @@ void Overworld::interact()
 		break;
 	}
 }
-/*void Overworld::menuDown()
-{
-	m_menu.navigateDown();
-}
-void Overworld::menuReturn()
-{
-	m_menu.press();
-}
-void Overworld::menuUp()
-{
-	m_menu.navigateUp();
-}*/
 void Overworld::readNPCs(std::string NPCsPath)
 {
 	m_read.open(NPCsPath);
@@ -152,52 +234,6 @@ void Overworld::readTileMap(std::string tileMapPath)
 
 	m_read.close();
 }
-/*void Overworld::readTrainers(std::string trainersPath)
-{
-	m_read.open(trainersPath);
-
-	int nPokemon;
-	int index;
-	int level;
-
-	int i = 0;
-	while (m_read)
-	{
-		do
-		{
-			m_read >> nPokemon;
-			i++;
-		} while (nPokemon == 0);
-		for (int j = 0; j < nPokemon; ++j)
-		{
-			m_read >> index;
-			m_read >> level;
-			Pokemon temp{ index, level };
-			m_NPCMap.find(i)->second.setPokemon(j, temp);
-		}
-	}
-
-	m_read.close();
-}
-void Overworld::readTriggerMap(std::string triggerMapPath)
-{
-	m_read.open(triggerMapPath);
-
-	m_triggerMap = new int[(m_sizeX + 2)*(m_sizeY + 2)]();
-
-	int x;
-	int y;
-
-	int i = 0;
-	while (m_read)
-	{
-		m_read >> x;
-		m_read >> y;
-		m_triggerMap[x + y * (m_sizeX + 2)] = ++i;
-	}
-
-	m_read.close();
-}*/
 void Overworld::readWorld()
 {
 	std::string worldPath = "Resources/Maps/";
@@ -222,102 +258,49 @@ void Overworld::readWorld()
 	trainersPath.append("Trainers.dat");
 	readTrainers(trainersPath);*/
 }
-
-void Overworld::calculateOffsetX(int overworldSizeX)
+/*void Overworld::readTrainers(std::string trainersPath)
 {
-	int half = (c_vSX / c_tS - 1) / 2;
-	if (m_player.getX() <= half + 1)
-	{
-		m_offsetX = 0;
-		m_edgeX = m_player.getX() < half + 1 || m_player.getDirection() == DIRECTION_LEFT;
-	}
-	else if (m_player.getX() >= overworldSizeX - half)
-	{
-		m_offsetX = overworldSizeX - c_vSX / c_tS;
-		m_edgeX = m_player.getX() > overworldSizeX - half || m_player.getDirection() == DIRECTION_RIGHT;
-	}
-	else
-	{
-		m_offsetX = m_player.getX() - half - 1;
-		m_edgeX = false;
-	}
-}
-void Overworld::calculateOffsetY(int overworldSizeY)
+m_read.open(trainersPath);
+
+int nPokemon;
+int index;
+int level;
+
+int i = 0;
+while (m_read)
 {
-	int half = (c_vSY / c_tS - 1) / 2;
-	if (m_player.getY() <= half + 1)
-	{
-		m_offsetY = 0;
-		m_edgeY = m_player.getY() < half + 1 || m_player.getDirection() == DIRECTION_UP;
-	}
-	else if (m_player.getY() >= overworldSizeY - half)
-	{
-		m_offsetY = overworldSizeY - c_vSY / c_tS;
-		m_edgeY = m_player.getY() > overworldSizeY - half || m_player.getDirection() == DIRECTION_DOWN;
-	}
-	else
-	{
-		m_offsetY = m_player.getY() - half - 1;
-		m_edgeY = false;
-	}
-}
-void Overworld::drawV(sf::RenderWindow& window,
-	std::vector<int> overworld, int overworldSizeX, int overworldSizeY)
+do
 {
-	calculateOffsetX(overworldSizeX);
-	calculateOffsetY(overworldSizeY);
-
-	for (int y = 0; y < c_vSY / c_tS + 2; ++y)
-		for (int x = 0; x < c_vSX / c_tS + 2; ++x)
-		{
-			float f_tileNumber;
-
-			float f_x = (float)x;
-			float f_y = (float)y;
-			float f_pX;
-			float f_pY;
-
-			if (m_edgeX)
-				f_pX = 0.0f;
-			else
-				f_pX = (float)(m_player.getPartialX() % c_tS);
-			if (m_edgeY)
-			{
-				f_tileNumber = (float)(overworld[(x + m_offsetX +
-					m_player.getPartialX() / c_tS) + (y + m_offsetY +
-						m_player.getPartialY() / (2 * c_tS)) * (overworldSizeX + 2)] / 1000);
-				f_pY = 0.0f;
-			}
-			else
-			{
-				f_tileNumber = (float)(overworld[(x + m_offsetX +
-					m_player.getPartialX() / c_tS) + (y + m_offsetY +
-						m_player.getPartialY() / c_tS) * (overworldSizeX + 2)] / 1000);
-				f_pY = (float)(m_player.getPartialY() % c_tS);
-			}
-
-			sf::Vertex* quad = &m_tiles[(x + y * (c_vSX / c_tS + 2)) * 4];
-
-			quad[0].position = sf::Vector2f((f_x - 1) * cf_tS - f_pX,
-				(f_y - 1) * cf_tS - f_pY);
-			quad[1].position = sf::Vector2f(f_x * cf_tS - f_pX,
-				(f_y - 1) * cf_tS - f_pY);
-			quad[2].position = sf::Vector2f(f_x * cf_tS - f_pX,
-				f_y * cf_tS - f_pY);
-			quad[3].position = sf::Vector2f((f_x - 1) * cf_tS - f_pX,
-				f_y * cf_tS - f_pY);
-
-			quad[0].texCoords = sf::Vector2f(f_tileNumber * cf_tS,
-				0.0f);
-			quad[1].texCoords = sf::Vector2f((f_tileNumber + 1) * cf_tS,
-				0.0f);
-			quad[2].texCoords = sf::Vector2f((f_tileNumber + 1) * cf_tS,
-				cf_tS);
-			quad[3].texCoords = sf::Vector2f(f_tileNumber * cf_tS,
-				cf_tS);
-		}
-
-	window.draw(m_tiles, &m_tileSet);
-
-	m_player.draw(window, m_edgeX, m_edgeY, m_offsetX, m_offsetY);
+m_read >> nPokemon;
+i++;
+} while (nPokemon == 0);
+for (int j = 0; j < nPokemon; ++j)
+{
+m_read >> index;
+m_read >> level;
+Pokemon temp{ index, level };
+m_NPCMap.find(i)->second.setPokemon(j, temp);
 }
+}
+
+m_read.close();
+}
+void Overworld::readTriggerMap(std::string triggerMapPath)
+{
+m_read.open(triggerMapPath);
+
+m_triggerMap = new int[(m_sizeX + 2)*(m_sizeY + 2)]();
+
+int x;
+int y;
+
+int i = 0;
+while (m_read)
+{
+m_read >> x;
+m_read >> y;
+m_triggerMap[x + y * (m_sizeX + 2)] = ++i;
+}
+
+m_read.close();
+}*/
