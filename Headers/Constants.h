@@ -57,6 +57,9 @@ const int c_ledgeSpeed = 2;
 const int c_rotateSpeed = 8;
 const int c_walkSpeed = 4;
 
+// Numbers
+const int c_events = 10;
+
 // Enums
 enum Direction {
 	DIRECTION_NONE,

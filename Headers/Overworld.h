@@ -38,8 +38,10 @@ class Overworld
 public:
 	Overworld(Event& event, Player& player, TextBox& textBox);
 
-	int getTile(int x, int y) { return m_tileMap[x +	y * (m_sizeX + 2)] / 1000; }
-	int getTrigger(int x, int y) { return m_tileMap[x + y * (m_sizeX + 2)] % 1000; }
+	int getTile(int x, int y) {
+		return m_tileMap[x + y * (m_sizeX + 2)] / c_events; }
+	int getTrigger(int x, int y) {
+		return m_tileMap[x + y * (m_sizeX + 2)] % c_events; }
 
 	void calculateOffsetX();
 	void calculateOffsetY();

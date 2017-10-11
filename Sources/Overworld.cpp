@@ -174,27 +174,34 @@ void Overworld::readNPCs(std::string NPCsPath)
 
 	std::string type;
 	std::string name;
-	int direction;
+	int intDirection;
 	int x;
 	int y;
-	//int nPokemon;
-	//int index;
-	//int level;
+	int nPokemon;
+	int index;
+	int level;
 
 	int i = 0;
 	while (m_read.good())
 	{
 		m_read >> type;
 		m_read >> name;
-		m_read >> direction;
+		m_read >> intDirection;
 		m_read >> x;
 		m_read >> y;
-		Direction tempDir = static_cast<Direction>(direction);
-		Trainer temp{ type, name, tempDir, x, y };
-		NPCs[++i] = temp;
+		m_read >> nPokemon;
+		Direction direction = static_cast<Direction>(intDirection);
+		Trainer tempTrainer{ type, name, direction, x, y };
+		for (int j = 0; j < nPokemon; ++j)
+		{
+			m_read >> index;
+			m_read >> level;
+			Pokemon tempPokemon{ index, level };
+			tempTrainer.setPokemon(j, tempPokemon);
+		}
+		NPCs[++i] = tempTrainer;
 		m_tileMap[x + y * (m_sizeX + 2)] = i;
 	}
-
 	m_read.close();
 	m_NPCs = NPCs;
 }
@@ -227,9 +234,14 @@ void Overworld::readTileMap(std::string tileMapPath)
 	m_tileMap.clear();
 	m_tileMap.resize((m_sizeX + 2)*(m_sizeY + 2));
 
+	int nextInt;
 	for (int y = 1; y < m_sizeY + 1; ++y)
 		for (int x = 1; x < m_sizeX + 1; ++x)
-			m_read >> m_tileMap[x + y * (m_sizeX + 2)];
+		{
+			m_read >> nextInt;
+			m_tileMap[x + y * (m_sizeX + 2)] = nextInt * c_events;
+		}
+			
 
 	m_read.close();
 }
@@ -257,34 +269,7 @@ void Overworld::readWorld()
 	trainersPath.append("Trainers.dat");
 	readTrainers(trainersPath);*/
 }
-/*void Overworld::readTrainers(std::string trainersPath)
-{
-m_read.open(trainersPath);
-
-int nPokemon;
-int index;
-int level;
-
-int i = 0;
-while (m_read)
-{
-do
-{
-m_read >> nPokemon;
-i++;
-} while (nPokemon == 0);
-for (int j = 0; j < nPokemon; ++j)
-{
-m_read >> index;
-m_read >> level;
-Pokemon temp{ index, level };
-m_NPCMap.find(i)->second.setPokemon(j, temp);
-}
-}
-
-m_read.close();
-}
-void Overworld::readTriggerMap(std::string triggerMapPath)
+/*void Overworld::readTriggerMap(std::string triggerMapPath)
 {
 m_read.open(triggerMapPath);
 
