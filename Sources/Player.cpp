@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player()
+Player::Player() : m_lock{ false }
 {
 	m_sprite.setPrimitiveType(sf::Quads);
 	m_sprite.resize(4);

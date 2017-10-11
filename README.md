@@ -3,7 +3,7 @@
 ### Pokemon Nuzlocke Client
 Hobby project for the purpose of learning how to C++ with SFML
 
-### What is [Nuzlocke](http://www.nuzlocke.com/challenge.php)?  
+### What is [Nuzlocke](http://www.nuzlocke.com/challenge-comic.html)?  
 ### The rules:
 
 - The player may only catch the first encountered Pokemon of a previously uncaught species in each area.

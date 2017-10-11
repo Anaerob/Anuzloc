@@ -6,11 +6,14 @@
 
 class Player : public Trainer
 {
-	//sf::VertexArray m_sprite;
-	//sf::Texture m_tileSet;
+	bool m_lock;
 
 public:
 	Player();
+
+	void setLock(bool lock) { m_lock = lock; }
+
+	bool getLock() { return m_lock; }
 
 	void draw(sf::RenderTarget& window,
 		bool edgeX, bool edgeY,

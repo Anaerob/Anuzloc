@@ -35,6 +35,7 @@ void Event::advance()
 		m_textBox.clear();
 		m_read.close();
 		m_active = false;
+		m_player.setLock(false);
 		break;
 	default:
 		break;
@@ -51,9 +52,12 @@ void Event::initialize(int ID)
 	{
 		m_read >> nextString;
 		m_active = (nextString == key);
-	} while (!m_active && m_read);
+	} while (!m_active && m_read.good());
 	if (m_active)
+	{
 		advance();
+		m_player.setLock(true);
+	}
 	else
 		m_read.close();
 }

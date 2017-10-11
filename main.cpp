@@ -55,17 +55,21 @@ int main()
 				break;
 			}
 
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !game.getLock()) ||
-			game.getMoving() == DIRECTION_LEFT)
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)
+			&& game.getMoving() == DIRECTION_NONE)
+			|| game.getMoving() == DIRECTION_LEFT)
 			game.holdA();
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !game.getLock()) ||
-			game.getMoving() == DIRECTION_RIGHT)
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D)
+			&& game.getMoving() == DIRECTION_NONE)
+			|| game.getMoving() == DIRECTION_RIGHT)
 			game.holdD();
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !game.getLock()) ||
-			game.getMoving() == DIRECTION_DOWN)
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S)
+			&& game.getMoving() == DIRECTION_NONE)
+			|| game.getMoving() == DIRECTION_DOWN)
 			game.holdS();
-		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !game.getLock()) ||
-			game.getMoving() == DIRECTION_UP)
+		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::W)
+			&& game.getMoving() == DIRECTION_NONE)
+			|| game.getMoving() == DIRECTION_UP)
 			game.holdW();
 
 		window.clear(sf::Color::White);
