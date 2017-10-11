@@ -2,65 +2,100 @@
 #define CONSTANTS_H
 #include <string>
 
-// PX = PositionX, PY = PositionY
-// m = menu
+// Positions
+
+// int menu position x
 const int c_mPX = 480;
+// float menu position x
 const float cf_mPX = 480.0f;
+// int menu position y
 const int c_mPY = 0;
+// float menu position y
 const float cf_mPY = 0.0f;
-// tB = textBox
+// int text box position x
 const int c_tBPX = 0;
+// float text box position x
 const float cf_tBPX = 0.0f;
+// int text box position y
 const int c_tBPY = 416;
+// float text box position y
 const float cf_tBPY = 416.0f;
-// v = view
+// int view position x
 const int c_vPX = 0;
+// float view position x
 const float cf_vPX = 0.0f;
+// int view position y
 const int c_vPY = 0;
+// float view position y
 const float cf_vPY = 0.0f;
 
-// SX = SizeX, SY = SizeY, S = Size
-// hB = healthBar
+// Sizes
+
+// int health bar size x
 const int c_hBSX = 176;
+// float health bar size x
 const float cf_hBSX = 176.0f;
+// int health bar size y
 const int c_hBSY = 16;
+// float health bar size y
 const float cf_hBSY = 16.0f;
-// m = menu
+// int menu size x
 const int c_mSX = 480;
+// float menu size x
 const float cf_mSX = 480.0f;
+// int menu size y
 const int c_mSY = 540;
+// float menu size y
 const float cf_mSY = 540.0f;
-// s = sprite
+// int sprite size
 const int c_sS = 240;
+// float sprite size
 const float cf_sS = 240.0f;
-// t = tile
+// int tile size
 const int c_tS = 32;
+// float tile size
 const float cf_tS = 32.0f;
-// tB = textBox
+// int text box size x
 const int c_tBSX = 480;
+// float text box size x
 const float cf_tBSX = 480.0f;
+// int text box size y
 const int c_tBSY = 124;
+// float text box size y
 const float cf_tBSY = 124.0f;
-// v = view
+// int view size x
 const int c_vSX = 480;
+// float view size x
 const float cf_vSX = 480.0f;
+// int view size y
 const int c_vSY = 416;
+// float view size y
 const float cf_vSY = 416.0f;
-// w = window
+// int window size x
 const int c_wSX = 960;
+// float window size x
 const float cf_wSX = 960.0f;
+// int window size y
 const int c_wSY = 540;
+// float window size y
 const float cf_wSY = 540.0f;
 
 // Speed
+
+// int ledge speed
 const int c_ledgeSpeed = 2;
+// int rotation speed
 const int c_rotateSpeed = 8;
+// int walking speed
 const int c_walkSpeed = 4;
 
 // Numbers
+
+// int maximum number of event triggers
 const int c_events = 10;
 
 // Enums
+
 enum Direction {
 	DIRECTION_NONE,
 	DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
@@ -78,7 +113,7 @@ enum Type {
 };
 
 // Initial values
-// Pokemon
+
 const int c_pokemonBaseStats[4][6] =
 {
 	{ 45, 49, 49, 65, 65, 45 },
@@ -108,7 +143,6 @@ const int c_pokemonTypes[4][2] =
 	{ 13, 0 }
 };
 
-// Moves
 const int c_moveBaseStats[5][3] =
 {
 	{ 35, 40, 100 },

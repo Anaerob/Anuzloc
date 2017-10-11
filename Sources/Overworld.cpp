@@ -269,22 +269,3 @@ void Overworld::readWorld()
 	trainersPath.append("Trainers.dat");
 	readTrainers(trainersPath);*/
 }
-/*void Overworld::readTriggerMap(std::string triggerMapPath)
-{
-m_read.open(triggerMapPath);
-
-m_triggerMap = new int[(m_sizeX + 2)*(m_sizeY + 2)]();
-
-int x;
-int y;
-
-int i = 0;
-while (m_read)
-{
-m_read >> x;
-m_read >> y;
-m_triggerMap[x + y * (m_sizeX + 2)] = ++i;
-}
-
-m_read.close();
-}*/
