@@ -18,7 +18,7 @@ protected:
 	int m_partialRotate;
 	int m_partialX;
 	int m_partialY;
-	sf::VertexArray m_sprite;
+	sf::VertexArray m_sprite; // tile?
 	sf::Texture m_tileSet;
 	int m_x;
 	int m_y;

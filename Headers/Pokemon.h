@@ -19,7 +19,7 @@ class Pokemon
 	std::string m_nickname;
 	sf::VertexArray m_sprite;
 	int m_stats[6];
-	sf::Texture m_tileSet;
+	sf::Texture m_tileSet; // spriteSet?
 
 public:
 	Pokemon(int index = 0, int level = 1);
