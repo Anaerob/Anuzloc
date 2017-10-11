@@ -17,6 +17,6 @@ public:
 	int getStat(int i) { return m_stats[i]; }
 
 	void generateStats();
-};
 
+};
 #endif

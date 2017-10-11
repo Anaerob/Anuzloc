@@ -7,7 +7,6 @@ Move::Move(int index) : m_index{ index }
 		m_name = c_moveNames[index - 1];
 		generateStats();
 	}
-		
 }
 
 void Move::generateStats()

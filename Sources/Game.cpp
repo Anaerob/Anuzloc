@@ -18,8 +18,8 @@ Game::Game()
 	for (int i = 0; i < 4; ++i)
 		m_frameLines[i].color = sf::Color::Black;
 
-	//Pokemon temp{ 1 };
-	//m_player.setPokemon(0, temp);
+	Pokemon temp{ 1 };
+	m_player.setPokemon(0, temp);
 }
 
 void Game::draw(sf::RenderWindow& window)

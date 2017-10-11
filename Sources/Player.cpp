@@ -2,8 +2,6 @@
 
 Player::Player() : m_lock{ false }
 {
-	m_sprite.setPrimitiveType(sf::Quads);
-	m_sprite.resize(4);
 	m_tileSet.loadFromFile("Resources/Tiles/Player.png");
 }
 

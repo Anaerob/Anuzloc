@@ -3,13 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "Constants.h"
-//#include "Pokemon.h"
+#include "Pokemon.h"
 
 class Trainer
 {
 	//int m_index;
 	std::string m_name;
-	//Pokemon m_pokemon[6];
+	Pokemon m_pokemon[6];
 	std::string m_type;
 	
 protected:
@@ -28,13 +28,14 @@ public:
 		std::string name = "X", Direction direction = DIRECTION_DOWN, int x = 11, int y = 31);
 
 	void setDirection(Direction direction) { m_direction = direction; }
+	void setPokemon(int i, Pokemon pokemon) { m_pokemon[i] = pokemon; }
 
 	Direction getDirection() { return m_direction; }
 	//std::string getName() { return m_name; }
 	bool getMoving() { return m_moving; }
 	int getPartialX() { return m_partialX; }
 	int getPartialY() { return m_partialY; }
-	//Pokemon getPokemon(int i) { return m_pokemon[i]; }
+	Pokemon getPokemon(int i) { return m_pokemon[i]; }
 	//std::string getType() { return m_type; }
 	int getX() { return m_x; }
 	int getY() { return m_y; }

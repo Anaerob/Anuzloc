@@ -5,12 +5,11 @@ Overworld::Overworld(Event& event, Player& player, TextBox& textBox)
 	m_event{ event },
 	m_player{ player },
 	m_textBox{ textBox },
+	m_tiles{ sf::Quads, (c_vSX / c_tS + 2) * (c_vSY / c_tS + 2) * 4 },
 	m_whiteMenu{ cf_mPX, cf_mPY, cf_mSX, cf_mSY },
 	m_whiteTextBox{ cf_tBPX, cf_tBPY, cf_tBSX, cf_tBSY },
 	m_world{ "route1" }
 {
-	m_tiles.setPrimitiveType(sf::Quads);
-	m_tiles.resize((c_vSX / c_tS + 2) * (c_vSY / c_tS + 2) * 4);
 	m_tileSet.loadFromFile("Resources/Tiles/Overworld.png");
 
 	readWorld();

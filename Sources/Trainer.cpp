@@ -6,12 +6,11 @@ Trainer::Trainer(std::string type, std::string name, Direction direction, int x,
 	m_partialRotate{ 0 },
 	m_partialX{ 0 },
 	m_partialY{ 0 },
+	m_sprite{ sf::Quads, 4 },
 	m_type{ type },
 	m_x{ x },
 	m_y{ y }
 {
-	m_sprite.setPrimitiveType(sf::Quads);
-	m_sprite.resize(4);
 	std::string tilePath = "Resources/Tiles/";
 	tilePath.append(type);
 	tilePath.append(".png");
