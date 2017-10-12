@@ -24,7 +24,7 @@ void Pokemon::changeHP(int change)
 }
 void Pokemon::draw(sf::RenderTarget& window, int direction)
 {
-	std::string spritePath = "sprites/";
+	std::string spritePath = "Resources/Sprites/";
 	spritePath.append(std::to_string(m_index));
 
 	float f_d = 0.0f;

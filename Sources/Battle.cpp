@@ -2,20 +2,24 @@
 
 Battle::Battle(Player& player, TextBox& textBox)
 	: //m_menu{ player },
-	m_opponent{ },
+	m_opponentHealthBar{ false },
 	m_player{ player },
+	m_playerHealthBar{ true },
 	m_textBox{ textBox }//,
 	//m_view{ player }
 {
 	
 }
 
-/*void Battle::draw(sf::RenderWindow& window)
+void Battle::draw(sf::RenderWindow& window)
 {
-	//m_menu.draw(window);
-	//m_view.draw(m_opponent, window);
-	//m_textBox.draw(window);
-}*/
+	m_player.getPokemon(0).draw(window, 1);
+	m_opponent.getPokemon(0).draw(window, 0);
+	
+	updateHealthBars();
+	m_opponentHealthBar.draw(window);
+	m_playerHealthBar.draw(window);
+}
 void Battle::initialize(Trainer opponent)
 {
 	m_opponent = opponent;
@@ -42,6 +46,14 @@ void Battle::menuUp()
 {
 	m_menu.navigateUp();
 }*/
+void Battle::updateHealthBars()
+{
+	float oHP = (float)m_opponent.getPokemon(0).getHP() / (float)m_opponent.getPokemon(0).getStat(0);
+	m_opponentHealthBar.setHP(oHP);
+
+	float pHP = (float)m_player.getPokemon(0).getHP() / (float)m_player.getPokemon(0).getStat(0);
+	m_playerHealthBar.setHP(pHP);
+}
 /*bool Battle::useMoves(int i)
 {
 	Pokemon& opponentPokemon = m_opponent.getPokemon(0);

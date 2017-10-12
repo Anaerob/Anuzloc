@@ -24,7 +24,10 @@ Game::Game()
 
 void Game::draw(sf::RenderWindow& window)
 {
-	m_overworld.draw(window);
+	if (m_battle.getActive())
+		m_battle.draw(window);
+	else
+		m_overworld.draw(window);
 	m_textBox.draw(window);
 	window.draw(m_frameLines);
 }

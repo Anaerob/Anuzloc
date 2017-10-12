@@ -17,16 +17,16 @@ void Event::advance()
 	do
 	{
 		m_read >> nextChar;
-	} while (nextChar != 's' && nextChar != 'e'); //&& nextChar != 'b' 
+	} while (nextChar != 'b' && nextChar != 'e' && nextChar != 's');
 
 	int nextInt;
 	m_read >> nextInt;
 	switch (nextChar)
 	{
-	/*case 'b':
+	case 'b':
 		m_battle.initialize(m_opponent);
-		m_inEvent = true;
-		break;*/
+		m_active = true;
+		break;
 	case 's':
 		m_textBox.addString(m_strings.find(nextInt)->second);
 		m_active = true;
@@ -41,11 +41,12 @@ void Event::advance()
 		break;
 	}
 }
-void Event::initialize(int ID)
+void Event::initialize(int ID, Trainer opponent)
 {
 	m_read.open("Resources/Maps/route1Events.dat");
 	std::string key = "e";
 	key.append(std::to_string(ID));
+	m_opponent = opponent;
 
 	std::string nextString;
 	do

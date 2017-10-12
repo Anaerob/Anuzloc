@@ -1,9 +1,8 @@
 #ifndef BATTLE_H
 #define BATTLE_H
 #include <SFML/Graphics.hpp>
-//#include "BattleMenu.h"
-//#include "BattleView.h"
 #include "Constants.h"
+#include "HealthBar.h"
 #include "Player.h"
 #include "Trainer.h"
 #include "TextBox.h"
@@ -11,25 +10,25 @@
 class Battle
 {
 	bool m_active;
-	//BattleMenu m_menu;
 	Trainer m_opponent;
+	HealthBar m_opponentHealthBar;
 	Player& m_player;
+	HealthBar m_playerHealthBar;
 	TextBox& m_textBox;
-	//BattleView m_view;
-
+	
 public:
 	Battle(Player& player, TextBox& textBox);
 
 	bool getActive() { return m_active; }
-	//BattleMenu& getMenu() { return m_menu; }
-
-	//void draw(sf::RenderWindow& window);
+	
+	void draw(sf::RenderWindow& window);
 	void initialize(Trainer opponent);
 	//void menuDown();
 	//int menuReturn();
 	//void menuLeft();
 	//void menuRight();
 	//void menuUp();
+	void updateHealthBars();
 	//bool useMoves(int i);
 
 };

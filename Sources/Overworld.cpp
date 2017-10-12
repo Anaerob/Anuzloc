@@ -135,7 +135,7 @@ void Overworld::interact()
 		if (ID != 0)
 		{
 			m_NPCs.find(ID)->second.setDirection(DIRECTION_DOWN);
-			m_event.initialize(ID);
+			m_event.initialize(ID, m_NPCs.find(ID)->second);
 		}
 		break;
 	case DIRECTION_DOWN:
@@ -143,7 +143,7 @@ void Overworld::interact()
 		if (ID != 0)
 		{
 			m_NPCs.find(ID)->second.setDirection(DIRECTION_UP);
-			m_event.initialize(ID);
+			m_event.initialize(ID, m_NPCs.find(ID)->second);
 		}
 		break;
 	case DIRECTION_LEFT:
@@ -151,7 +151,7 @@ void Overworld::interact()
 		if (ID != 0)
 		{
 			m_NPCs.find(ID)->second.setDirection(DIRECTION_RIGHT);
-			m_event.initialize(ID);
+			m_event.initialize(ID, m_NPCs.find(ID)->second);
 		}
 		break;
 	case DIRECTION_RIGHT:
@@ -159,7 +159,7 @@ void Overworld::interact()
 		if (ID != 0)
 		{
 			m_NPCs.find(ID)->second.setDirection(DIRECTION_LEFT);
-			m_event.initialize(ID);
+			m_event.initialize(ID, m_NPCs.find(ID)->second);
 		}
 		break;
 	default:

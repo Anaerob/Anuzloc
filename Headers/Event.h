@@ -11,7 +11,7 @@ class Event
 {
 	bool m_active;
 	Battle& m_battle;
-	//Trainer m_opponent;
+	Trainer m_opponent;
 	Player& m_player;
 	std::ifstream m_read;
 	std::map<int, std::string> m_strings;
@@ -27,7 +27,7 @@ public:
 	bool getActive() { return m_active; }
 
 	void advance();
-	void initialize(int ID);
+	void initialize(int ID, Trainer opponent);
 	//void readWorld();
 
 };
