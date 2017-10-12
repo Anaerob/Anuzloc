@@ -6,10 +6,12 @@ Menu::Menu(Player& player)
 	m_move{ 0 },
 	m_player{ player }
 {
-	for (int i = 0; i < c_buttons; ++i)
+	m_buttonSet.clear();
+	m_buttonSet.resize(c::iBN);
+	for (int i = 0; i < c::iBN; ++i)
 	{
-		m_buttonSet[i].setPositionX(cf_mPX + 32.0f + (i % 2) * (32.0f + 192.0f));
-		m_buttonSet[i].setPositionY(cf_mPY + 32.0f + (i / 2) * (32.0f + 100.0f));
+		m_buttonSet[i].setPositionX(c::fMPX + 32.0f + (i % 2) * (32.0f + 192.0f));
+		m_buttonSet[i].setPositionY(c::fMPY + 32.0f + (i / 2) * (32.0f + 100.0f));
 	}
 
 	m_buttonSet[m_marked].setMarked(true);
@@ -27,14 +29,14 @@ void Menu::back()
 		break;
 	}
 }
-void Menu::change(e_menu menu)
+void Menu::change(eMenu menu)
 {
 	switch (menu)
 	{
 	case MENU_NONE:
 		m_menu = menu;
 		resetMark();
-		for (int i = 0; i < c_buttons; ++i)
+		for (int i = 0; i < c::iBN; ++i)
 			m_buttonSet[i].setActive(false);
 		break;
 	case MENU_FIGHT:
@@ -56,7 +58,7 @@ void Menu::change(e_menu menu)
 }
 void Menu::draw(sf::RenderWindow& window)
 {
-	for (int i = 0; i < c_buttons; ++i)
+	for (int i = 0; i < c::iBN; ++i)
 		m_buttonSet[i].draw(window);
 }
 void Menu::enter()
@@ -94,7 +96,7 @@ void Menu::moveMark(int i)
 }
 void Menu::navigateDown()
 {
-	if (m_marked + 2 < c_buttons)
+	if (m_marked + 2 < c::iBN)
 		if (m_buttonSet[m_marked + 2].getActive())
 			moveMark(2);
 }
@@ -106,7 +108,7 @@ void Menu::navigateLeft()
 }
 void Menu::navigateRight()
 {
-	if (m_marked % 2 == 0 && m_marked + 1 < c_buttons)
+	if (m_marked % 2 == 0 && m_marked + 1 < c::iBN)
 		if (m_buttonSet[m_marked + 1].getActive())
 			moveMark(1);
 }

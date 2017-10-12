@@ -7,14 +7,14 @@ Game::Game()
 	m_overworld{ m_battle, m_event, m_player, m_textBox },
 	m_frameLines{ sf::Lines, 4 }
 {
-	m_frameLines[0].position = sf::Vector2f(cf_vSX,
+	m_frameLines[0].position = sf::Vector2f(c::fVSX,
 		0.0f);
-	m_frameLines[1].position = sf::Vector2f(cf_vSX,
-		cf_wSY);
+	m_frameLines[1].position = sf::Vector2f(c::fVSX,
+		c::fWSY);
 	m_frameLines[2].position = sf::Vector2f(0.0f,
-		cf_tBPY);
-	m_frameLines[3].position = sf::Vector2f(cf_tBSX,
-		cf_tBPY);
+		c::fTBPY);
+	m_frameLines[3].position = sf::Vector2f(c::fTBSX,
+		c::fTBPY);
 
 	for (int i = 0; i < 4; ++i)
 		m_frameLines[i].color = sf::Color::Black;
@@ -37,7 +37,7 @@ void Game::holdA()
 {
 	if (!m_player.getLock())
 	{
-		Direction direction = DIRECTION_LEFT;
+		eDirection direction = DIRECTION_LEFT;
 		int nextTile = m_overworld.getTile(m_player.getX() - 1, m_player.getY());
 		m_player.move(direction, nextTile);
 		m_textBox.clear();
@@ -51,7 +51,7 @@ void Game::holdD()
 {
 	if (!m_player.getLock())
 	{
-		Direction direction = DIRECTION_RIGHT;
+		eDirection direction = DIRECTION_RIGHT;
 		int nextTile = m_overworld.getTile(m_player.getX() + 1, m_player.getY());
 		m_player.move(direction, nextTile);
 		m_textBox.clear();
@@ -65,7 +65,7 @@ void Game::holdS()
 {
 	if (!m_player.getLock())
 	{
-		Direction direction = DIRECTION_DOWN;
+		eDirection direction = DIRECTION_DOWN;
 		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() + 1);
 		m_player.move(direction, nextTile);
 		m_textBox.clear();
@@ -79,7 +79,7 @@ void Game::holdW()
 {
 	if (!m_player.getLock())
 	{
-		Direction direction = DIRECTION_UP;
+		eDirection direction = DIRECTION_UP;
 		int nextTile = m_overworld.getTile(m_player.getX(), m_player.getY() - 1);
 		m_player.move(direction, nextTile);
 		m_textBox.clear();
@@ -110,7 +110,7 @@ void Game::pressReturn()
 		m_menu.reset();
 		if (!m_battle.getActive())
 		{
-			m_battle.terminate();
+			m_menu.change(MENU_NONE);
 			m_event.advance();
 		}
 	}
@@ -133,51 +133,6 @@ void Game::pressUp()
 {
 	m_menu.navigateUp();
 }
-/*void Game::pressKeyDown()
-{
-	if (m_inBattle)
-		m_battle.menuDown();
-	if (!m_inBattle)
-		m_overworld.menuDown();
-}
-void Game::pressKeyLeft()
-{
-	if (m_inBattle)
-		m_battle.menuLeft();
-}
-void Game::pressKeyReturn()
-{
-	if (m_inBattle)
-	{
-		int move = m_battle.menuReturn();
-		if (move != 0)
-			m_inBattle = m_battle.useMoves(move);
-	}
-	if (!m_inBattle)
-		m_overworld.menuReturn();
-}
-void Game::pressKeyRight()
-{
-	if (m_inBattle)
-		m_battle.menuRight();
-}
-void Game::pressKeySpace()
-{
-	if (!m_inBattle)
-	{
-		bool inEvent = false;
-		inEvent = m_overworld.interact();
-		m_inBattle = m_battle.getInBattle();
-		m_lock = inEvent;
-	}
-}
-void Game::pressKeyUp()
-{
-	if (m_inBattle)
-		m_battle.menuUp();
-	if (!m_inBattle)
-		m_overworld.menuUp();
-}*/
 /*void Game::readGeneral()
 {
 	m_read.open("general/strings.dat");

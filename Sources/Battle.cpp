@@ -25,16 +25,18 @@ void Battle::initialize(Trainer opponent)
 	m_active = true;
 	m_menu.change(MENU_FIGHT);
 }
-void Battle::terminate()
+/*void Battle::terminate()
 {
-	m_menu.change(MENU_NONE);
-}
+	
+}*/
 void Battle::updateHealthBars()
 {
-	float oHP = (float)m_opponent.getPokemon(0).getHP() / (float)m_opponent.getPokemon(0).getStat(0);
+	float oHP = (float)m_opponent.getPokemon(0).getHP() /
+		(float)m_opponent.getPokemon(0).getStat(0);
 	m_opponentHealthBar.setHP(oHP);
 
-	float pHP = (float)m_player.getPokemon(0).getHP() / (float)m_player.getPokemon(0).getStat(0);
+	float pHP = (float)m_player.getPokemon(0).getHP() /
+		(float)m_player.getPokemon(0).getStat(0);
 	m_playerHealthBar.setHP(pHP);
 }
 void Battle::useMove(int move)

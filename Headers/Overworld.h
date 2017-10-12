@@ -39,9 +39,9 @@ public:
 	Overworld(Battle& battle, Event& event, Player& player, TextBox& textBox);
 
 	int getTile(int x, int y) {
-		return m_tileMap[x + y * (m_sizeX + 2)] / c_events; }
+		return m_tileMap[x + y * (m_sizeX + 2)] / c::iEN; }
 	int getTrigger(int x, int y) {
-		return m_tileMap[x + y * (m_sizeX + 2)] % c_events; }
+		return m_tileMap[x + y * (m_sizeX + 2)] % c::iEN; }
 
 	void calculateOffsetX();
 	void calculateOffsetY();

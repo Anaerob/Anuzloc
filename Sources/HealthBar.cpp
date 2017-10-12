@@ -8,16 +8,16 @@ HealthBar::HealthBar(bool player) : m_bar{ sf::Quads, 4 }, m_player{ player }
 
 void HealthBar::draw(sf::RenderTarget& window)
 {
-	float x = cf_vPX + cf_tS;
-	float y = cf_vPY + cf_tS;
+	float x = c::fVPX + c::fTS;
+	float y = c::fVPY + c::fTS;
 
 	if (m_player)
 	{
-		x = cf_vPX + cf_vSX - cf_hBSX - cf_tS;
-		y = cf_vPY + cf_vSY - cf_hBSY - cf_tS;
+		x = c::fVPX + c::fVSX - c::fHBSX - c::fTS;
+		y = c::fVPY + c::fVSY - c::fHBSY - c::fTS;
 	}
 
-	float size = m_HP * cf_hBSX;
+	float size = m_HP * c::fHBSX;
 	float color = 1.0f;
 
 	if (m_HP < 0.5 && m_HP > 0.2)
@@ -32,18 +32,18 @@ void HealthBar::draw(sf::RenderTarget& window)
 	quad[1].position = sf::Vector2f(x + size,
 		y);
 	quad[2].position = sf::Vector2f(x + size,
-		y + cf_hBSY);
+		y + c::fHBSY);
 	quad[3].position = sf::Vector2f(x,
-		y + cf_hBSY);
+		y + c::fHBSY);
 
 	quad[0].texCoords = sf::Vector2f(0.0f,
-		(color - 1) * cf_hBSY);
-	quad[1].texCoords = sf::Vector2f(cf_hBSX,
-		(color - 1) * cf_hBSY);
-	quad[2].texCoords = sf::Vector2f(cf_hBSX,
-		color * cf_hBSY);
+		(color - 1) * c::fHBSY);
+	quad[1].texCoords = sf::Vector2f(c::fHBSX,
+		(color - 1) * c::fHBSY);
+	quad[2].texCoords = sf::Vector2f(c::fHBSX,
+		color * c::fHBSY);
 	quad[3].texCoords = sf::Vector2f(0.0f,
-		color * cf_hBSY);
+		color * c::fHBSY);
 
 	window.draw(m_bar, &m_tileSet);
 }

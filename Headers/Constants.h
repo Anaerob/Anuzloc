@@ -2,168 +2,143 @@
 #define CONSTANTS_H
 #include <string>
 
-// Positions
+namespace c
+{
+	// Positions
 
-// int menu position x
-const int c_mPX = 480;
-// float menu position x
-const float cf_mPX = 480.0f;
-// int menu position y
-const int c_mPY = 0;
-// float menu position y
-const float cf_mPY = 0.0f;
-// int text box position x
-const int c_tBPX = 0;
-// float text box position x
-const float cf_tBPX = 0.0f;
-// int text box position y
-const int c_tBPY = 416;
-// float text box position y
-const float cf_tBPY = 416.0f;
-// int view position x
-const int c_vPX = 0;
-// float view position x
-const float cf_vPX = 0.0f;
-// int view position y
-const int c_vPY = 0;
-// float view position y
-const float cf_vPY = 0.0f;
+	// int menu position x
+	extern const int iMPX;
+	// float menu position x
+	extern const float fMPX;
+	// int menu position y
+	extern const int iMPY;
+	// float menu position y
+	extern const float fMPY;
+	// int text box position x
+	extern const int iTBPX;
+	// float text box position x
+	extern const float fTBPX;
+	// int text box position y
+	extern const int iTBPY;
+	// float text box position y
+	extern const float fTBPY;
+	// int view position x
+	extern const int iVPX;
+	// float view position x
+	extern const float fVPX;
+	// int view position y
+	extern const int iVPY;
+	// float view position y
+	extern const float fVPY;
 
-// Sizes
+	// Sizes
 
-// int health bar size x
-const int c_hBSX = 176;
-// float health bar size x
-const float cf_hBSX = 176.0f;
-// int health bar size y
-const int c_hBSY = 16;
-// float health bar size y
-const float cf_hBSY = 16.0f;
-// int menu size x
-const int c_mSX = 480;
-// float menu size x
-const float cf_mSX = 480.0f;
-// int menu size y
-const int c_mSY = 540;
-// float menu size y
-const float cf_mSY = 540.0f;
-// int sprite size
-const int c_sS = 240;
-// float sprite size
-const float cf_sS = 240.0f;
-// int tile size
-const int c_tS = 32;
-// float tile size
-const float cf_tS = 32.0f;
-// int text box size x
-const int c_tBSX = 480;
-// float text box size x
-const float cf_tBSX = 480.0f;
-// int text box size y
-const int c_tBSY = 124;
-// float text box size y
-const float cf_tBSY = 124.0f;
-// int view size x
-const int c_vSX = 480;
-// float view size x
-const float cf_vSX = 480.0f;
-// int view size y
-const int c_vSY = 416;
-// float view size y
-const float cf_vSY = 416.0f;
-// int window size x
-const int c_wSX = 960;
-// float window size x
-const float cf_wSX = 960.0f;
-// int window size y
-const int c_wSY = 540;
-// float window size y
-const float cf_wSY = 540.0f;
+	// int health bar size x
+	extern const int iHBSX;
+	// float health bar size x
+	extern const float fHBSX;
+	// int health bar size y
+	extern const int iHBSY;
+	// float health bar size y
+	extern const float fHBSY;
+	// int menu size x
+	extern const int iMSX;
+	// float menu size x
+	extern const float fMSX;
+	// int menu size y
+	extern const int iMSY;
+	// float menu size y
+	extern const float fMSY;
+	// int sprite size
+	extern const int iSS;
+	// float sprite size
+	extern const float fSS;
+	// int tile size
+	extern const int iTS;
+	// float tile size
+	extern const float fTS;
+	// int text box size x
+	extern const int iTBSX;
+	// float text box size x
+	extern const float fTBSX;
+	// int text box size y
+	extern const int iTBSY;
+	// float text box size y
+	extern const float fTBSY;
+	// int view size x
+	extern const int iVSX;
+	// float view size x
+	extern const float fVSX;
+	// int view size y
+	extern const int iVSY;
+	// float view size y
+	extern const float fVSY;
+	// int window size x
+	extern const int iWSX;
+	// float window size x
+	extern const float fWSX;
+	// int window size y
+	extern const int iWSY;
+	// float window size y
+	extern const float fWSY;
 
-// Speed
+	// Speed
 
-// int ledge speed
-const int c_ledgeSpeed = 2;
-// int rotation speed
-const int c_rotateSpeed = 8;
-// int walking speed
-const int c_walkSpeed = 4;
+	// int ledge speed
+	extern const int iLSp;
+	// int rotation speed
+	extern const int iRSp;
+	// int walking speed
+	extern const int iWSp;
 
-// Numbers
+	// Numbers
 
-// int maximum number of buttons in the menu
-const int c_buttons = 4;
-// int maximum number of event triggers
-const int c_events = 10;
+	// int maximum number of buttons in the menu
+	extern const int iBN;
+	// int maximum number of event triggers
+	extern const int iEN;
+
+	// Initial values
+
+	// int initial pokemon base stats
+	extern const int iPBS[4][6];
+	// int initial pokemon moves
+	extern const int iPM[4][4];
+	// string pokemon names
+	extern const std::string sPN[4];
+	// int pokemon types
+	extern const int iPT[4][2];
+
+	// int move base stats
+	extern const int iMBS[5][3];
+	// string move names
+	extern const std::string sMN[5];
+	// int move types
+	extern const int iMT[5];
+}
 
 // Enums
 
-enum Direction {
+const enum eDirection {
 	DIRECTION_NONE,
-	DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT
+	DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT,
+	DIRECTION_FORWARD, DIRECTION_BACKWARD
 };
-enum e_menu { MENU_NONE, MENU_BATTLE, MENU_FIGHT };
-enum MoveStat { MOVESTAT_PP, MOVESTAT_POWER, MOVESTAT_ACCURACY };
-enum PokemonStat {
-	POKEMONSTAT_HP, POKEMONSTAT_ATTACK, POKEMONSTAT_DEFENSE,
-	POKEMONSTAT_SPECIALATTACK, POKEMONSTAT_SPECIALDEFENSE, POKEMONSTAT_SPEED
+const enum eMenu {
+	MENU_NONE,
+	MENU_BATTLE, MENU_FIGHT
 };
-enum Type {
+const enum eType {
 	TYPE_NONE, TYPE_NORMAL, TYPE_FIGHTING, TYPE_FLYING, TYPE_POISON,
 	TYPE_GROUND, TYPE_ROCK, TYPE_BUG, TYPE_GHOST, TYPE_STEEL,
 	TYPE_FIRE, TYPE_WATER, TYPE_GRASS, TYPE_ELECTRIC, TYPE_PSYCHIC,
 	TYPE_ICE, TYPE_DRAGON, TYPE_DARK, TYPE_FAIRY
 };
 
-// Initial values
+//extern const enum eMoveStat { MOVESTAT_PP, MOVESTAT_POWER, MOVESTAT_ACCURACY };
+/*extern const enum ePokemonStat {
+POKEMONSTAT_HP, POKEMONSTAT_ATTACK, POKEMONSTAT_DEFENSE,
+POKEMONSTAT_SPECIALATTACK, POKEMONSTAT_SPECIALDEFENSE, POKEMONSTAT_SPEED
+};*/
 
-const int c_pokemonBaseStats[4][6] =
-{
-	{ 45, 49, 49, 65, 65, 45 },
-	{ 39, 52, 43, 60, 50, 65 },
-	{ 44, 48, 65, 50, 64, 43 },
-	{ 35, 55, 40, 50, 50, 90 }
-};
-const int c_pokemonMoves[4][4] =
-{
-	{ 1, 2, 0, 0 },
-	{ 3, 2, 0, 0 },
-	{ 1, 4, 0, 0 },
-	{ 4, 5, 0, 0 }
-}; // !! at level 1
-const std::string c_pokemonNames[4] =
-{
-	"Bulbasaur",
-	"Charmander",
-	"Squirtle",
-	"Pikachu"
-};
-const int c_pokemonTypes[4][2] =
-{
-	{ 12, 4 },
-	{ 10, 0 },
-	{ 11, 0 },
-	{ 13, 0 }
-};
-
-const int c_moveBaseStats[5][3] =
-{
-	{ 35, 40, 100 },
-	{ 40, 0, 100 },
-	{ 35, 40, 100 },
-	{ 30, 0, 100 },
-	{ 30, 40, 100 },
-};
-const std::string c_moveNames[5] =
-{
-	"Tackle",
-	"Growl",
-	"Scratch",
-	"Tail Whip",
-	"Thunder Shock",
-};
-const int c_moveTypes[5] =
-{
-	1, 1, 1, 1, 13
-};
 #endif

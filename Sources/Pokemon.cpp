@@ -5,7 +5,7 @@ Pokemon::Pokemon(int index, int level)
 {
 	if (index != 0)
 	{
-		m_name = c_pokemonNames[index - 1];
+		m_name = c::sPN[index - 1];
 		m_nickname = m_name;
 		generateMoves();
 		generateStats();
@@ -32,14 +32,14 @@ void Pokemon::draw(sf::RenderTarget& window, int direction)
 	float f_y = 0.0f;
 	if (direction == 0)
 	{
-		f_x = cf_vSX - cf_sS;
+		f_x = c::fVSX - c::fSS;
 		f_y = 0.0f;
 		spritePath.append("f.png");
 	}
 	if (direction == 1)
 	{
 		f_x = 0.0f;
-		f_y = cf_vSY - cf_sS;
+		f_y = c::fVSY - c::fSS;
 		spritePath.append("b.png");
 	}
 
@@ -49,21 +49,21 @@ void Pokemon::draw(sf::RenderTarget& window, int direction)
 
 	quad[0].position = sf::Vector2f(f_x,
 		f_y);
-	quad[1].position = sf::Vector2f(f_x + cf_sS,
+	quad[1].position = sf::Vector2f(f_x + c::fSS,
 		f_y);
-	quad[2].position = sf::Vector2f(f_x + cf_sS,
-		f_y + cf_sS);
+	quad[2].position = sf::Vector2f(f_x + c::fSS,
+		f_y + c::fSS);
 	quad[3].position = sf::Vector2f(f_x,
-		f_y + cf_sS);
+		f_y + c::fSS);
 
-	quad[0].texCoords = sf::Vector2f(f_d * cf_sS,
+	quad[0].texCoords = sf::Vector2f(f_d * c::fSS,
 		0.0f);
-	quad[1].texCoords = sf::Vector2f((f_d + 1) * cf_sS,
+	quad[1].texCoords = sf::Vector2f((f_d + 1) * c::fSS,
 		0.0f);
-	quad[2].texCoords = sf::Vector2f((f_d + 1) * cf_sS,
-		cf_sS);
-	quad[3].texCoords = sf::Vector2f(f_d * cf_sS,
-		cf_sS);
+	quad[2].texCoords = sf::Vector2f((f_d + 1) * c::fSS,
+		c::fSS);
+	quad[3].texCoords = sf::Vector2f(f_d * c::fSS,
+		c::fSS);
 
 	window.draw(m_sprite, &m_tileSet);
 }
@@ -75,7 +75,7 @@ void Pokemon::generateStats()
 
 	for (int i = 0; i < 6; ++i)
 	{
-		m_BSs[i] = c_pokemonBaseStats[m_index - 1][i];
+		m_BSs[i] = c::iPBS[m_index - 1][i];
 		m_EVs[i] = 0;
 		m_IVs[i] = dist(rng);
 	}
@@ -85,7 +85,7 @@ void Pokemon::generateStats()
 void Pokemon::generateMoves()
 {
 	for (int i = 0; i < 4; ++i)
-		m_moves[i] = Move{ c_pokemonMoves[m_index - 1][i] };
+		m_moves[i] = Move{ c::iPM[m_index - 1][i] };
 }
 void Pokemon::levelUp(int level)
 {

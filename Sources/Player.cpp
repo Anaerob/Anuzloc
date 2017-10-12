@@ -25,27 +25,27 @@ void Player::draw(sf::RenderTarget& window,
 
 	sf::Vertex* quad = &m_sprite[0];
 
-	quad[0].position = sf::Vector2f((f_x - 1) * cf_tS + f_pX,
-		(f_y - 1) * cf_tS + f_pY);
-	quad[1].position = sf::Vector2f(f_x * cf_tS + f_pX,
-		(f_y - 1) * cf_tS + f_pY);
-	quad[2].position = sf::Vector2f(f_x * cf_tS + f_pX,
-		f_y * cf_tS + f_pY);
-	quad[3].position = sf::Vector2f((f_x - 1) * cf_tS + f_pX,
-		f_y * cf_tS + f_pY);
+	quad[0].position = sf::Vector2f((f_x - 1) * c::fTS + f_pX,
+		(f_y - 1) * c::fTS + f_pY);
+	quad[1].position = sf::Vector2f(f_x * c::fTS + f_pX,
+		(f_y - 1) * c::fTS + f_pY);
+	quad[2].position = sf::Vector2f(f_x * c::fTS + f_pX,
+		f_y * c::fTS + f_pY);
+	quad[3].position = sf::Vector2f((f_x - 1) * c::fTS + f_pX,
+		f_y * c::fTS + f_pY);
 
-	quad[0].texCoords = sf::Vector2f((f_d - 1) * cf_tS,
+	quad[0].texCoords = sf::Vector2f((f_d - 1) * c::fTS,
 		0.0f);
-	quad[1].texCoords = sf::Vector2f((f_d + 0) * cf_tS,
+	quad[1].texCoords = sf::Vector2f(f_d * c::fTS,
 		0.0f);
-	quad[2].texCoords = sf::Vector2f((f_d + 0) * cf_tS,
-		cf_tS);
-	quad[3].texCoords = sf::Vector2f((f_d - 1) * cf_tS,
-		cf_tS);
+	quad[2].texCoords = sf::Vector2f(f_d * c::fTS,
+		c::fTS);
+	quad[3].texCoords = sf::Vector2f((f_d - 1) * c::fTS,
+		c::fTS);
 
 	window.draw(m_sprite, &m_tileSet);
 }
-void Player::move(Direction direction, int nextTile)
+void Player::move(eDirection direction, int nextTile)
 {
 	if (m_direction != direction)
 		rotate(direction);
@@ -72,15 +72,15 @@ void Player::moveDown(int nextTile)
 {
 	if (nextTile == 1 || nextTile == 2)
 	{
-		m_partialY = (m_partialY + c_walkSpeed) % c_tS;
-		m_moving = !(m_partialY % c_tS == 0);
+		m_partialY = (m_partialY + c::iWSp) % c::iTS;
+		m_moving = !(m_partialY % c::iTS == 0);
 		if (!m_moving)
 			m_y++;
 	}
 	else if (nextTile == 4)
 	{
-		m_partialY = (m_partialY + c_ledgeSpeed) % (2 * c_tS);
-		m_moving = !(m_partialY % (2 * c_tS) == 0);
+		m_partialY = (m_partialY + c::iLSp) % (2 * c::iTS);
+		m_moving = !(m_partialY % (2 * c::iTS) == 0);
 		if (!m_moving)
 			m_y += 2;
 	}
@@ -89,8 +89,8 @@ void Player::moveLeft(int nextTile)
 {
 	if (nextTile == 1 || nextTile == 2)
 	{
-		m_partialX = (m_partialX - c_walkSpeed) % c_tS;
-		m_moving = !(m_partialX % c_tS == 0);
+		m_partialX = (m_partialX - c::iWSp) % c::iTS;
+		m_moving = !(m_partialX % c::iTS == 0);
 		if (!m_moving)
 			m_x--;
 	}
@@ -99,8 +99,8 @@ void Player::moveRight(int nextTile)
 {
 	if (nextTile == 1 || nextTile == 2)
 	{
-		m_partialX = (m_partialX + c_walkSpeed) % c_tS;
-		m_moving = !(m_partialX % c_tS == 0);
+		m_partialX = (m_partialX + c::iWSp) % c::iTS;
+		m_moving = !(m_partialX % c::iTS == 0);
 		if (!m_moving)
 			m_x++;
 	}
@@ -109,16 +109,16 @@ void Player::moveUp(int nextTile)
 {
 	if (nextTile == 1 || nextTile == 2)
 	{
-		m_partialY = (m_partialY - c_walkSpeed) % c_tS;
-		m_moving = !(m_partialY % c_tS == 0);
+		m_partialY = (m_partialY - c::iWSp) % c::iTS;
+		m_moving = !(m_partialY % c::iTS == 0);
 		if (!m_moving)
 			m_y--;
 	}
 }
-void Player::rotate(Direction direction)
+void Player::rotate(eDirection direction)
 {
-	m_partialRotate = (m_partialRotate + c_rotateSpeed) % c_tS;
-	m_moving = !(m_partialRotate % c_tS == 0);
+	m_partialRotate = (m_partialRotate + c::iRSp) % c::iTS;
+	m_moving = !(m_partialRotate % c::iTS == 0);
 	if (!m_moving)
 		m_direction = direction;
 }

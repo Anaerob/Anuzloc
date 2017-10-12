@@ -9,8 +9,8 @@ TextBox::TextBox()
 		m_text[i].setCharacterSize(30);
 		m_text[i].setFillColor(m_color);
 		m_text[i].setFont(m_font);
-		m_text[i].setPosition(sf::Vector2f(cf_tBPX + (float)m_edgeThickness,
-			cf_tBPY + (float)m_edgeThickness + i * (cf_tBSY - 15) / 3));
+		m_text[i].setPosition(sf::Vector2f(c::fTBPX + (float)m_edgeThickness,
+			c::fTBPY + (float)m_edgeThickness + i * (c::fTBSY - 15) / 3));
 		m_text[i].setString("");
 	}
 }

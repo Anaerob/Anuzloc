@@ -26,7 +26,7 @@ public:
 	
 	void draw(sf::RenderWindow& window);
 	void initialize(Trainer opponent);
-	void terminate();
+	//void terminate();
 	void updateHealthBars();
 	void useMove(int i);
 

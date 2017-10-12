@@ -12,7 +12,7 @@ class Trainer
 	std::string m_type;
 	
 protected:
-	Direction m_direction;
+	eDirection m_direction;
 	bool m_moving;
 	int m_partialRotate;
 	int m_partialX;
@@ -24,14 +24,14 @@ protected:
 	
 public:
 	Trainer(std::string type = "Trainer",
-		std::string name = "X", Direction direction = DIRECTION_DOWN, int x = 11, int y = 31);
+		std::string name = "X", eDirection direction = DIRECTION_DOWN, int x = 11, int y = 31);
 
 	Pokemon m_pokemon[6];
 
-	void setDirection(Direction direction) { m_direction = direction; }
+	void setDirection(eDirection direction) { m_direction = direction; }
 	void setPokemon(int i, Pokemon pokemon) { m_pokemon[i] = pokemon; }
 
-	Direction getDirection() { return m_direction; }
+	eDirection getDirection() { return m_direction; }
 	//std::string getName() { return m_name; }
 	bool getMoving() { return m_moving; }
 	int getPartialX() { return m_partialX; }

@@ -4,7 +4,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(c_wSX, c_wSY),
+	sf::RenderWindow window(sf::VideoMode(c::iWSX, c::iWSY),
 		"Pokemon Nuzlocke Client");
 	window.setVerticalSyncEnabled(true);
 	window.setKeyRepeatEnabled(false);

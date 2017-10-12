@@ -17,7 +17,7 @@ class Game
 	sf::VertexArray m_frameLines;
 	//std::map<int, std::string> m_generalStrings;
 	Menu m_menu;
-	Direction m_moving;
+	eDirection m_moving;
 	Overworld m_overworld;
 	Player m_player;
 	//std::ifstream m_read;
@@ -26,7 +26,7 @@ class Game
 public:
 	Game();
 
-	Direction getMoving() { return m_moving; }
+	eDirection getMoving() { return m_moving; }
 
 	void draw(sf::RenderWindow& window);
 	void holdA();

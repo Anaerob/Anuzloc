@@ -5,9 +5,9 @@ Overworld::Overworld(Battle& battle, Event& event, Player& player, TextBox& text
 	m_event{ event },
 	m_player{ player },
 	m_textBox{ textBox },
-	m_tiles{ sf::Quads, (c_vSX / c_tS + 2) * (c_vSY / c_tS + 2) * 4 },
-	m_whiteMenu{ cf_mPX, cf_mPY, cf_mSX, cf_mSY },
-	m_whiteTextBox{ cf_tBPX, cf_tBPY, cf_tBSX, cf_tBSY },
+	m_tiles{ sf::Quads, (c::iVSX / c::iTS + 2) * (c::iVSY / c::iTS + 2) * 4 },
+	m_whiteMenu{ c::fMPX, c::fMPY, c::fMSX, c::fMSY },
+	m_whiteTextBox{ c::fTBPX, c::fTBPY, c::fTBSX, c::fTBSY },
 	m_world{ "route1" }
 {
 	m_tileSet.loadFromFile("Resources/Tiles/Overworld.png");
@@ -18,7 +18,7 @@ Overworld::Overworld(Battle& battle, Event& event, Player& player, TextBox& text
 
 void Overworld::calculateOffsetX()
 {
-	int half = (c_vSX / c_tS - 1) / 2;
+	int half = (c::iVSX / c::iTS - 1) / 2;
 	if (m_player.getX() <= half + 1)
 	{
 		m_offsetX = 0;
@@ -27,7 +27,7 @@ void Overworld::calculateOffsetX()
 	}
 	else if (m_player.getX() >= m_sizeX - half)
 	{
-		m_offsetX = m_sizeX - c_vSX / c_tS;
+		m_offsetX = m_sizeX - c::iVSX / c::iTS;
 		m_edgeX = m_player.getX() > m_sizeX - half
 			|| m_player.getDirection() == DIRECTION_RIGHT;
 	}
@@ -39,7 +39,7 @@ void Overworld::calculateOffsetX()
 }
 void Overworld::calculateOffsetY()
 {
-	int half = (c_vSY / c_tS - 1) / 2;
+	int half = (c::iVSY / c::iTS - 1) / 2;
 	if (m_player.getY() <= half + 1)
 	{
 		m_offsetY = 0;
@@ -48,7 +48,7 @@ void Overworld::calculateOffsetY()
 	}
 	else if (m_player.getY() >= m_sizeY - half)
 	{
-		m_offsetY = m_sizeY - c_vSY / c_tS;
+		m_offsetY = m_sizeY - c::iVSY / c::iTS;
 		m_edgeY = m_player.getY() > m_sizeY - half
 			|| m_player.getDirection() == DIRECTION_DOWN;
 	}
@@ -63,8 +63,8 @@ void Overworld::draw(sf::RenderWindow& window)
 	calculateOffsetX();
 	calculateOffsetY();
 
-	for (int y = 0; y < c_vSY / c_tS + 2; ++y)
-		for (int x = 0; x < c_vSX / c_tS + 2; ++x)
+	for (int y = 0; y < c::iVSY / c::iTS + 2; ++y)
+		for (int x = 0; x < c::iVSX / c::iTS + 2; ++x)
 		{
 			float f_tileNumber;
 
@@ -76,41 +76,41 @@ void Overworld::draw(sf::RenderWindow& window)
 			if (m_edgeX)
 				f_pX = 0.0f;
 			else
-				f_pX = (float)(m_player.getPartialX() % c_tS);
+				f_pX = (float)(m_player.getPartialX() % c::iTS);
 			if (m_edgeY)
 			{
 				f_tileNumber = (float)getTile(
-					x + m_offsetX + m_player.getPartialX() / c_tS,
-					y + m_offsetY + m_player.getPartialY() / (2 * c_tS));
+					x + m_offsetX + m_player.getPartialX() / c::iTS,
+					y + m_offsetY + m_player.getPartialY() / (2 * c::iTS));
 				f_pY = 0.0f;
 			}
 			else
 			{
 				f_tileNumber = (float)getTile(
-					x + m_offsetX + m_player.getPartialX() / c_tS,
-					y + m_offsetY + m_player.getPartialY() / c_tS);
-				f_pY = (float)(m_player.getPartialY() % c_tS);
+					x + m_offsetX + m_player.getPartialX() / c::iTS,
+					y + m_offsetY + m_player.getPartialY() / c::iTS);
+				f_pY = (float)(m_player.getPartialY() % c::iTS);
 			}
 
-			sf::Vertex* quad = &m_tiles[(x + y * (c_vSX / c_tS + 2)) * 4];
+			sf::Vertex* quad = &m_tiles[(x + y * (c::iVSX / c::iTS + 2)) * 4];
 
-			quad[0].position = sf::Vector2f((f_x - 1) * cf_tS - f_pX,
-				(f_y - 1) * cf_tS - f_pY);
-			quad[1].position = sf::Vector2f(f_x * cf_tS - f_pX,
-				(f_y - 1) * cf_tS - f_pY);
-			quad[2].position = sf::Vector2f(f_x * cf_tS - f_pX,
-				f_y * cf_tS - f_pY);
-			quad[3].position = sf::Vector2f((f_x - 1) * cf_tS - f_pX,
-				f_y * cf_tS - f_pY);
+			quad[0].position = sf::Vector2f((f_x - 1) * c::fTS - f_pX,
+				(f_y - 1) * c::fTS - f_pY);
+			quad[1].position = sf::Vector2f(f_x * c::fTS - f_pX,
+				(f_y - 1) * c::fTS - f_pY);
+			quad[2].position = sf::Vector2f(f_x * c::fTS - f_pX,
+				f_y * c::fTS - f_pY);
+			quad[3].position = sf::Vector2f((f_x - 1) * c::fTS - f_pX,
+				f_y * c::fTS - f_pY);
 
-			quad[0].texCoords = sf::Vector2f(f_tileNumber * cf_tS,
+			quad[0].texCoords = sf::Vector2f(f_tileNumber * c::fTS,
 				0.0f);
-			quad[1].texCoords = sf::Vector2f((f_tileNumber + 1) * cf_tS,
+			quad[1].texCoords = sf::Vector2f((f_tileNumber + 1) * c::fTS,
 				0.0f);
-			quad[2].texCoords = sf::Vector2f((f_tileNumber + 1) * cf_tS,
-				cf_tS);
-			quad[3].texCoords = sf::Vector2f(f_tileNumber * cf_tS,
-				cf_tS);
+			quad[2].texCoords = sf::Vector2f((f_tileNumber + 1) * c::fTS,
+				c::fTS);
+			quad[3].texCoords = sf::Vector2f(f_tileNumber * c::fTS,
+				c::fTS);
 		}
 
 	window.draw(m_tiles, &m_tileSet);
@@ -190,7 +190,7 @@ void Overworld::readNPCs(std::string NPCsPath)
 		m_read >> x;
 		m_read >> y;
 		m_read >> nPokemon;
-		Direction direction = static_cast<Direction>(intDirection);
+		eDirection direction = static_cast<eDirection>(intDirection);
 		Trainer tempTrainer{ type, name, direction, x, y };
 		for (int j = 0; j < nPokemon; ++j)
 		{
@@ -239,7 +239,7 @@ void Overworld::readTileMap(std::string tileMapPath)
 		for (int x = 1; x < m_sizeX + 1; ++x)
 		{
 			m_read >> nextInt;
-			m_tileMap[x + y * (m_sizeX + 2)] = nextInt * c_events;
+			m_tileMap[x + y * (m_sizeX + 2)] = nextInt * c::iEN;
 		}
 			
 
@@ -260,12 +260,4 @@ void Overworld::readWorld()
 	std::string stringsPath = worldPath;
 	stringsPath.append("Strings.dat");
 	readStrings(stringsPath);
-
-	/*std::string triggerMapPath = worldPath;
-	triggerMapPath.append("Triggers.dat");
-	readTriggerMap(triggerMapPath);
-
-	std::string trainersPath = worldPath;
-	trainersPath.append("Trainers.dat");
-	readTrainers(trainersPath);*/
 }
