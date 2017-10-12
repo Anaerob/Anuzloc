@@ -1,5 +1,5 @@
-#ifndef HEALTHBARS_H
-#define HEALTHBARS_H
+#ifndef HEALTHBAR_H
+#define HEALTHBAR_H
 #include <SFML/Graphics.hpp>
 #include "Constants.h"
 

@@ -3,6 +3,7 @@
 Game::Game()
 	: m_battle{ m_player , m_textBox },
 	m_event{ m_battle, m_player, m_textBox },
+	m_menu{ m_player },
 	m_overworld{ m_battle, m_event, m_player, m_textBox },
 	m_frameLines{ sf::Lines, 4 }
 {
@@ -28,6 +29,7 @@ void Game::draw(sf::RenderWindow& window)
 		m_battle.draw(window);
 	else
 		m_overworld.draw(window);
+	m_menu.draw(window);
 	m_textBox.draw(window);
 	window.draw(m_frameLines);
 }
@@ -93,30 +95,33 @@ void Game::pressBackSpace()
 }
 void Game::pressDown()
 {
-
+	m_menu.navigateDown();
 }
 void Game::pressLeft()
 {
-
+	m_menu.navigateLeft();
 }
 void Game::pressReturn()
 {
-
+	
 }
 void Game::pressRight()
 {
-
+	m_menu.navigateRight();
 }
 void Game::pressSpace()
 {
 	if (m_event.getActive())
-		m_event.advance();
+	{
+		if (!m_battle.getActive())
+			m_event.advance();
+	}
 	else
 		m_overworld.interact();
 }
 void Game::pressUp()
 {
-
+	m_menu.navigateUp();
 }
 /*void Game::pressKeyDown()
 {

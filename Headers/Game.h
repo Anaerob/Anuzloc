@@ -5,6 +5,7 @@
 #include "Battle.h"
 #include "Constants.h"
 #include "Event.h"
+#include "Menu.h"
 #include "Overworld.h"
 #include "Player.h"
 #include "TextBox.h"
@@ -15,6 +16,7 @@ class Game
 	Event m_event;
 	sf::VertexArray m_frameLines;
 	//std::map<int, std::string> m_generalStrings;
+	Menu m_menu;
 	Direction m_moving;
 	Overworld m_overworld;
 	Player m_player;

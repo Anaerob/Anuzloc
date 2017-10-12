@@ -25,11 +25,9 @@ void Event::advance()
 	{
 	case 'b':
 		m_battle.initialize(m_opponent);
-		m_active = true;
 		break;
 	case 's':
 		m_textBox.addString(m_strings.find(nextInt)->second);
-		m_active = true;
 		break;
 	case 'e':
 		m_textBox.clear();

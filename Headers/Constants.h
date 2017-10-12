@@ -91,6 +91,8 @@ const int c_walkSpeed = 4;
 
 // Numbers
 
+// int maximum number of buttons in the menu
+const int c_buttons = 4;
 // int maximum number of event triggers
 const int c_events = 10;
 

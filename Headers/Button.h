@@ -17,8 +17,7 @@ class Button
 	sf::Text m_text;
 
 public:
-	Button(std::string buttonText = "Button", float positionX = 10.0f,
-		float positionY = 10.0f);
+	Button(float positionX = 10.0f, float positionY = 10.0f);
 
 	void setActive(bool isActive) { m_isActive = isActive; }
 	void setMarked(bool isMarked) { m_isMarked = isMarked; }

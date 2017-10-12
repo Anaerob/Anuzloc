@@ -1,23 +1,23 @@
 #include "Button.h"
 
-Button::Button(std::string buttonText, float positionX,	float positionY)
+Button::Button(float positionX,	float positionY)
 	: m_characterSize{ 32 },
 	m_frame{ sf::Quads, 16 },
-	m_isActive{ true },
+	m_isActive{ false },
 	m_isMarked{ false },
 	m_positionX{ positionX },
 	m_positionY{ positionY },
 	m_sizeX{ 192.0f },
 	m_sizeY{ 100.0f }
 {
-	m_font.loadFromFile("fonts/arial.ttf");
+	m_font.loadFromFile("Resources/Fonts/arial.ttf");
 
 	m_text.setCharacterSize(32);
 	m_text.setFillColor(sf::Color::Black);
 	m_text.setFont(m_font);
 	m_text.setPosition(sf::Vector2f(positionX + 16.0f,
 		positionY + 28.0f));
-	m_text.setString(buttonText);
+	m_text.setString("BUTTON");
 }
 
 void Button::draw(sf::RenderWindow& window)
