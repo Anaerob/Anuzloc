@@ -28,6 +28,6 @@ public:
 	bool getMarked() { return m_isMarked; }
 
 	void draw(sf::RenderWindow& window);
-};
 
+};
 #endif

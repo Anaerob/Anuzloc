@@ -18,6 +18,6 @@ public:
 	void addString(std::string string);
 	void clear();
 	void draw(sf::RenderWindow& window);
-};
 
+};
 #endif

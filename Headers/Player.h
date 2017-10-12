@@ -24,6 +24,6 @@ public:
 	void moveRight(int nextTile);
 	void moveUp(int nextTile);
 	void rotate(Direction direction);
-};
 
+};
 #endif

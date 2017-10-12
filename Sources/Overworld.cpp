@@ -1,7 +1,7 @@
 #include "Overworld.h"
 
-Overworld::Overworld(Event& event, Player& player, TextBox& textBox)
-	: //m_battle{ battle },
+Overworld::Overworld(Battle& battle, Event& event, Player& player, TextBox& textBox)
+	: m_battle{ battle },
 	m_event{ event },
 	m_player{ player },
 	m_textBox{ textBox },

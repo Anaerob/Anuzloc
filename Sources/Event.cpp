@@ -1,9 +1,9 @@
 #include "Event.h"
 
-Event::Event(Player& player, TextBox& textBox)
-	: //m_battle{ battle },
+Event::Event(Battle& battle, Player& player, TextBox& textBox)
+	: m_active{ false },
+	m_battle{ battle },
 	m_player{ player },
-	m_active{ false },
 	//m_stringMap{ stringMap },
 	m_textBox{ textBox },
 	m_world{ "route1" }

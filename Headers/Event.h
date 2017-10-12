@@ -3,14 +3,14 @@
 #include <fstream>
 #include <map>
 #include <string>
-//#include "Battle.h"
+#include "Battle.h"
 #include "Player.h"
 #include "TextBox.h"
 
 class Event
 {
 	bool m_active;
-	//Battle& m_battle;
+	Battle& m_battle;
 	//Trainer m_opponent;
 	Player& m_player;
 	std::ifstream m_read;
@@ -19,9 +19,7 @@ class Event
 	std::string m_world;
 
 public:
-	Event(Player& player,
-		//std::map<int, std::string>& stringMap,
-		TextBox& textBox); //Battle& battle
+	Event(Battle& battle, Player& player, TextBox& textBox);
 
 	void setStrings(std::map<int, std::string> strings) { m_strings = strings; }
 	//void setWorld(std::string world) { m_world = world; }
@@ -31,6 +29,6 @@ public:
 	void advance();
 	void initialize(int ID);
 	//void readWorld();
-};
 
+};
 #endif

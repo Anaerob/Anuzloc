@@ -11,6 +11,6 @@ public:
 	White(float positionX = 0.0f, float positionY = 0.0f, float sizeX = 0.0f, float sizeY = 0.0f);
 
 	void draw(sf::RenderWindow& window);
-};
 
+};
 #endif

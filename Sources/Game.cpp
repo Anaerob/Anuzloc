@@ -1,9 +1,9 @@
 #include "Game.h"
 
 Game::Game()
-	: //m_battle{ m_player , m_textBox },
-	m_event{ m_player, m_textBox },
-	m_overworld{ m_event, m_player, m_textBox },
+	: m_battle{ m_player , m_textBox },
+	m_event{ m_battle, m_player, m_textBox },
+	m_overworld{ m_battle, m_event, m_player, m_textBox },
 	m_frameLines{ sf::Lines, 4 }
 {
 	m_frameLines[0].position = sf::Vector2f(cf_vSX,

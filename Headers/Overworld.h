@@ -5,7 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
-//#include "Battle.h"
+#include "Battle.h"
 #include "Constants.h"
 #include "Event.h"
 #include "Player.h"
@@ -15,7 +15,7 @@
 
 class Overworld
 {
-	//Battle& m_battle;
+	Battle& m_battle;
 	bool m_edgeX;
 	bool m_edgeY;
 	Event& m_event;
@@ -36,7 +36,7 @@ class Overworld
 	std::string m_world;
 
 public:
-	Overworld(Event& event, Player& player, TextBox& textBox);
+	Overworld(Battle& battle, Event& event, Player& player, TextBox& textBox);
 
 	int getTile(int x, int y) {
 		return m_tileMap[x + y * (m_sizeX + 2)] / c_events; }
@@ -53,5 +53,4 @@ public:
 	void readWorld();
 
 };
-
 #endif

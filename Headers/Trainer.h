@@ -44,6 +44,6 @@ public:
 		bool edgeX,	bool edgeY,
 		int overworldViewOffsetX, int overworldViewOffsetY,
 		int playerPartialX, int playerPartialY);
-};
 
+};
 #endif

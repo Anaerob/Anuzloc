@@ -2,7 +2,7 @@
 #define GAME_H
 #include <fstream>
 #include <SFML/Graphics.hpp>
-//#include "Battle.h"
+#include "Battle.h"
 #include "Constants.h"
 #include "Event.h"
 #include "Overworld.h"
@@ -11,7 +11,7 @@
 
 class Game
 {
-	//Battle m_battle;
+	Battle m_battle;
 	Event m_event;
 	sf::VertexArray m_frameLines;
 	//std::map<int, std::string> m_generalStrings;
@@ -39,6 +39,6 @@ public:
 	void pressSpace();
 	void pressUp();
 	//void readGeneral();
-};
 
+};
 #endif
