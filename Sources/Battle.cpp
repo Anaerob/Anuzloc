@@ -12,8 +12,8 @@ Battle::Battle(Menu& menu, Player& player, TextBox& textBox)
 
 void Battle::draw(sf::RenderWindow& window)
 {
-	m_player.getPokemon(0).draw(window, 1);
-	m_opponent.getPokemon(0).draw(window, 0);
+	m_player.getPokemon(0).draw(window);
+	m_opponent.getPokemon(0).draw(window);
 	
 	updateHealthBars();
 	m_opponentHealthBar.draw(window);
@@ -53,6 +53,8 @@ void Battle::useMove(int move)
 	std::uniform_int_distribution<int> dist(0, 1);
 	int opponentMove = dist(rng);
 
+	std::string nextLine;
+
 	if (m_player.m_pokemon[0].getMove(move).getStat(1) != 0)
 	{
 		d_level = (double)m_player.m_pokemon[0].getLevel();
@@ -66,7 +68,12 @@ void Battle::useMove(int move)
 	else
 		damage = 0;
 	m_opponent.m_pokemon[0].changeHP(-damage);
-
+	
+	nextLine = m_strings.find(1)->second;
+	nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[0].getName());
+	nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[0].getMove(move).getName());
+	m_textBox.addString(nextLine);
+	
 	if (m_opponent.m_pokemon[0].getMove(opponentMove).getStat(1) != 0)
 	{
 		d_level = (double)m_opponent.m_pokemon[0].getLevel();
@@ -80,6 +87,11 @@ void Battle::useMove(int move)
 	else
 		damage = 0;
 	m_player.m_pokemon[0].changeHP(-damage);
+	
+	nextLine = m_strings.find(2)->second;
+	nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[0].getName());
+	nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[0].getMove(opponentMove).getName());
+	m_textBox.addString(nextLine);
 
 	m_active = m_opponent.m_pokemon[0].getHP() != 0;
 }

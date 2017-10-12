@@ -17,6 +17,7 @@ class Pokemon
 	Move m_moves[4];
 	std::string m_name;
 	std::string m_nickname;
+	bool m_players;
 	sf::VertexArray m_sprite;
 	int m_stats[6];
 	sf::Texture m_tileSet; // spriteSet?
@@ -40,10 +41,11 @@ public:
 	int getStat(int i) { return m_stats[i]; }
 	
 	void changeHP(int change);
-	void draw(sf::RenderTarget& window, int direction);
+	void draw(sf::RenderTarget& window);
 	void generateMoves();
 	void generateStats();
 	void levelUp(int level);
+	void makePlayers();
 	void resetAll();
 	void updateStats();
 	

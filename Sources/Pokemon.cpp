@@ -1,7 +1,10 @@
 #include "Pokemon.h"
 
 Pokemon::Pokemon(int index, int level)
-	: m_index{ index }, m_level{ level }, m_sprite{ sf::Quads, 4 }
+	: m_index{ index },
+	m_level{ level },
+	m_players{ false },
+	m_sprite{ sf::Quads, 4 }
 {
 	if (index != 0)
 	{
@@ -22,7 +25,7 @@ void Pokemon::changeHP(int change)
 	else
 		m_HP += change;
 }
-void Pokemon::draw(sf::RenderTarget& window, int direction)
+void Pokemon::draw(sf::RenderTarget& window)
 {
 	std::string spritePath = "Resources/Sprites/";
 	spritePath.append(std::to_string(m_index));
@@ -30,18 +33,21 @@ void Pokemon::draw(sf::RenderTarget& window, int direction)
 	float f_d = 0.0f;
 	float f_x = 0.0f;
 	float f_y = 0.0f;
-	if (direction == 0)
-	{
-		f_x = c::fVSX - c::fSS;
-		f_y = 0.0f;
-		spritePath.append("f.png");
-	}
-	if (direction == 1)
+
+
+	if (m_players)
 	{
 		f_x = 0.0f;
 		f_y = c::fVSY - c::fSS;
 		spritePath.append("b.png");
 	}
+	else
+	{
+		f_x = c::fVSX - c::fSS;
+		f_y = 0.0f;
+		spritePath.append("f.png");
+	}
+	
 
 	m_tileSet.loadFromFile(spritePath);
 
@@ -92,6 +98,10 @@ void Pokemon::levelUp(int level)
 	m_level += level;
 	updateStats();
 	resetAll();
+}
+void Pokemon::makePlayers()
+{
+	m_players = true;
 }
 void Pokemon::resetAll()
 {

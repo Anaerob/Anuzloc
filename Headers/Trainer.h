@@ -24,7 +24,7 @@ protected:
 	
 public:
 	Trainer(std::string type = "Trainer",
-		std::string name = "X", eDirection direction = DIRECTION_DOWN, int x = 11, int y = 31);
+		std::string name = "X", eDirection direction = DIRECTION_DOWN, int x = 0, int y = 0);
 
 	Pokemon m_pokemon[6];
 

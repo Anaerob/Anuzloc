@@ -15,12 +15,12 @@ class Game
 	Battle m_battle;
 	Event m_event;
 	sf::VertexArray m_frameLines;
-	//std::map<int, std::string> m_generalStrings;
+	std::map<int, std::string> m_generalStrings;
 	Menu m_menu;
 	eDirection m_moving;
 	Overworld m_overworld;
 	Player m_player;
-	//std::ifstream m_read;
+	std::ifstream m_read;
 	TextBox m_textBox;
 
 public:
@@ -40,7 +40,7 @@ public:
 	void pressRight();
 	void pressSpace();
 	void pressUp();
-	//void readGeneral();
+	void readGeneral();
 
 };
 #endif

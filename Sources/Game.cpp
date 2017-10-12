@@ -19,7 +19,11 @@ Game::Game()
 	for (int i = 0; i < 4; ++i)
 		m_frameLines[i].color = sf::Color::Black;
 
+	readGeneral();
+	m_battle.setStrings(m_generalStrings);
+
 	Pokemon temp{ 1, 5 };
+	temp.makePlayers();
 	m_player.setPokemon(0, temp);
 }
 
@@ -106,11 +110,13 @@ void Game::pressReturn()
 	m_menu.enter();
 	if (m_menu.getMove() != 0)
 	{
+		m_textBox.clear();
 		m_battle.useMove(m_menu.getMove() - 1);
 		m_menu.reset();
 		if (!m_battle.getActive())
 		{
 			m_menu.change(MENU_NONE);
+			m_textBox.clear();
 			m_event.advance();
 		}
 	}
@@ -133,21 +139,22 @@ void Game::pressUp()
 {
 	m_menu.navigateUp();
 }
-/*void Game::readGeneral()
+void Game::readGeneral()
 {
-	m_read.open("general/strings.dat");
+	m_read.open("Resources/Strings.dat");
 
-	std::string nextString;
+	std::string nextLine;
 	std::map<int, std::string> general;
 
 	int i = 0;
 	general[i] = "";
-	while (m_read)
+
+	while (m_read.good())
 	{
-		std::getline(m_read, nextString);
-		general[++i] = nextString;
+		std::getline(m_read, nextLine);
+		general[++i] = nextLine;
 	}
 
 	m_read.close();
-	m_generalStringMap = general;
-}*/
+	m_generalStrings = general;
+}

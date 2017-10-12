@@ -210,19 +210,19 @@ void Overworld::readStrings(std::string stringMapPath)
 	m_read.open(stringMapPath);
 
 	std::string nextLine;
-	std::map<int, std::string> stringMap;
+	std::map<int, std::string> strings;
 
 	int i = 0;
-	stringMap[i] = "";
+	strings[i] = "";
 
 	while (m_read.good())
 	{
 		std::getline(m_read, nextLine);
-		stringMap[++i] = nextLine;
+		strings[++i] = nextLine;
 	}
 
 	m_read.close();
-	m_strings = stringMap;
+	m_strings = strings;
 }
 void Overworld::readTileMap(std::string tileMapPath)
 {
