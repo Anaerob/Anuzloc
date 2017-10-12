@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game()
-	: m_battle{ m_player , m_textBox },
+	: m_battle{ m_menu, m_player , m_textBox },
 	m_event{ m_battle, m_player, m_textBox },
 	m_menu{ m_player },
 	m_overworld{ m_battle, m_event, m_player, m_textBox },
@@ -19,7 +19,7 @@ Game::Game()
 	for (int i = 0; i < 4; ++i)
 		m_frameLines[i].color = sf::Color::Black;
 
-	Pokemon temp{ 1 };
+	Pokemon temp{ 1, 5 };
 	m_player.setPokemon(0, temp);
 }
 
@@ -91,7 +91,7 @@ void Game::holdW()
 }
 void Game::pressBackSpace()
 {
-
+	m_menu.back();
 }
 void Game::pressDown()
 {
@@ -103,7 +103,17 @@ void Game::pressLeft()
 }
 void Game::pressReturn()
 {
-	
+	m_menu.enter();
+	if (m_menu.getMove() != 0)
+	{
+		m_battle.useMove(m_menu.getMove() - 1);
+		m_menu.reset();
+		if (!m_battle.getActive())
+		{
+			m_battle.terminate();
+			m_event.advance();
+		}
+	}
 }
 void Game::pressRight()
 {

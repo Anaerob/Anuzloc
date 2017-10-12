@@ -1,31 +1,77 @@
 #include "Menu.h"
 
 Menu::Menu(Player& player)
-	: m_buttonSet{ { cf_mPX + 32.0f, cf_mPY + 32.0f },
-	{ cf_mPX + 192.0f + 64.0f, cf_mPY + 32.0f },
-	{ cf_mPX + 32.0f, cf_mPY + 100.0f + 64.0f },
-	{ cf_mPX + 192.0f + 64.0f, cf_mPY + 100.0f + 64.0f } },
-	m_markedButton{ 0 },
+	: m_marked{ 0 },
+	m_menu{ MENU_NONE },
+	m_move{ 0 },
 	m_player{ player }
 {
-	initialize();
+	for (int i = 0; i < c_buttons; ++i)
+	{
+		m_buttonSet[i].setPositionX(cf_mPX + 32.0f + (i % 2) * (32.0f + 192.0f));
+		m_buttonSet[i].setPositionY(cf_mPY + 32.0f + (i / 2) * (32.0f + 100.0f));
+	}
+
+	m_buttonSet[m_marked].setMarked(true);
+	//initialize();
 }
 
+void Menu::back()
+{
+	switch (m_menu)
+	{
+	case MENU_FIGHT:
+		//change(MENU_BATTLE);
+		break;
+	default:
+		break;
+	}
+}
+void Menu::change(e_menu menu)
+{
+	switch (menu)
+	{
+	case MENU_NONE:
+		m_menu = menu;
+		resetMark();
+		for (int i = 0; i < c_buttons; ++i)
+			m_buttonSet[i].setActive(false);
+		break;
+	case MENU_FIGHT:
+		m_menu = menu;
+		resetMark();
+		for (int i = 0; i < 4; ++i)
+		{
+			bool activate = m_player.getPokemon(0).getMove(i).getIndex() != 0;
+			if (activate)
+			{
+				m_buttonSet[i].setString(m_player.getPokemon(0).getMove(i).getName());
+				m_buttonSet[i].setActive(true);
+			}
+		}
+		break;
+	default:
+		break;
+	}
+}
 void Menu::draw(sf::RenderWindow& window)
 {
 	for (int i = 0; i < c_buttons; ++i)
 		m_buttonSet[i].draw(window);
 }
-/*void BattleMenu::enterFight()
+void Menu::enter()
 {
-	m_inFight = true;
-	for (int i = 0; i < 4; ++i)
+	switch (m_menu)
 	{
-		m_buttonSet4[i].setString(m_player.getPokemon(0).getMove(i).getName());
-		m_buttonSet4[i].setActive(m_player.getPokemon(0).getMove(i).getIndex() != 0);
+	case MENU_FIGHT:
+		m_move = m_marked + 1;
+		//change(MENU_BATTLE);
+		break;
+	default:
+		break;
 	}
-}*/
-void Menu::initialize()
+}
+/*void Menu::initialize()
 {
 	m_inFight = false;
 	for (int i = 0; i < c_buttons; ++i)
@@ -39,71 +85,44 @@ void Menu::initialize()
 	m_buttonSet[1].setString("Bag");
 	m_buttonSet[2].setString("Pokemon");
 	m_buttonSet[3].setString("Run");
+}*/
+void Menu::moveMark(int i)
+{
+	m_buttonSet[m_marked].setMarked(false);
+	m_marked += i;
+	m_buttonSet[m_marked].setMarked(true);
 }
 void Menu::navigateDown()
 {
-	if (m_buttonSet[0].getMarked() && m_buttonSet[2].getActive())
-	{
-		m_buttonSet[0].setMarked(false);
-		m_buttonSet[2].setMarked(true);
-	}
-	else if (m_buttonSet[1].getMarked() && m_buttonSet[3].getActive())
-	{
-		m_buttonSet[1].setMarked(false);
-		m_buttonSet[3].setMarked(true);
-	}
+	if (m_marked + 2 < c_buttons)
+		if (m_buttonSet[m_marked + 2].getActive())
+			moveMark(2);
 }
 void Menu::navigateLeft()
 {
-	if (m_buttonSet[1].getMarked() && m_buttonSet[0].getActive())
-	{
-		m_buttonSet[1].setMarked(false);
-		m_buttonSet[0].setMarked(true);
-	}
-	else if (m_buttonSet[3].getMarked() && m_buttonSet[2].getActive())
-	{
-		m_buttonSet[3].setMarked(false);
-		m_buttonSet[2].setMarked(true);
-	}
+	if (m_marked % 2 == 1)
+		if (m_buttonSet[m_marked - 1].getActive())
+			moveMark(-1);
 }
 void Menu::navigateRight()
 {
-	if (m_buttonSet[0].getMarked() && m_buttonSet[1].getActive())
-	{
-		m_buttonSet[0].setMarked(false);
-		m_buttonSet[1].setMarked(true);
-	}
-	else if (m_buttonSet[2].getMarked() && m_buttonSet[3].getActive())
-	{
-		m_buttonSet[2].setMarked(false);
-		m_buttonSet[3].setMarked(true);
-	}
+	if (m_marked % 2 == 0 && m_marked + 1 < c_buttons)
+		if (m_buttonSet[m_marked + 1].getActive())
+			moveMark(1);
 }
 void Menu::navigateUp()
 {
-	if (m_buttonSet[2].getMarked() && m_buttonSet[0].getActive())
-	{
-		m_buttonSet[2].setMarked(false);
-		m_buttonSet[0].setMarked(true);
-	}
-	else if (m_buttonSet[3].getMarked() && m_buttonSet[1].getActive())
-	{
-		m_buttonSet[3].setMarked(false);
-		m_buttonSet[1].setMarked(true);
-	}
+	if (m_marked - 2 >= 0)
+		if (m_buttonSet[m_marked - 2].getActive())
+			moveMark(-2);
 }
-/*int BattleMenu::press()
+void Menu::reset()
 {
-	if (m_buttonSet4[0].getMarked() && !m_inFight)
-	{
-		enterFight();
-		return 0;
-	}
-	for (int i = 0; i < 4; ++i)
-		if (m_buttonSet4[i].getMarked() && m_inFight)
-		{
-			initialize();
-			return i + 1;
-		}
-	return 0;
-}*/
+	m_move = 0;
+}
+void Menu::resetMark()
+{
+	m_buttonSet[m_marked].setMarked(false);
+	m_marked = 0;
+	m_buttonSet[m_marked].setMarked(true);
+}

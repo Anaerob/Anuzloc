@@ -20,6 +20,19 @@ Button::Button(float positionX,	float positionY)
 	m_text.setString("BUTTON");
 }
 
+void Button::setPositionX(float positionX)
+{ 
+	m_positionX = positionX;
+	m_text.setPosition(sf::Vector2f(m_positionX + 16.0f,
+		m_positionY + 28.0f));
+}
+void Button::setPositionY(float positionY)
+{
+	m_positionY = positionY;
+	m_text.setPosition(sf::Vector2f(m_positionX + 16.0f,
+		m_positionY + 28.0f));
+}
+
 void Button::draw(sf::RenderWindow& window)
 {
 	if (m_isActive)

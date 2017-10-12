@@ -9,7 +9,6 @@ class Trainer
 {
 	//int m_index;
 	std::string m_name;
-	Pokemon m_pokemon[6];
 	std::string m_type;
 	
 protected:
@@ -26,6 +25,8 @@ protected:
 public:
 	Trainer(std::string type = "Trainer",
 		std::string name = "X", Direction direction = DIRECTION_DOWN, int x = 11, int y = 31);
+
+	Pokemon m_pokemon[6];
 
 	void setDirection(Direction direction) { m_direction = direction; }
 	void setPokemon(int i, Pokemon pokemon) { m_pokemon[i] = pokemon; }

@@ -1,12 +1,11 @@
 #include "Battle.h"
 
-Battle::Battle(Player& player, TextBox& textBox)
-	: //m_menu{ player },
+Battle::Battle(Menu& menu, Player& player, TextBox& textBox)
+	: m_menu{ menu },
 	m_opponentHealthBar{ false },
 	m_player{ player },
 	m_playerHealthBar{ true },
-	m_textBox{ textBox }//,
-	//m_view{ player }
+	m_textBox{ textBox }
 {
 	
 }
@@ -24,28 +23,12 @@ void Battle::initialize(Trainer opponent)
 {
 	m_opponent = opponent;
 	m_active = true;
-	//m_menu.initialize();
+	m_menu.change(MENU_FIGHT);
 }
-/*void Battle::menuDown()
+void Battle::terminate()
 {
-	m_menu.navigateDown();
+	m_menu.change(MENU_NONE);
 }
-int Battle::menuReturn()
-{
-	return m_menu.press();
-}
-void Battle::menuLeft()
-{
-	m_menu.navigateLeft();
-}
-void Battle::menuRight()
-{
-	m_menu.navigateRight();
-}
-void Battle::menuUp()
-{
-	m_menu.navigateUp();
-}*/
 void Battle::updateHealthBars()
 {
 	float oHP = (float)m_opponent.getPokemon(0).getHP() / (float)m_opponent.getPokemon(0).getStat(0);
@@ -54,14 +37,8 @@ void Battle::updateHealthBars()
 	float pHP = (float)m_player.getPokemon(0).getHP() / (float)m_player.getPokemon(0).getStat(0);
 	m_playerHealthBar.setHP(pHP);
 }
-/*bool Battle::useMoves(int i)
+void Battle::useMove(int move)
 {
-	Pokemon& opponentPokemon = m_opponent.getPokemon(0);
-	Pokemon& playerPokemon = m_player.getPokemon(0);
-	
-	Move& opponentMove = opponentPokemon.getMove(i - 1);
-	Move& playerMove = playerPokemon.getMove(i - 1);
-
 	double d_level;
 	double d_power;
 	double d_attack;
@@ -69,37 +46,41 @@ void Battle::updateHealthBars()
 	double d_damage;
 	int damage;
 
-	if (playerMove.getStat(1) != 0)
+	std::random_device rd;
+	std::mt19937 rng(rd());
+	std::uniform_int_distribution<int> dist(0, 1);
+	int opponentMove = dist(rng);
+
+	if (m_player.m_pokemon[0].getMove(move).getStat(1) != 0)
 	{
-		d_level = (double)playerPokemon.getLevel();
-		d_power = (double)playerMove.getStat(1);
-		d_attack = (double)playerPokemon.getStat(1);
-		d_defense = (double)opponentPokemon.getStat(2);
+		d_level = (double)m_player.m_pokemon[0].getLevel();
+		d_power = (double)m_player.m_pokemon[0].getMove(move).getStat(1);
+		d_attack = (double)m_player.m_pokemon[0].getStat(1);
+		d_defense = (double)m_opponent.m_pokemon[0].getStat(2);
 		d_damage = 2 +
 			d_power * d_attack * (2 + 2 * d_level / 5) / (50 * d_defense);
 		damage = (int)d_damage;
 	}
 	else
 		damage = 0;
-	opponentPokemon.changeHP(-damage);
+	m_opponent.m_pokemon[0].changeHP(-damage);
 
-	if (opponentMove.getStat(1) != 0)
+	if (m_opponent.m_pokemon[0].getMove(opponentMove).getStat(1) != 0)
 	{
-		d_level = (double)opponentPokemon.getLevel();
-		d_power = (double)opponentMove.getStat(1);
-		d_attack = (double)opponentPokemon.getStat(1);
-		d_defense = (double)playerPokemon.getStat(2);
+		d_level = (double)m_opponent.m_pokemon[0].getLevel();
+		d_power = (double)m_opponent.m_pokemon[0].getMove(opponentMove).getStat(1);
+		d_attack = (double)m_opponent.m_pokemon[0].getStat(1);
+		d_defense = (double)m_player.m_pokemon[0].getStat(2);
 		d_damage = 2 +
 			d_power * d_attack * (2 + 2 * d_level / 5) / (50 * d_defense);
 		damage = (int)d_damage;
 	}
 	else
 		damage = 0;
-	playerPokemon.changeHP(-damage);
+	m_player.m_pokemon[0].changeHP(-damage);
 
-	return (playerPokemon.getHP() != 0 &&
-		opponentPokemon.getHP() != 0);
-}*/
+	m_active = m_opponent.m_pokemon[0].getHP() != 0;
+}
 /*void Pokemon::useMove(Move& move, Pokemon& opponent)
 {
 	int pp = move.getStat(0);

@@ -21,8 +21,10 @@ public:
 
 	void setActive(bool isActive) { m_isActive = isActive; }
 	void setMarked(bool isMarked) { m_isMarked = isMarked; }
+	void setPositionX(float positionX);
+	void setPositionY(float positionY);
 	void setString(std::string buttonText) { m_text.setString(buttonText); }
-
+	
 	bool getActive() { return m_isActive; }
 	bool getMarked() { return m_isMarked; }
 

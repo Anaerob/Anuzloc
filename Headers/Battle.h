@@ -1,8 +1,10 @@
 #ifndef BATTLE_H
 #define BATTLE_H
+#include <random>
 #include <SFML/Graphics.hpp>
 #include "Constants.h"
 #include "HealthBar.h"
+#include "Menu.h"
 #include "Player.h"
 #include "Trainer.h"
 #include "TextBox.h"
@@ -10,6 +12,7 @@
 class Battle
 {
 	bool m_active;
+	Menu& m_menu;
 	Trainer m_opponent;
 	HealthBar m_opponentHealthBar;
 	Player& m_player;
@@ -17,19 +20,15 @@ class Battle
 	TextBox& m_textBox;
 	
 public:
-	Battle(Player& player, TextBox& textBox);
+	Battle(Menu& menu, Player& player, TextBox& textBox);
 
 	bool getActive() { return m_active; }
 	
 	void draw(sf::RenderWindow& window);
 	void initialize(Trainer opponent);
-	//void menuDown();
-	//int menuReturn();
-	//void menuLeft();
-	//void menuRight();
-	//void menuUp();
+	void terminate();
 	void updateHealthBars();
-	//bool useMoves(int i);
+	void useMove(int i);
 
 };
 #endif

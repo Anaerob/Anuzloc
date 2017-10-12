@@ -24,6 +24,7 @@ void Event::advance()
 	switch (nextChar)
 	{
 	case 'b':
+		m_textBox.clear();
 		m_battle.initialize(m_opponent);
 		break;
 	case 's':
