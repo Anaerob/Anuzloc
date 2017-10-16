@@ -23,6 +23,8 @@ for x = 1:sizeX
       output(y, x) = 3;
     elseif permute(input(y, x, :), [1 3 2]) == [150 100 50]
       output(y, x) = 4;
+    elseif permute(input(y, x, :), [1 3 2]) == [0 100 200]
+      output(y, x) = 5;
     end
   end
 end
