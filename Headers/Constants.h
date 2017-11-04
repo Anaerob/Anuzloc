@@ -97,6 +97,8 @@ namespace c
 	extern const int iBN;
 	// int maximum number of event triggers
 	extern const int iEN;
+	// int maximum number of portals
+	extern const int iPN;
 
 	// Initial values
 

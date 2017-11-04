@@ -42,7 +42,10 @@ void Event::advance()
 }
 void Event::initialize(int ID, Trainer opponent)
 {
-	m_read.open("Resources/Maps/route1Events.dat");
+	std::string eventPath = "Resources/Maps/";
+	eventPath.append(m_world);
+	eventPath.append("Events.dat");
+	m_read.open(eventPath);
 	std::string key = "e";
 	key.append(std::to_string(ID));
 	m_opponent = opponent;

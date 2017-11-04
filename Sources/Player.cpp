@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: Trainer{ "Player", "Red", DIRECTION_DOWN, 11, 31 },
+	: Trainer{ "Player", "Red", DIRECTION_DOWN, 4, 5 },
 	m_lock{ false }
 {
 	m_tileSet.loadFromFile("Resources/Tiles/Player.png");

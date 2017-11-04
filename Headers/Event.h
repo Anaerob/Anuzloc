@@ -22,7 +22,7 @@ public:
 	Event(Battle& battle, Player& player, TextBox& textBox);
 
 	void setStrings(std::map<int, std::string> strings) { m_strings = strings; }
-	//void setWorld(std::string world) { m_world = world; }
+	void setWorld(std::string world) { m_world = world; }
 
 	bool getActive() { return m_active; }
 

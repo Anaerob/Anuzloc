@@ -46,6 +46,7 @@ namespace c
 	
 	extern const int iBN(4);
 	extern const int iEN(10);
+	extern const int iPN(10);
 
 	extern const int iPBS[4][6] {
 		{ 45, 49, 49, 65, 65, 45 },

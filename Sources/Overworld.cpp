@@ -8,12 +8,13 @@ Overworld::Overworld(Battle& battle, Event& event, Player& player, TextBox& text
 	m_tiles{ sf::Quads, (c::iVSX / c::iTS + 2) * (c::iVSY / c::iTS + 2) * 4 },
 	m_whiteMenu{ c::fMPX, c::fMPY, c::fMSX, c::fMSY },
 	m_whiteTextBox{ c::fTBPX, c::fTBPY, c::fTBSX, c::fTBSY },
-	m_world{ "route1" }
+	m_world{ "PalletTown" }
 {
 	m_tileSet.loadFromFile("Resources/Tiles/Overworld.png");
 
 	readWorld();
 	m_event.setStrings(m_strings);
+	m_event.setWorld(m_world);
 }
 
 void Overworld::calculateOffsetX()
