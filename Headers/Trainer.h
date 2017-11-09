@@ -26,10 +26,12 @@ public:
 	Trainer(std::string type = "Trainer",
 		std::string name = "X", eDirection direction = DIRECTION_DOWN, int x = 0, int y = 0);
 
+	int m_activePokemon;
 	Pokemon m_pokemon[6];
 
 	void setDirection(eDirection direction) { m_direction = direction; }
 	void setPokemon(int i, Pokemon pokemon) { m_pokemon[i] = pokemon; }
+	void setPosition(int x, int y) { m_x = x; m_y = y; }
 
 	eDirection getDirection() { return m_direction; }
 	//std::string getName() { return m_name; }

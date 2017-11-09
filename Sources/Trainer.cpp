@@ -1,7 +1,8 @@
 #include "Trainer.h"
 
 Trainer::Trainer(std::string type, std::string name, eDirection direction, int x, int y)
-	: m_direction{ direction },
+	: m_activePokemon{ 0 },
+	m_direction{ direction },
 	m_name{ name },
 	m_partialRotate{ 0 },
 	m_partialX{ 0 },

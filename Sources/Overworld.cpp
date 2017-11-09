@@ -17,6 +17,27 @@ Overworld::Overworld(Battle& battle, Event& event, Player& player, TextBox& text
 	m_event.setWorld(m_world);
 }
 
+void Overworld::setWorld(std::string world)
+{
+	m_world = world;
+	readWorld();
+	m_event.setStrings(m_strings);
+	m_event.setWorld(m_world);
+}
+
+int Overworld::getPortal(int x, int y)
+{
+	return m_tileMap[x + y * (m_sizeX + 2)] / c::iPN % c::iEN;
+}
+int Overworld::getTile(int x, int y)
+{
+	return m_tileMap[x + y * (m_sizeX + 2)] / (c::iEN * c::iPN);
+}
+int Overworld::getTrigger(int x, int y)
+{
+	return m_tileMap[x + y * (m_sizeX + 2)] % (c::iEN * c::iPN);
+}
+
 void Overworld::calculateOffsetX()
 {
 	int half = (c::iVSX / c::iTS - 1) / 2;
@@ -206,9 +227,32 @@ void Overworld::readNPCs(std::string NPCsPath)
 	m_read.close();
 	m_NPCs = NPCs;
 }
-void Overworld::readStrings(std::string stringMapPath)
+void Overworld::readPortals(std::string portalsPath)
 {
-	m_read.open(stringMapPath);
+	m_read.open(portalsPath);
+
+	int x;
+	int y;
+	std::string temp;
+
+	int i = 1;
+	while (m_read.good())
+	{
+		m_read >> x;
+		m_read >> y;
+		m_tileMap[x + y * (m_sizeX + 2)] = m_tileMap[x + y * (m_sizeX + 2)] + i * c::iEN;
+		i++;
+
+		m_read >> temp;
+		m_read >> x;
+		m_read >> y;
+	}
+
+	m_read.close();
+}
+void Overworld::readStrings(std::string stringsPath)
+{
+	m_read.open(stringsPath);
 
 	std::string nextLine;
 	std::map<int, std::string> strings;
@@ -240,9 +284,8 @@ void Overworld::readTileMap(std::string tileMapPath)
 		for (int x = 1; x < m_sizeX + 1; ++x)
 		{
 			m_read >> nextInt;
-			m_tileMap[x + y * (m_sizeX + 2)] = nextInt * c::iEN;
+			m_tileMap[x + y * (m_sizeX + 2)] = nextInt * c::iEN * c::iPN;
 		}
-			
 
 	m_read.close();
 }
@@ -258,6 +301,10 @@ void Overworld::readWorld()
 	NPCsPath.append("NPCs.dat");
 	readNPCs(NPCsPath);
 	
+	std::string portalsPath = worldPath;
+	portalsPath.append("Portals.dat");
+	readPortals(portalsPath);
+
 	std::string stringsPath = worldPath;
 	stringsPath.append("Strings.dat");
 	readStrings(stringsPath);

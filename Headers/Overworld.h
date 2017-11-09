@@ -38,17 +38,20 @@ class Overworld
 public:
 	Overworld(Battle& battle, Event& event, Player& player, TextBox& textBox);
 
-	int getTile(int x, int y) {
-		return m_tileMap[x + y * (m_sizeX + 2)] / c::iEN; }
-	int getTrigger(int x, int y) {
-		return m_tileMap[x + y * (m_sizeX + 2)] % c::iEN; }
+	void setWorld(std::string world);
+
+	int getPortal(int x, int y);
+	int getTile(int x, int y);
+	int getTrigger(int x, int y);
+	std::string getWorld() { return m_world; }
 
 	void calculateOffsetX();
 	void calculateOffsetY();
 	void draw(sf::RenderWindow& window);
 	void interact();
 	void readNPCs(std::string NPCsPath);
-	void readStrings(std::string stringMapPath);
+	void readPortals(std::string portalsPath);
+	void readStrings(std::string stringsPath);
 	void readTileMap(std::string tileMapPath);
 	void readWorld();
 

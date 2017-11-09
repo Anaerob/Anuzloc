@@ -28,11 +28,13 @@ public:
 	
 	bool getActive() { return m_active; }
 	
+	void advance(int move);
 	void draw(sf::RenderWindow& window);
 	void initialize(Trainer opponent);
+	void opponentMove(int i);
+	void playerMove(int i);
 	//void terminate();
 	void updateHealthBars();
-	void useMove(int i);
-
+	
 };
 #endif

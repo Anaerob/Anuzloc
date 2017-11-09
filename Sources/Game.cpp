@@ -22,9 +22,12 @@ Game::Game()
 	readGeneral();
 	m_battle.setStrings(m_generalStrings);
 
-	Pokemon temp{ 1, 5 };
-	temp.makePlayers();
-	m_player.setPokemon(0, temp);
+	for (int i = 0; i < 4; ++i)
+	{
+		Pokemon temp{ i + 1, 5 };
+		temp.makePlayers();
+		m_player.setPokemon(i, temp);
+	}
 }
 
 void Game::draw(sf::RenderWindow& window)
@@ -76,7 +79,34 @@ void Game::holdS()
 		if (m_player.getMoving())
 			m_moving = direction;
 		else
+		{
 			m_moving = DIRECTION_NONE;
+			int portal = m_overworld.getPortal(m_player.getX(), m_player.getY());
+			if (portal != 0)
+			{
+				std::string portalPath = "Resources/Maps/";
+				portalPath.append(m_overworld.getWorld());
+				portalPath.append("Portals.dat");
+				m_read.open(portalPath);
+
+				int x = 0;
+				int y = 0;
+				std::string world = "";
+
+				for (int i = 0; i < portal; ++i)
+				{
+					m_read >> x;
+					m_read >> y;
+					m_read >> world;
+					m_read >> x;
+					m_read >> y;
+				}
+
+				m_overworld.setWorld(world);
+				m_player.setPosition(x, y);
+				m_read.close();
+			}
+		}
 	}
 }
 void Game::holdW()
@@ -90,7 +120,34 @@ void Game::holdW()
 		if (m_player.getMoving())
 			m_moving = direction;
 		else
+		{
 			m_moving = DIRECTION_NONE;
+			int portal = m_overworld.getPortal(m_player.getX(), m_player.getY());
+			if (portal != 0)
+			{
+				std::string portalPath = "Resources/Maps/";
+				portalPath.append(m_overworld.getWorld());
+				portalPath.append("Portals.dat");
+				m_read.open(portalPath);
+
+				int x = 0;
+				int y = 0;
+				std::string world = "";
+
+				for (int i = 0; i < portal; ++i)
+				{
+					m_read >> x;
+					m_read >> y;
+					m_read >> world;
+					m_read >> x;
+					m_read >> y;
+				}
+
+				m_overworld.setWorld(world);
+				m_player.setPosition(x, y);
+				m_read.close();
+			}
+		}
 	}
 }
 void Game::pressBackSpace()
@@ -111,7 +168,7 @@ void Game::pressReturn()
 	if (m_menu.getMove() != 0)
 	{
 		m_textBox.clear();
-		m_battle.useMove(m_menu.getMove() - 1);
+		m_battle.advance(m_menu.getMove() - 1);
 		m_menu.reset();
 		if (!m_battle.getActive())
 		{

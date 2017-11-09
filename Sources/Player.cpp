@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: Trainer{ "Player", "Red", DIRECTION_DOWN, 4, 5 },
+	: Trainer{ "Player", "Red", DIRECTION_DOWN, 6, 6 },
 	m_lock{ false }
 {
 	m_tileSet.loadFromFile("Resources/Tiles/Player.png");
@@ -72,7 +72,7 @@ void Player::move(eDirection direction, int nextTile)
 }
 void Player::moveDown(int nextTile)
 {
-	if (nextTile == 1 || nextTile == 2)
+	if (nextTile == 1 || nextTile == 2 || nextTile == 3)
 	{
 		m_partialY = (m_partialY + c::iWSp) % c::iTS;
 		m_moving = !(m_partialY % c::iTS == 0);
@@ -89,7 +89,7 @@ void Player::moveDown(int nextTile)
 }
 void Player::moveLeft(int nextTile)
 {
-	if (nextTile == 1 || nextTile == 2)
+	if (nextTile == 1 || nextTile == 2 || nextTile == 3)
 	{
 		m_partialX = (m_partialX - c::iWSp) % c::iTS;
 		m_moving = !(m_partialX % c::iTS == 0);
@@ -99,7 +99,7 @@ void Player::moveLeft(int nextTile)
 }
 void Player::moveRight(int nextTile)
 {
-	if (nextTile == 1 || nextTile == 2)
+	if (nextTile == 1 || nextTile == 2 || nextTile == 3)
 	{
 		m_partialX = (m_partialX + c::iWSp) % c::iTS;
 		m_moving = !(m_partialX % c::iTS == 0);
@@ -109,7 +109,7 @@ void Player::moveRight(int nextTile)
 }
 void Player::moveUp(int nextTile)
 {
-	if (nextTile == 1 || nextTile == 2)
+	if (nextTile == 1 || nextTile == 2 || nextTile == 3)
 	{
 		m_partialY = (m_partialY - c::iWSp) % c::iTS;
 		m_moving = !(m_partialY % c::iTS == 0);
