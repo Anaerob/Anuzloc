@@ -128,7 +128,7 @@ const enum eDirection {
 };
 const enum eMenu {
 	MENU_NONE,
-	MENU_BATTLE, MENU_FIGHT
+	MENU_BATTLE, MENU_FIGHT, MENU_POKEMON
 };
 const enum eType {
 	TYPE_NONE, TYPE_NORMAL, TYPE_FIGHTING, TYPE_FLYING, TYPE_POISON,

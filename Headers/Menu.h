@@ -13,11 +13,13 @@ class Menu
 	int m_move;
 	eMenu m_menu;
 	Player& m_player;
+	int m_pokemon;
 	
 public:
 	Menu(Player& player);
 
 	int getMove() { return m_move; }
+	int getPokemon() { return m_pokemon; }
 
 	void back();
 	void change(eMenu menu);

@@ -165,11 +165,14 @@ void Game::pressLeft()
 void Game::pressReturn()
 {
 	m_menu.enter();
-	if (m_menu.getMove() != 0)
+	int move = m_menu.getMove();
+	int pokemon = m_menu.getPokemon();
+	m_menu.reset();
+
+	if (move != -1)
 	{
 		m_textBox.clear();
-		m_battle.advance(m_menu.getMove() - 1);
-		m_menu.reset();
+		m_battle.advance(move, pokemon);
 		if (!m_battle.getActive())
 		{
 			m_menu.change(MENU_NONE);

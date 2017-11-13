@@ -28,7 +28,7 @@ public:
 	
 	bool getActive() { return m_active; }
 	
-	void advance(int move);
+	void advance(int move, int pokemon);
 	void draw(sf::RenderWindow& window);
 	void initialize(Trainer opponent);
 	void opponentMove(int i);

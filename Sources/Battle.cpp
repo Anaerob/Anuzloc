@@ -10,8 +10,13 @@ Battle::Battle(Menu& menu, Player& player, TextBox& textBox)
 	
 }
 
-void Battle::advance(int pMove)
+void Battle::advance(int move, int pokemon)
 {
+	if (pokemon != -1)
+	{
+		// change pokemon
+	}
+
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> dist(0, 1);
@@ -21,13 +26,13 @@ void Battle::advance(int pMove)
 	if (m_player.m_pokemon[m_player.m_activePokemon].getStat(5) >=
 		m_opponent.m_pokemon[m_opponent.m_activePokemon].getStat(5) + speedTie)
 	{
-		playerMove(pMove);
+		playerMove(move);
 		opponentMove(oMove);
 	}
 	else
 	{
 		opponentMove(oMove);
-		playerMove(pMove);
+		playerMove(move);
 	}
 
 	m_active = m_opponent.m_pokemon[m_opponent.m_activePokemon].getHP() != 0;
@@ -45,7 +50,7 @@ void Battle::initialize(Trainer opponent)
 {
 	m_opponent = opponent;
 	m_active = true;
-	m_menu.change(MENU_FIGHT);
+	m_menu.change(MENU_BATTLE);
 }
 void Battle::opponentMove(int move)
 {
@@ -57,24 +62,38 @@ void Battle::opponentMove(int move)
 	int damage; 
 	std::string nextLine;
 
-	if (m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getStat(1) != 0)
+	std::random_device rd;
+	std::mt19937 rng(rd());
+	std::uniform_int_distribution<int> dist(0, 100);
+	int hit = dist(rng);
+
+	if (hit > m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getStat(2))
 	{
-		d_level = (double)m_opponent.m_pokemon[m_opponent.m_activePokemon].getLevel();
-		d_power = (double)m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getStat(1);
-		d_attack = (double)m_opponent.m_pokemon[m_opponent.m_activePokemon].getStat(1);
-		d_defense = (double)m_player.m_pokemon[m_player.m_activePokemon].getStat(2);
-		d_damage = 2 +
-			d_power * d_attack * (2 + 2 * d_level / 5) / (50 * d_defense);
-		damage = (int)d_damage;
+		nextLine = m_strings.find(4)->second;
+		nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[m_opponent.m_activePokemon].getName());
+		nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getName());
+		m_textBox.addString(nextLine);
 	}
 	else
-		damage = 0;
-	m_player.m_pokemon[m_player.m_activePokemon].changeHP(-damage);
+	{
+		if (m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getStat(1) != 0)
+		{
+			d_level = (double)m_opponent.m_pokemon[m_opponent.m_activePokemon].getLevel();
+			d_power = (double)m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getStat(1);
+			d_attack = (double)m_opponent.m_pokemon[m_opponent.m_activePokemon].getStat(1);
+			d_defense = (double)m_player.m_pokemon[m_player.m_activePokemon].getStat(2);
+			d_damage = 2 + d_power * d_attack * (2 + 2 * d_level / 5) / (50 * d_defense);
+			damage = (int)d_damage;
 
-	nextLine = m_strings.find(2)->second;
-	nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[m_opponent.m_activePokemon].getName());
-	nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getName());
-	m_textBox.addString(nextLine);
+			m_player.m_pokemon[m_player.m_activePokemon].changeHP(-damage);
+		}
+		nextLine = m_strings.find(2)->second;
+		nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[m_opponent.m_activePokemon].getName());
+		nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getName());
+		m_textBox.addString(nextLine);
+	}
+
+	
 }
 void Battle::playerMove(int move)
 {
@@ -86,24 +105,36 @@ void Battle::playerMove(int move)
 	int damage; 
 	std::string nextLine;
 
-	if (m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getStat(1) != 0)
+	std::random_device rd;
+	std::mt19937 rng(rd());
+	std::uniform_int_distribution<int> dist(0, 100);
+	int hit = dist(rng);
+
+	if (hit > m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getStat(2))
 	{
-		d_level = (double)m_player.m_pokemon[m_player.m_activePokemon].getLevel();
-		d_power = (double)m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getStat(1);
-		d_attack = (double)m_player.m_pokemon[m_player.m_activePokemon].getStat(1);
-		d_defense = (double)m_opponent.m_pokemon[m_opponent.m_activePokemon].getStat(2);
-		d_damage = 2 +
-			d_power * d_attack * (2 + 2 * d_level / 5) / (50 * d_defense);
-		damage = (int)d_damage;
+		nextLine = m_strings.find(3)->second;
+		nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
+		nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getName());
+		m_textBox.addString(nextLine);
 	}
 	else
-		damage = 0;
-	m_opponent.m_pokemon[m_opponent.m_activePokemon].changeHP(-damage);
+	{
+		if (m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getStat(1) != 0)
+		{
+			d_level = (double)m_player.m_pokemon[m_player.m_activePokemon].getLevel();
+			d_power = (double)m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getStat(1);
+			d_attack = (double)m_player.m_pokemon[m_player.m_activePokemon].getStat(1);
+			d_defense = (double)m_opponent.m_pokemon[m_opponent.m_activePokemon].getStat(2);
+			d_damage = 2 + d_power * d_attack * (2 + 2 * d_level / 5) / (50 * d_defense);
+			damage = (int)d_damage;
 
-	nextLine = m_strings.find(1)->second;
-	nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
-	nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getName());
-	m_textBox.addString(nextLine);
+			m_opponent.m_pokemon[m_opponent.m_activePokemon].changeHP(-damage);
+		}
+		nextLine = m_strings.find(1)->second;
+		nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
+		nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getName());
+		m_textBox.addString(nextLine);
+	}
 }
 /*void Battle::terminate()
 {

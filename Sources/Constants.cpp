@@ -44,7 +44,7 @@ namespace c
 	extern const int iRSp(8);
 	extern const int iWSp(4);
 	
-	extern const int iBN(4);
+	extern const int iBN(6);
 	extern const int iEN(10);
 	extern const int iPN(10);
 
