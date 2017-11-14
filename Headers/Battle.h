@@ -4,6 +4,7 @@
 #include <map>
 #include <random>
 #include "Constants.h"
+#include "Enemy.h"
 #include "HealthBar.h"
 #include "Menu.h"
 #include "Player.h"
@@ -13,6 +14,7 @@
 class Battle
 {
 	bool m_active;
+	Enemy m_enemy;
 	Menu& m_menu;
 	Trainer m_opponent;
 	HealthBar m_opponentHealthBar;

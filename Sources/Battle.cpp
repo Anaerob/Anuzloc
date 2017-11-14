@@ -12,28 +12,28 @@ Battle::Battle(Menu& menu, Player& player, TextBox& textBox)
 
 void Battle::advance(eAction action, int i)
 {
+	m_enemy.calculateAction();
+	int enemyMove = m_enemy.getMove();
+
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> dist(0, 1);
-	int oMove = 0;
-	int speedTie = 0;
+	int speedTie = dist(rng);
+	
 	std::string nextLine = "";
 
 	switch (action)
 	{
 	case ACTION_MOVE:
-		oMove = dist(rng);
-		speedTie = dist(rng);
-
 		if (m_player.m_pokemon[m_player.m_activePokemon].getStat(5) >=
 			m_opponent.m_pokemon[m_opponent.m_activePokemon].getStat(5) + speedTie)
 		{
 			playerMove(i);
-			opponentMove(oMove);
+			opponentMove(enemyMove);
 		}
 		else
 		{
-			opponentMove(oMove);
+			opponentMove(enemyMove);
 			playerMove(i);
 		}
 
@@ -58,8 +58,7 @@ void Battle::advance(eAction action, int i)
 			nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
 			m_textBox.addString(nextLine);
 
-			oMove = dist(rng);
-			opponentMove(oMove);
+			opponentMove(enemyMove);
 		}
 	default:
 		break;
