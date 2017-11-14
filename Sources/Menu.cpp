@@ -19,6 +19,19 @@ Menu::Menu(Player& player)
 	//initialize();
 }
 
+int Menu::getMove()
+{
+	int temp = m_move;
+	m_move = -1;
+	return temp;
+}
+int Menu::getPokemon()
+{
+	int temp = m_pokemon;
+	m_pokemon = -1;
+	return temp;
+}
+
 void Menu::back()
 {
 	switch (m_menu)

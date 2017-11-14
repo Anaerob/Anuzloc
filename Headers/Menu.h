@@ -18,8 +18,8 @@ class Menu
 public:
 	Menu(Player& player);
 
-	int getMove() { return m_move; }
-	int getPokemon() { return m_pokemon; }
+	int getMove();
+	int getPokemon();
 
 	void back();
 	void change(eMenu menu);

@@ -121,6 +121,10 @@ namespace c
 
 // Enums
 
+const enum eAction {
+	ACTION_NONE,
+	ACTION_MOVE, ACTION_POKEMON
+};
 const enum eDirection {
 	DIRECTION_NONE,
 	DIRECTION_UP, DIRECTION_DOWN, DIRECTION_LEFT, DIRECTION_RIGHT,

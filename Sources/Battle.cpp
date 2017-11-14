@@ -10,32 +10,60 @@ Battle::Battle(Menu& menu, Player& player, TextBox& textBox)
 	
 }
 
-void Battle::advance(int move, int pokemon)
+void Battle::advance(eAction action, int i)
 {
-	if (pokemon != -1)
-	{
-		// change pokemon
-	}
-
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> dist(0, 1);
-	int oMove = dist(rng);
-	int speedTie = dist(rng);
+	int oMove = 0;
+	int speedTie = 0;
+	std::string nextLine = "";
 
-	if (m_player.m_pokemon[m_player.m_activePokemon].getStat(5) >=
-		m_opponent.m_pokemon[m_opponent.m_activePokemon].getStat(5) + speedTie)
+	switch (action)
 	{
-		playerMove(move);
-		opponentMove(oMove);
-	}
-	else
-	{
-		opponentMove(oMove);
-		playerMove(move);
-	}
+	case ACTION_MOVE:
+		oMove = dist(rng);
+		speedTie = dist(rng);
 
-	m_active = m_opponent.m_pokemon[m_opponent.m_activePokemon].getHP() != 0;
+		if (m_player.m_pokemon[m_player.m_activePokemon].getStat(5) >=
+			m_opponent.m_pokemon[m_opponent.m_activePokemon].getStat(5) + speedTie)
+		{
+			playerMove(i);
+			opponentMove(oMove);
+		}
+		else
+		{
+			opponentMove(oMove);
+			playerMove(i);
+		}
+
+		m_active = m_opponent.m_pokemon[m_opponent.m_activePokemon].getHP() != 0;
+		break;
+	case ACTION_POKEMON:
+		if (i == m_player.m_activePokemon)
+		{
+			nextLine = m_strings.find(5)->second;
+			nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
+			m_textBox.addString(nextLine);
+		}
+		else
+		{
+			nextLine = m_strings.find(6)->second;
+			nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
+			m_textBox.addString(nextLine);
+
+			m_player.m_activePokemon = i;
+
+			nextLine = m_strings.find(7)->second;
+			nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
+			m_textBox.addString(nextLine);
+
+			oMove = dist(rng);
+			opponentMove(oMove);
+		}
+	default:
+		break;
+	}
 }
 void Battle::draw(sf::RenderWindow& window)
 {
