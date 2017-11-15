@@ -1,11 +1,14 @@
 #include "Menu.h"
 
 Menu::Menu(Player& player)
-	: m_marked{ 0 },
+	: m_action{ ACTION_NONE },
+	m_index{ -1 },
+	m_lock{ false },
+	m_marked{ 0 },
 	m_menu{ MENU_NONE },
-	m_move{ -1 },
-	m_player{ player },
-	m_pokemon{ -1 }
+	//m_move{ -1 },
+	m_player{ player }
+	//m_pokemon{ -1 }
 {
 	m_buttonSet.clear();
 	m_buttonSet.resize(c::iBN);
@@ -19,7 +22,19 @@ Menu::Menu(Player& player)
 	//initialize();
 }
 
-int Menu::getMove()
+eAction Menu::getAction()
+{
+	eAction temp = m_action;
+	m_action = ACTION_NONE;
+	return temp;
+}
+int Menu::getIndex()
+{
+	int temp = m_index;
+	m_index = -1;
+	return temp;
+}
+/*int Menu::getMove()
 {
 	int temp = m_move;
 	m_move = -1;
@@ -30,7 +45,7 @@ int Menu::getPokemon()
 	int temp = m_pokemon;
 	m_pokemon = -1;
 	return temp;
-}
+}*/
 
 void Menu::back()
 {
@@ -48,51 +63,62 @@ void Menu::back()
 }
 void Menu::change(eMenu menu)
 {
-	m_menu = menu;
-	resetMark();
-	
-	switch (menu)
+	if (!m_lock)
 	{
-	case MENU_NONE:
-		for (int i = 0; i < c::iBN; ++i)
-			m_buttonSet[i].setActive(false);
-		break;
-	case MENU_BATTLE:
-		m_buttonSet[0].setActive(true);
-		m_buttonSet[0].setString("Fight");
-		m_buttonSet[1].setActive(true);
-		m_buttonSet[1].setString("Pokemon");
-		for (int i = 2; i < c::iBN; ++i)
-			m_buttonSet[i].setActive(false);
-		break;
-	case MENU_FIGHT:
-		for (int i = 0; i < 4; ++i)
+		m_menu = menu;
+		resetMark();
+
+		switch (menu)
 		{
-			bool activate = m_player.m_pokemon[m_player.m_activePokemon].getMove(i).getIndex() != 0;
-			if (activate)
-			{
-				m_buttonSet[i].setString(m_player.m_pokemon[m_player.m_activePokemon].getMove(i).getName());
-				m_buttonSet[i].setActive(true);
-			}
-			else
+		case MENU_NONE:
+			for (int i = 0; i < c::iBN; ++i)
 				m_buttonSet[i].setActive(false);
-		}
-		break;
-	case MENU_POKEMON:
-		for (int i = 0; i < 6; ++i)
-		{
-			bool activate = m_player.m_pokemon[i].getIndex() != 0;
-			if (activate)
-			{
-				m_buttonSet[i].setString(m_player.m_pokemon[i].getName());
-				m_buttonSet[i].setActive(true);
-			}
-			else
+			break;
+		case MENU_BATTLE:
+			m_buttonSet[0].setActive(true);
+			m_buttonSet[0].setString("Fight");
+			m_buttonSet[1].setActive(true);
+			m_buttonSet[1].setString("Pokemon");
+			for (int i = 2; i < c::iBN; ++i)
 				m_buttonSet[i].setActive(false);
+			break;
+		case MENU_FIGHT:
+			for (int i = 0; i < 4; ++i)
+			{
+				bool activate = m_player.m_pokemon[m_player.m_activePokemon].getMove(i).getIndex() != 0;
+				if (activate)
+				{
+					m_buttonSet[i].setString(m_player.m_pokemon[m_player.m_activePokemon].getMove(i).getName());
+					m_buttonSet[i].setActive(true);
+				}
+				else
+				{
+					m_buttonSet[i].setActive(false);
+					if (m_marked == i)
+						moveMark(1);
+				}
+			}
+			break;
+		case MENU_POKEMON:
+			for (int i = 0; i < 6; ++i)
+			{
+				bool activate = m_player.m_pokemon[i].getIndex() != 0 && !m_player.m_pokemon[i].getDead();
+				if (activate)
+				{
+					m_buttonSet[i].setString(m_player.m_pokemon[i].getName());
+					m_buttonSet[i].setActive(true);
+				}
+				else
+				{
+					m_buttonSet[i].setActive(false);
+					if (m_marked == i)
+						moveMark(1);
+				}
+			}
+			break;
+		default:
+			break;
 		}
-		break;
-	default:
-		break;
 	}
 }
 void Menu::draw(sf::RenderWindow& window)
@@ -111,12 +137,15 @@ void Menu::enter()
 			change(MENU_POKEMON);
 		break;
 	case MENU_FIGHT:
-		m_move = m_marked;
-		change(MENU_BATTLE);
+		m_action = ACTION_MOVE;
+		m_index = m_marked;
+		change(MENU_NONE);
 		break;
 	case MENU_POKEMON:
-		m_pokemon = m_marked;
-		change(MENU_BATTLE);
+		m_action = ACTION_SWITCH;
+		m_index = m_marked;
+		m_lock = false;
+		change(MENU_NONE);
 		break;
 	default:
 		break;
@@ -167,11 +196,11 @@ void Menu::navigateUp()
 		if (m_buttonSet[m_marked - 2].getActive())
 			moveMark(-2);
 }
-void Menu::reset()
+/*void Menu::reset()
 {
 	m_move = -1;
 	m_pokemon = -1;
-}
+}*/
 void Menu::resetMark()
 {
 	m_buttonSet[m_marked].setMarked(false);

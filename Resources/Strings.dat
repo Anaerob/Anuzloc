@@ -2,6 +2,12 @@
 Enemy % used %!
 % used %, but missed!
 Enemy % used %, but missed!
-% is already active!
-That's enough %,
-go %!
+% is already active!%
+That's enough %!%
+Go %!%
+% died! R.I.P.%
+Who's next?%%
+Enemy % died!%
+Enemy sent out %!%
+You won!%%
+You lost!%%

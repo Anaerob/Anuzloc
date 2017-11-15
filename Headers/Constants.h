@@ -123,7 +123,7 @@ namespace c
 
 const enum eAction {
 	ACTION_NONE,
-	ACTION_MOVE, ACTION_POKEMON
+	ACTION_MOVE, ACTION_POKEMON, ACTION_SWITCH
 };
 const enum eDirection {
 	DIRECTION_NONE,

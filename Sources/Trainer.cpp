@@ -2,6 +2,7 @@
 
 Trainer::Trainer(std::string type, std::string name, eDirection direction, int x, int y)
 	: m_activePokemon{ 0 },
+	m_dead{ false },
 	m_direction{ direction },
 	m_name{ name },
 	m_partialRotate{ 0 },
@@ -18,6 +19,20 @@ Trainer::Trainer(std::string type, std::string name, eDirection direction, int x
 	m_tileSet.loadFromFile(tilePath);
 }
 
+void Trainer::check()
+{
+	m_dead = true;
+	for (int i = 0; i < 6; ++i)
+	{
+		if (m_pokemon[i].getIndex() != 0)
+		{
+			if (!m_pokemon[i].getDead())
+			{
+				m_dead = false;
+			}
+		}
+	}
+}
 void Trainer::draw(sf::RenderTarget& window,
 	bool edgeX, bool edgeY,
 	int overworldViewOffsetX, int overworldViewOffsetY,

@@ -1,74 +1,141 @@
 #include "Battle.h"
 
 Battle::Battle(Menu& menu, Player& player, TextBox& textBox)
-	: m_menu{ menu },
+	: m_hasQueue{ sf::Triangles, 3 },
+	m_menu{ menu },
+	m_nextEnemyA{ ACTION_NONE },
+	m_nextEnemyI{ -1 },
+	m_nextPlayerA{ ACTION_NONE },
+	m_nextPlayerI{ -1 },
 	m_opponentHealthBar{ false },
 	m_player{ player },
 	m_playerHealthBar{ true },
 	m_textBox{ textBox }
 {
-	
+	m_hasQueue[0].position = sf::Vector2f(c::fVPX + c::fVSX - 15.0f,
+		c::fVPY + c::fVSY - 13.0f);
+	m_hasQueue[1].position = sf::Vector2f(c::fVPX + c::fVSX - 5.0f,
+		c::fVPY + c::fVSY - 13.0f);
+	m_hasQueue[2].position = sf::Vector2f(c::fVPX + c::fVSX - 10.0f,
+		c::fVPY + c::fVSY - 5.0f);
+
+	for (int i = 0; i < 3; ++i)
+		m_hasQueue[i].color = sf::Color::Black;
 }
 
-void Battle::advance(eAction action, int i)
+void Battle::setNextAction(eAction nextPlayerA, int nextPlayerI)
 {
-	m_enemy.calculateAction();
-	int enemyMove = m_enemy.getMove();
+	if (nextPlayerA != ACTION_NONE)
+	{
+		if (nextPlayerA == ACTION_SWITCH && m_player.m_pokemon[m_player.m_activePokemon].getDead())
+		{
+			m_nextPlayerA = ACTION_POKEMON;
+			m_nextPlayerI = nextPlayerI;
 
+			m_nextEnemyA = ACTION_NONE;
+			m_nextEnemyI = -1;
+		}
+		else
+		{
+			m_nextPlayerA = nextPlayerA;
+			m_nextPlayerI = nextPlayerI;
+
+			m_enemy.calculateAction();
+			m_nextEnemyA = ACTION_MOVE;
+			m_nextEnemyI = m_enemy.getMove();
+		}
+
+		advance();
+	}
+}
+
+void Battle::advance()
+{
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_int_distribution<int> dist(0, 1);
 	int speedTie = dist(rng);
+	bool playerFirst = true;
 	
-	std::string nextLine = "";
+	std::string s_pPokemon = m_player.m_pokemon[m_player.m_activePokemon].getName();
+	std::string s_pAction = "";
+	std::string s_ePokemon = m_opponent.m_pokemon[m_opponent.m_activePokemon].getName();
+	std::string s_eAction = "";
 
-	switch (action)
+	switch (m_nextPlayerA)
 	{
-	case ACTION_MOVE:
-		if (m_player.m_pokemon[m_player.m_activePokemon].getStat(5) >=
-			m_opponent.m_pokemon[m_opponent.m_activePokemon].getStat(5) + speedTie)
+	case ACTION_NONE:
+		if (m_nextEnemyA != ACTION_NONE)
 		{
-			playerMove(i);
-			opponentMove(enemyMove);
+			opponentMove(m_nextEnemyI);
+		}
+		break;
+	case ACTION_MOVE:
+		if (m_nextEnemyA != ACTION_NONE)
+		{
+			playerFirst = m_player.m_pokemon[m_player.m_activePokemon].getStat(5) >=
+				m_opponent.m_pokemon[m_opponent.m_activePokemon].getStat(5) + speedTie;
+			if (playerFirst)
+			{
+				playerMove(m_nextPlayerI);
+			}
+			else
+			{
+				opponentMove(m_nextEnemyI);
+			}
 		}
 		else
 		{
-			opponentMove(enemyMove);
-			playerMove(i);
+			playerMove(m_nextPlayerI);
 		}
-
-		m_active = m_opponent.m_pokemon[m_opponent.m_activePokemon].getHP() != 0;
 		break;
 	case ACTION_POKEMON:
-		if (i == m_player.m_activePokemon)
+		m_player.m_activePokemon = m_nextPlayerI;
+		s_pAction = m_player.m_pokemon[m_player.m_activePokemon].getName();
+		dialogue(7, s_pAction, "");
+
+		m_nextPlayerA = ACTION_NONE;
+		m_nextPlayerI = -1;
+		break;
+	case ACTION_SWITCH:
+		if (m_nextPlayerI == m_player.m_activePokemon)
 		{
-			nextLine = m_strings.find(5)->second;
-			nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
-			m_textBox.addString(nextLine);
+			dialogue(5, s_pPokemon, "");
+
+			m_nextEnemyA = ACTION_NONE;
+			m_nextEnemyI = -1;
+			m_nextPlayerA = ACTION_NONE;
+			m_nextPlayerI = -1;
 		}
 		else
 		{
-			nextLine = m_strings.find(6)->second;
-			nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
-			m_textBox.addString(nextLine);
+			dialogue(6, s_pPokemon, "");
 
-			m_player.m_activePokemon = i;
-
-			nextLine = m_strings.find(7)->second;
-			nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
-			m_textBox.addString(nextLine);
-
-			opponentMove(enemyMove);
+			m_nextPlayerA = ACTION_POKEMON;
 		}
 	default:
 		break;
 	}
+
+	m_textBox.advance();
+}
+void Battle::dialogue(int i, std::string replace1, std::string replace2)
+{
+	std::string nextLine = m_strings.find(i)->second;
+	nextLine.replace(nextLine.find("%"), 1, replace1);
+	nextLine.replace(nextLine.find("%"), 1, replace2);
+	m_textBox.queueString(nextLine);
 }
 void Battle::draw(sf::RenderWindow& window)
 {
-	m_player.m_pokemon[m_player.m_activePokemon].draw(window);
-	m_opponent.m_pokemon[m_opponent.m_activePokemon].draw(window);
+	if (!m_player.m_pokemon[m_player.m_activePokemon].getDead())
+		m_player.m_pokemon[m_player.m_activePokemon].draw(window);
+	if (!m_opponent.m_pokemon[m_opponent.m_activePokemon].getDead())
+		m_opponent.m_pokemon[m_opponent.m_activePokemon].draw(window);
 	
+	if (!queueEmpty())
+		window.draw(m_hasQueue);
+
 	updateHealthBars();
 	m_opponentHealthBar.draw(window);
 	m_playerHealthBar.draw(window);
@@ -87,7 +154,10 @@ void Battle::opponentMove(int move)
 	double d_defense;
 	double d_damage;
 	int damage; 
-	std::string nextLine;
+	
+	std::string s_ePokemon = m_opponent.m_pokemon[m_opponent.m_activePokemon].getName();
+	std::string s_eMove = m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getName();
+	std::string s_pPokemon = m_player.m_pokemon[m_player.m_activePokemon].getName();
 
 	std::random_device rd;
 	std::mt19937 rng(rd());
@@ -96,10 +166,7 @@ void Battle::opponentMove(int move)
 
 	if (hit > m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getStat(2))
 	{
-		nextLine = m_strings.find(4)->second;
-		nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[m_opponent.m_activePokemon].getName());
-		nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getName());
-		m_textBox.addString(nextLine);
+		dialogue(4, s_ePokemon, s_eMove);
 	}
 	else
 	{
@@ -114,13 +181,20 @@ void Battle::opponentMove(int move)
 
 			m_player.m_pokemon[m_player.m_activePokemon].changeHP(-damage);
 		}
-		nextLine = m_strings.find(2)->second;
-		nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[m_opponent.m_activePokemon].getName());
-		nextLine.replace(nextLine.find("%"), 1, m_opponent.m_pokemon[m_opponent.m_activePokemon].getMove(move).getName());
-		m_textBox.addString(nextLine);
+		dialogue(2, s_ePokemon, s_eMove);
 	}
 
-	
+	m_nextEnemyA = ACTION_NONE;
+	m_nextEnemyI = -1;
+
+	if (m_player.m_pokemon[m_player.m_activePokemon].getDead())
+	{
+		m_nextPlayerA = ACTION_NONE;
+		m_nextPlayerI = -1;
+
+		dialogue(8, s_pPokemon, "");
+		dialogue(9, "", "");
+	}
 }
 void Battle::playerMove(int move)
 {
@@ -130,7 +204,10 @@ void Battle::playerMove(int move)
 	double d_defense;
 	double d_damage;
 	int damage; 
-	std::string nextLine;
+	
+	std::string s_ePokemon = m_opponent.m_pokemon[m_opponent.m_activePokemon].getName();
+	std::string s_pPokemon = m_player.m_pokemon[m_player.m_activePokemon].getName();
+	std::string s_pMove = m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getName();
 
 	std::random_device rd;
 	std::mt19937 rng(rd());
@@ -139,10 +216,7 @@ void Battle::playerMove(int move)
 
 	if (hit > m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getStat(2))
 	{
-		nextLine = m_strings.find(3)->second;
-		nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
-		nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getName());
-		m_textBox.addString(nextLine);
+		dialogue(3, s_pPokemon, s_pMove);
 	}
 	else
 	{
@@ -157,11 +231,24 @@ void Battle::playerMove(int move)
 
 			m_opponent.m_pokemon[m_opponent.m_activePokemon].changeHP(-damage);
 		}
-		nextLine = m_strings.find(1)->second;
-		nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getName());
-		nextLine.replace(nextLine.find("%"), 1, m_player.m_pokemon[m_player.m_activePokemon].getMove(move).getName());
-		m_textBox.addString(nextLine);
+		dialogue(1, s_pPokemon, s_pMove);
 	}
+
+	m_nextPlayerA = ACTION_NONE;
+	m_nextPlayerI = -1;
+
+	if (m_opponent.m_pokemon[m_opponent.m_activePokemon].getDead())
+	{
+		m_nextEnemyA = ACTION_NONE;
+		m_nextEnemyI = -1;
+		
+		dialogue(10, s_ePokemon, "");
+		dialogue(12, "", "");
+	}
+}
+bool Battle::queueEmpty()
+{
+	return (m_nextEnemyA == ACTION_NONE && m_nextPlayerA == ACTION_NONE);
 }
 /*void Battle::terminate()
 {

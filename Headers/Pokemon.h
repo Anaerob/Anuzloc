@@ -9,6 +9,7 @@
 class Pokemon
 {
 	int m_BSs[6];
+	bool m_dead;
 	int m_EVs[6];
 	int m_HP;
 	int m_index;
@@ -30,6 +31,7 @@ public:
 	void setStat(int i, int stat) { m_stats[i] = stat; }
 
 	int getBS(int i) { return m_BSs[i]; }
+	bool getDead() { return m_dead; }
 	int getHP() { return m_HP; }
 	int getEV(int i) { return m_EVs[i]; }
 	int getIndex() { return m_index; }

@@ -164,25 +164,42 @@ void Game::pressLeft()
 }
 void Game::pressReturn()
 {
-	m_menu.enter();
-	int move = m_menu.getMove();
-	int pokemon = m_menu.getPokemon();
-
-	if (move != -1)
+	if (m_battle.getActive() && m_textBox.queueEmpty())
 	{
-		m_textBox.clear();
-		m_battle.advance(ACTION_MOVE, move);
+		m_menu.enter();
+
+		eAction action = m_menu.getAction();
+		int i = -1;
+
+		switch (action)
+		{
+		case ACTION_MOVE:
+			i = m_menu.getIndex();
+			m_menu.change(MENU_NONE);
+			m_textBox.clear();
+			m_battle.setNextAction(action, i);
+			break;
+		case ACTION_POKEMON:
+			break;
+		case ACTION_SWITCH:
+			i = m_menu.getIndex();
+			m_menu.change(MENU_NONE);
+			m_textBox.clear();
+			m_battle.setNextAction(action, i);
+
+			if (m_textBox.queueEmpty() && m_battle.queueEmpty())
+				m_menu.change(MENU_BATTLE);
+			break;
+		default:
+			break;
+		}
+
 		if (!m_battle.getActive())
 		{
 			m_menu.change(MENU_NONE);
 			m_textBox.clear();
 			m_event.advance();
 		}
-	}
-	else if (pokemon != -1)
-	{
-		m_textBox.clear();
-		m_battle.advance(ACTION_POKEMON, pokemon);
 	}
 }
 void Game::pressRight()
@@ -193,8 +210,34 @@ void Game::pressSpace()
 {
 	if (m_event.getActive())
 	{
-		if (!m_battle.getActive())
+		if (m_battle.getActive() && m_menu.getCurrent() == MENU_NONE)
+		{
+			if (!m_textBox.queueEmpty())
+			{
+				m_textBox.advance();
+			}
+			else if (!m_battle.queueEmpty())
+			{
+				m_battle.advance();
+			}
+
+			if (m_textBox.queueEmpty() && m_battle.queueEmpty())
+			{
+				if (m_player.m_pokemon[m_player.m_activePokemon].getDead())
+				{
+					m_menu.change(MENU_POKEMON);
+					m_menu.lock();
+				}
+				else
+				{
+					m_menu.change(MENU_BATTLE);
+				}
+			}
+		}
+		else if (!m_battle.getActive())
+		{
 			m_event.advance();
+		}
 	}
 	else
 		m_overworld.interact();
@@ -211,7 +254,7 @@ void Game::readGeneral()
 	std::map<int, std::string> general;
 
 	int i = 0;
-	general[i] = "";
+	general[i] = "%%";
 
 	while (m_read.good())
 	{

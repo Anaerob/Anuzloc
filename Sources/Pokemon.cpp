@@ -1,7 +1,8 @@
 #include "Pokemon.h"
 
 Pokemon::Pokemon(int index, int level)
-	: m_index{ index },
+	: m_dead{ false },
+	m_index{ index },
 	m_level{ level },
 	m_players{ false },
 	m_sprite{ sf::Quads, 4 }
@@ -19,7 +20,10 @@ Pokemon::Pokemon(int index, int level)
 void Pokemon::changeHP(int change)
 {
 	if (m_HP + change <= 0)
+	{
 		m_HP = 0;
+		m_dead = true;
+	}
 	else if (m_HP + change >= m_stats[0])
 		m_HP = m_stats[0];
 	else
@@ -105,7 +109,8 @@ void Pokemon::makePlayers()
 }
 void Pokemon::resetAll()
 {
-	m_HP = m_stats[0];
+	if (!m_dead)
+		m_HP = m_stats[0];
 }
 void Pokemon::updateStats()
 {
